@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px 40px;
-    border-bottom: 1px solid #ccc; /* -> Step 2 overrides below */
+    border-bottom: 1px solid #ccc; 
 }
 
 .nav-right {
@@ -31,7 +31,7 @@
 .card {
     width: 448px;
     max-width: 100%;
-    border: 1px solid #ccc; /* -> Step 2 overrides below */
+    border: 1px solid #ccc; 
     padding: 35px;
 }
 
@@ -65,7 +65,7 @@
 .divider-line {
     flex: 1;
     height: 1px;
-    background: #ccc; /* -> Step 2 overrides below */
+    background: #ccc; 
 }
 
 /* Footer row */
@@ -77,12 +77,12 @@
     margin-top: 16px;
 }
 :root {
-    --page-bg: #FDF2F8;   /* pale pink page */
-    --card-bg: #FFFFFF;   /* card + inputs */
-    --ink: #1A1A1A;       /* borders, hard shadows, body text */
-    --pink: #EC329F;      /* badge accent */
-    --muted: #9A9499;     /* subtitle, labels, microcopy */
-    --hairline: #EADFE5;  /* divider lines */
+    --page-bg: #FDF2F8;   
+    --card-bg: #FFFFFF;   
+    --ink: #1A1A1A;       
+    --pink: #EC329F;      
+    --muted: #9A9499;     
+    --hairline: #EADFE5;  
 }
 
 body {
