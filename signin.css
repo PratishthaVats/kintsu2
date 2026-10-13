@@ -1,10 +1,3 @@
-/* ================================================================
-   signin.css
-   STEP 1 — Structure + basic layout only.
-   Plain, minimal CSS just to place the boxes correctly.
-   No colors, shadows, fonts, or fancy styling yet.
-================================================================ */
-
 * {
     margin: 0;
     padding: 0;
@@ -83,13 +76,6 @@
     gap: 8px;
     margin-top: 16px;
 }
-
-/* ================================================================
-   STEP 2 — Colour theme (from Figma auth frame).
-   Palette only: backgrounds, borders, text colours, hard shadows.
-   No font changes, no radius changes — those come in later steps.
-================================================================ */
-
 :root {
     --page-bg: #FDF2F8;   /* pale pink page */
     --card-bg: #FFFFFF;   /* card + inputs */
