@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -174,4 +176,109 @@ a {
     background: var(--card-bg);
     border: 2px solid var(--ink);
     box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* ================================================================
+   STEP 3 — Typography (from Figma auth frame).
+   Display: Archivo (headings, brand, buttons). Microcopy: Space Mono
+   (labels, subtitle, divider, footer). Type only — no colour changes.
+================================================================ */
+
+:root {
+    --font-display: 'Archivo', system-ui, sans-serif;
+    --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+body {
+    font-family: var(--font-display);
+}
+
+/* Brand: heavy, wide-tracked */
+.brand {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+}
+
+/* Header nav: bold, compact */
+.nav-right a,
+#darkToggle {
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* Badge: small heavy uppercase sticker text */
+.badge {
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Title: heavy display, tight */
+.title {
+    font-weight: 800;
+    font-size: 34px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin: 10px 0 6px;
+}
+
+/* Subtitle: mono microcopy */
+.subtitle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Field labels: tiny tracked-out mono caps */
+.label-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* Inputs: readable text size */
+.input {
+    font-family: var(--font-display);
+    font-size: 15px;
+}
+
+/* Submit: heavy uppercase */
+.submit {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-display);
+}
+
+/* Divider: mono micro caps */
+.divider-text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Google button: semibold */
+#googleBtn {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Footer: mono microcopy + bold link */
+.foot-text {
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.create {
+    font-weight: 700;
+    font-size: 14px;
 }
