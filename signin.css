@@ -26,6 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: calc(100vh - 70px);
     padding: 60px 20px;
 }
 
@@ -281,4 +282,17 @@ body {
 .create {
     font-weight: 700;
     font-size: 14px;
+}
+
+/* ================================================================
+   Dark mode (toggled by script.js): flip the palette variables,
+   keep the neo-brutalist sticker style. Matches landing page.
+================================================================ */
+
+body.dark {
+    --page-bg: #17111B;
+    --card-bg: #241B2B;
+    --ink: #F6EFF8;
+    --muted: #A89BAE;
+    --hairline: #3B3044;
 }

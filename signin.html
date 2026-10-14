@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in · Kintsu</title>
 
-    <link rel="stylesheet" href="/signin.css">
+    <link rel="stylesheet" href="signin.css">
 </head>
 <body>
 
@@ -13,8 +13,8 @@
     <header class="header">
         <a class="brand" href="/">KINTSU</a>
         <div class="nav-right">
-            <a href="/dashboard">Dashboard</a>
-            <a href="/flashcards">Flashcards</a>
+            <a href="#">Dashboard</a>
+            <a href="#">Flashcards</a>
             <button type="button" id="darkToggle">Toggle</button>
             <a href="/signin.html">Sign in</a>
         </div>
@@ -27,10 +27,10 @@
             <div class="card-head">
                 <span class="badge">SIGN IN</span>
                 <h1 class="title">Welcome back</h1>
-                <p class="subtitle">Kintsu &middot</p>
+                <p class="subtitle">Kintsu &middot;</p>
             </div>
 
-            <form class="form" id="signinForm">
+            <form class="form" id="signinForm" method="POST">
                 <label class="label">
                     <span class="label-text">EMAIL</span>
                     <input class="input" type="email" name="email" required>
@@ -54,11 +54,12 @@
 
             <div class="foot">
                 <span class="foot-text">New here?</span>
-                <a class="create" href="/signup.html">Create an account</a>
+                <a class="create" href="#">Create an account</a>
             </div>
 
         </div>
     </main>
 
+    <script src="script.js"></script>
 </body>
 </html>
