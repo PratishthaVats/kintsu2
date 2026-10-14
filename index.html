@@ -7,7 +7,7 @@
     <meta name="description" content="Watch lectures, take notes, run code, and turn highlights into AI flashcards — all in one tab.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,19 +17,17 @@
             <span class="wordmark">KINTSU</span>
         </div>
         <div class="nav-right">
-            <button class="nav-btn outline">Dashboard</button>
-            <button class="nav-btn outline">Flashcards</button>
-            <button class="dark-toggle" id="darkToggle">🌙</button>
-            <button class="nav-btn signin">Sign in</button>
+            <a href="#features" class="nav-btn outline">Features</a>
+            <a href="#features" class="nav-btn outline">Flashcards</a>
+            <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
+            <a href="#" class="nav-btn signin">Sign in</a>
         </div>
     </nav>
 
     <div class="ticker">
         <div class="ticker-track">
-            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE &nbsp;✦&nbsp;</span>
-            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE &nbsp;✦&nbsp;</span>
-            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE &nbsp;✦&nbsp;</span>
-            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE &nbsp;✦&nbsp;</span>
+            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE TIMESTAMPS &nbsp;✦&nbsp;</span>
+            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE TIMESTAMPS &nbsp;✦&nbsp;</span>
         </div>
     </div>
 
@@ -49,18 +47,78 @@
             <p class="subheading">Watch lectures, take notes, run code, and turn highlights<br><span class="underline-word">into</span> <strong>AI flashcards</strong> — all in one tab.</p>
 
             <div class="cta-buttons">
-                <a href="#" class="btn primary">Start learning free &nbsp;↗</a>
-                <a href="#" class="btn outline-btn">Try the workspace</a>
+                <a href="#features" class="btn primary">Start learning free &nbsp;↗</a>
+                <a href="#features" class="btn outline-btn">Explore features</a>
             </div>
 
             <div class="social-proof">
                 <div class="avatars">
-                    <span class="avatar"></span>
-                    <span class="avatar"></span>
-                    <span class="avatar"></span>
-                    <span class="avatar"></span>
+                    <span class="avatar av-1"></span>
+                    <span class="avatar av-2"></span>
+                    <span class="avatar av-3"></span>
+                    <span class="avatar av-4"></span>
                 </div>
                 <span class="proof-text">JOINED BY 100+ LEARNERS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flashcard Preview -->
+    <section class="preview-section">
+        <div class="preview-card">
+            <div class="preview-left">
+                <span class="tag-pill">✨ LIVE DEMO</span>
+                <h3>Select text → AI generates flashcards.</h3>
+                <p>Highlight anything in your notes. We turn it into recall-ready cards, instantly.</p>
+                <div class="sample-note">
+                    <p>Rate limiting protects APIs from abuse. <mark>Token Bucket allows short bursts up to bucket size and refills at a fixed rate.</mark></p>
+                </div>
+            </div>
+            <div class="preview-right">
+                <div class="flip-card" id="demoCard" role="button" tabindex="0" title="Click to flip">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <span class="card-label">QUESTION</span>
+                            <p>Which algorithm allows short bursts of requests up to a bucket size?</p>
+                            <span class="card-hint">Click to flip</span>
+                        </div>
+                        <div class="flip-back">
+                            <span class="card-label">ANSWER</span>
+                            <p>Token Bucket Algorithm — refills tokens at a fixed rate while allowing short bursts.</p>
+                            <span class="card-hint">Click to flip</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="features-header">
+            <span class="tag-pill">FEATURES</span>
+            <h2>The whole learning loop, one screen.</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon icon-pink">📖</span>
+                <h3>Video, notes, and code</h3>
+                <p>Keep the lecture, your editor, and runnable examples in one focused workspace.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon icon-yellow">✨</span>
+                <h3>AI flashcards</h3>
+                <p>Highlight anything — get recall-ready decks in seconds.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon icon-mint">⏱️</span>
+                <h3>Active timestamps</h3>
+                <p>Jump from any note back to the exact moment in the video.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon icon-lilac">💻</span>
+                <h3>Executable code</h3>
+                <p>Practice the concept as you learn it. Python, JS, and more.</p>
             </div>
         </div>
     </section>
@@ -77,9 +135,9 @@
         <div class="footer-inner">
             <span class="footer-brand">Kintsu</span>
             <div class="footer-links">
-                <a href="#">About</a>
+                <a href="#features">Features</a>
+                <a href="#">Dashboard</a>
                 <a href="#">GitHub</a>
-                <a href="#">Contact</a>
             </div>
         </div>
     </footer>
