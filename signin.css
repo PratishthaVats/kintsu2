@@ -1,18 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
+/* ================================================================
+   STEP 1 — Structure (layout skeleton only)
+================================================================ */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Header: a simple bar with the brand on the left and links on the right */
+/* Header: brand left, nav right */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 40px;
-    border-bottom: 1px solid #ccc; 
+    padding: 14px 32px;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+/* Logo mark: pink/black sticker circle (pure CSS) */
+.brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: linear-gradient(to bottom, var(--pink) 52%, var(--ink) 52%);
+    box-shadow: 2px 2px 0 var(--ink);
+    flex-shrink: 0;
 }
 
 .nav-right {
@@ -21,54 +42,73 @@
     gap: 10px;
 }
 
-/* Main area: center the card in the middle of the page */
+/* Main area: center the card */
 .main {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 70px);
-    padding: 60px 20px;
+    min-height: calc(100vh - 60px);
+    padding: 56px 20px;
 }
 
-/* The card: a fixed-width box */
+/* The card */
 .card {
-    width: 448px;
+    width: 400px;
     max-width: 100%;
-    border: 1px solid #ccc; 
-    padding: 35px;
+    padding: 36px 36px 32px;
 }
 
 /* Head block (badge, title, subtitle) centered */
 .card-head {
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 /* Form: stack the fields vertically */
 .form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
 }
 
 .input {
     width: 100%;
-    height: 45px;
-    padding: 0 10px;
+    height: 44px;
+    padding: 0 14px;
 }
 
 /* Divider row */
 .divider {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin: 16px 0;
+    gap: 10px;
+    margin: 18px 0;
 }
 
 .divider-line {
     flex: 1;
     height: 1px;
-    background: #ccc; 
+}
+
+/* Google button: full width */
+#googleBtn {
+    width: 100%;
+    height: 44px;
+    cursor: pointer;
+}
+
+/* Submit: full width */
+.submit {
+    width: 100%;
+    height: 44px;
+    margin-top: 6px;
+    cursor: pointer;
 }
 
 /* Footer row */
@@ -76,16 +116,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 10px;
+    margin-top: 20px;
 }
+
+.create {
+    display: inline-block;
+    padding: 8px 18px;
+    text-decoration: none;
+}
+
+/* ================================================================
+   STEP 2 — Colour theme (from Figma auth frame).
+   Neo-brutalist sticker style: pale pink page, white cards/inputs,
+   thick ink outlines, hard offset shadows, hot pink badge accent.
+================================================================ */
+
 :root {
-    --page-bg: #FDF2F8;   
-    --card-bg: #FFFFFF;   
-    --ink: #1A1A1A;       
-    --pink: #EC329F;      
-    --muted: #9A9499;     
-    --hairline: #EADFE5;  
+    --page-bg: #FDF2F8;
+    --card-bg: #FFFFFF;
+    --ink: #1A1A1A;
+    --pink: #EC329F;
+    --muted: #9A9499;
+    --hairline: #EADFE5;
 }
 
 body {
@@ -106,21 +159,32 @@ a {
 #darkToggle {
     background: transparent;
     border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 6px 14px;
     color: var(--ink);
+    cursor: pointer;
 }
 
-/* Card: white, thick ink border, hard offset shadow */
+.nav-right a {
+    padding: 6px 4px;
+}
+
+/* Card: white, thick ink border, rounded, hard offset shadow */
 .card {
     background: var(--card-bg);
-    border: 2px solid var(--ink);
-    box-shadow: 6px 6px 0 var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: 7px 7px 0 var(--ink);
 }
 
-/* Badge: hot pink sticker */
+/* Badge: hot pink sticker pill */
 .badge {
+    display: inline-block;
     background: var(--pink);
     color: #FFFFFF;
     border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 6px 16px;
     box-shadow: 3px 3px 0 var(--ink);
 }
 
@@ -136,20 +200,38 @@ a {
     color: var(--muted);
 }
 
-/* Inputs: white, ink border, hard shadow */
+/* Inputs: white, ink border, rounded, hard shadow */
 .input {
     background: var(--card-bg);
     border: 2px solid var(--ink);
+    border-radius: 12px;
     box-shadow: 4px 4px 0 var(--ink);
     color: var(--ink);
+    outline: none;
+}
+
+.input:focus {
+    box-shadow: 4px 4px 0 var(--pink);
+    border-color: var(--ink);
 }
 
 /* Submit: white sticker button */
 .submit {
     background: var(--card-bg);
     border: 2px solid var(--ink);
+    border-radius: 12px;
     box-shadow: 4px 4px 0 var(--ink);
     color: var(--ink);
+}
+
+.submit:hover {
+    background: var(--pink);
+    color: #FFFFFF;
+}
+
+.submit:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
 }
 
 /* Divider: pale lines, muted text */
@@ -165,8 +247,19 @@ a {
 #googleBtn {
     background: var(--card-bg);
     border: 2px solid var(--ink);
+    border-radius: 12px;
     box-shadow: 4px 4px 0 var(--ink);
     color: var(--ink);
+}
+
+#googleBtn:hover {
+    background: var(--ink);
+    color: var(--card-bg);
+}
+
+#googleBtn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
 }
 
 .foot-text {
@@ -176,7 +269,14 @@ a {
 .create {
     background: var(--card-bg);
     border: 2px solid var(--ink);
+    border-radius: 999px;
     box-shadow: 3px 3px 0 var(--ink);
+    color: var(--ink);
+}
+
+.create:hover {
+    background: var(--pink);
+    color: #FFFFFF;
 }
 
 /* ================================================================
@@ -197,34 +297,34 @@ body {
 /* Brand: heavy, wide-tracked */
 .brand {
     font-weight: 800;
-    font-size: 20px;
+    font-size: 19px;
     letter-spacing: 0.14em;
-    text-decoration: none;
 }
 
 /* Header nav: bold, compact */
 .nav-right a,
 #darkToggle {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
     text-decoration: none;
+    font-family: var(--font-display);
 }
 
 /* Badge: small heavy uppercase sticker text */
 .badge {
     font-weight: 800;
     font-size: 11px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 }
 
 /* Title: heavy display, tight */
 .title {
     font-weight: 800;
-    font-size: 34px;
+    font-size: 32px;
     letter-spacing: -0.01em;
     line-height: 1.15;
-    margin: 10px 0 6px;
+    margin: 12px 0 6px;
 }
 
 /* Subtitle: mono microcopy */
@@ -249,13 +349,13 @@ body {
     font-size: 15px;
 }
 
-/* Submit: heavy uppercase */
+/* Submit: mono sticker caps like Figma */
 .submit {
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-family: var(--font-display);
 }
 
 /* Divider: mono micro caps */
@@ -266,11 +366,11 @@ body {
     letter-spacing: 0.08em;
 }
 
-/* Google button: semibold */
+/* Google button: mono like Figma */
 #googleBtn {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 14px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
 }
 
 /* Footer: mono microcopy + bold link */
@@ -281,8 +381,18 @@ body {
 
 .create {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
 }
+
+/* ================================================================
+   STEP 4 — Finish (geometry pass).
+   Rounded sticker geometry per Figma: 20px card, 12px fields and
+   buttons, pill badge / pill links. Pure CSS logo mark in header.
+   No colour or type changes — geometry only.
+================================================================ */
+
+/* (All radius/shadow values live in Steps 1–2 above; this step is
+   intentionally a no-op marker so the step history stays readable.) */
 
 /* ================================================================
    Dark mode (toggled by script.js): flip the palette variables,
