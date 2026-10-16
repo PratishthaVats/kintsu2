@@ -6,7 +6,6 @@
     box-sizing: border-box;
 }
 
-/* Header: a simple bar with the brand on the left and links on the right */
 .header {
     display: flex;
     align-items: center;
@@ -21,7 +20,6 @@
     gap: 10px;
 }
 
-/* Main area: center the card in the middle of the page */
 .main {
     display: flex;
     align-items: center;
@@ -30,7 +28,6 @@
     padding: 60px 20px;
 }
 
-/* The card: a fixed-width box */
 .card {
     width: 448px;
     max-width: 100%;
@@ -38,13 +35,11 @@
     padding: 35px;
 }
 
-/* Head block (badge, title, subtitle) centered */
 .card-head {
     text-align: center;
     margin-bottom: 16px;
 }
 
-/* Form: stack the fields vertically */
 .form {
     display: flex;
     flex-direction: column;
@@ -57,7 +52,6 @@
     padding: 0 10px;
 }
 
-/* Divider row */
 .divider {
     display: flex;
     align-items: center;
@@ -71,7 +65,6 @@
     background: #ccc; 
 }
 
-/* Footer row */
 .foot {
     display: flex;
     align-items: center;
@@ -79,6 +72,7 @@
     gap: 8px;
     margin-top: 16px;
 }
+
 :root {
     --page-bg: #FDF2F8;   
     --card-bg: #FFFFFF;   
@@ -97,7 +91,6 @@ a {
     color: var(--ink);
 }
 
-/* Header: white bar, thick ink underline */
 .header {
     background: var(--card-bg);
     border-bottom: 2px solid var(--ink);
@@ -109,14 +102,12 @@ a {
     color: var(--ink);
 }
 
-/* Card: white, thick ink border, hard offset shadow */
 .card {
     background: var(--card-bg);
     border: 2px solid var(--ink);
     box-shadow: 6px 6px 0 var(--ink);
 }
 
-/* Badge: hot pink sticker */
 .badge {
     background: var(--pink);
     color: #FFFFFF;
@@ -136,7 +127,6 @@ a {
     color: var(--muted);
 }
 
-/* Inputs: white, ink border, hard shadow */
 .input {
     background: var(--card-bg);
     border: 2px solid var(--ink);
@@ -144,7 +134,6 @@ a {
     color: var(--ink);
 }
 
-/* Submit: white sticker button */
 .submit {
     background: var(--card-bg);
     border: 2px solid var(--ink);
@@ -152,7 +141,6 @@ a {
     color: var(--ink);
 }
 
-/* Divider: pale lines, muted text */
 .divider-line {
     background: var(--hairline);
 }
@@ -161,7 +149,6 @@ a {
     color: var(--muted);
 }
 
-/* Google button: same sticker treatment */
 #googleBtn {
     background: var(--card-bg);
     border: 2px solid var(--ink);
@@ -179,12 +166,6 @@ a {
     box-shadow: 3px 3px 0 var(--ink);
 }
 
-/* ================================================================
-   STEP 3 — Typography (from Figma auth frame).
-   Display: Archivo (headings, brand, buttons). Microcopy: Space Mono
-   (labels, subtitle, divider, footer). Type only — no colour changes.
-================================================================ */
-
 :root {
     --font-display: 'Archivo', system-ui, sans-serif;
     --font-mono: 'Space Mono', ui-monospace, monospace;
@@ -194,7 +175,6 @@ body {
     font-family: var(--font-display);
 }
 
-/* Brand: heavy, wide-tracked */
 .brand {
     font-weight: 800;
     font-size: 20px;
@@ -202,7 +182,6 @@ body {
     text-decoration: none;
 }
 
-/* Header nav: bold, compact */
 .nav-right a,
 #darkToggle {
     font-weight: 700;
@@ -210,7 +189,6 @@ body {
     text-decoration: none;
 }
 
-/* Badge: small heavy uppercase sticker text */
 .badge {
     font-weight: 800;
     font-size: 11px;
@@ -218,7 +196,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Title: heavy display, tight */
 .title {
     font-weight: 800;
     font-size: 34px;
@@ -227,14 +204,12 @@ body {
     margin: 10px 0 6px;
 }
 
-/* Subtitle: mono microcopy */
 .subtitle {
     font-family: var(--font-mono);
     font-size: 13px;
     line-height: 1.5;
 }
 
-/* Field labels: tiny tracked-out mono caps */
 .label-text {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -243,13 +218,11 @@ body {
     text-transform: uppercase;
 }
 
-/* Inputs: readable text size */
 .input {
     font-family: var(--font-display);
     font-size: 15px;
 }
 
-/* Submit: heavy uppercase */
 .submit {
     font-weight: 800;
     font-size: 14px;
@@ -258,7 +231,6 @@ body {
     font-family: var(--font-display);
 }
 
-/* Divider: mono micro caps */
 .divider-text {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -266,14 +238,12 @@ body {
     letter-spacing: 0.08em;
 }
 
-/* Google button: semibold */
 #googleBtn {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 14px;
 }
 
-/* Footer: mono microcopy + bold link */
 .foot-text {
     font-family: var(--font-mono);
     font-size: 13px;
@@ -283,11 +253,6 @@ body {
     font-weight: 700;
     font-size: 14px;
 }
-
-/* ================================================================
-   Dark mode (toggled by script.js): flip the palette variables,
-   keep the neo-brutalist sticker style. Matches landing page.
-================================================================ */
 
 body.dark {
     --page-bg: #17111B;
