@@ -284,6 +284,22 @@ body {
     font-size: 14px;
 }
 
+/* Button micro-interactions */
+.submit, #googleBtn, .create, #darkToggle {
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.submit:hover, #googleBtn:hover, .create:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+}
+
+.submit:active, #googleBtn:active, .create:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
 /* ================================================================
    Dark mode (toggled by script.js): flip the palette variables,
    keep the neo-brutalist sticker style. Matches landing page.
