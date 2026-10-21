@@ -28,3 +28,21 @@ if (demoCard) {
         }
     });
 }
+
+// Sign In Form Interaction
+var signinForm = document.getElementById('signinForm');
+if (signinForm) {
+    signinForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var submitBtn = signinForm.querySelector('.submit');
+        if (submitBtn) {
+            submitBtn.textContent = 'SIGNING IN...';
+            setTimeout(function () {
+                submitBtn.textContent = '✓ SUCCESS';
+                setTimeout(function () {
+                    window.location.href = 'index.html#features';
+                }, 500);
+            }, 600);
+        }
+    });
+}
