@@ -79,27 +79,67 @@
 
     <main class="main-content">
 
-        <section class="hero">
-        <div class="hero-content">
-            <div class="sparkle-row">
-                <svg class="sparkle gold" viewBox="0 0 24 24" width="28" height="28"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41Z" fill="#f5a623"/></svg>
-                <div class="badge"><span class="badge-dot"></span>LIVE · NO SIGNUP TO EXPLORE</div>
-                <svg class="sparkle teal" viewBox="0 0 24 24" width="20" height="20"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41Z" fill="#2dd4a8"/></svg>
-            </div>
-            <h1 class="heading">Study without<br><span class="highlight">context switching</span></h1>
-            <p class="subheading">Watch lectures, take notes, run code, and turn highlights<br><span class="underline-word">into</span> <strong>AI flashcards</strong> — all in one tab.</p>
-            <div class="cta-buttons">
-                <a href="signin.html" class="btn primary">Start learning free &nbsp;↗</a>
-                <a href="#workspace" class="btn outline-btn">Try the workspace</a>
-            </div>
-            <div class="social-proof">
-                <div class="avatars"><span class="avatar av-1"></span><span class="avatar av-2"></span><span class="avatar av-3"></span><span class="avatar av-4"></span></div>
-                <span class="proof-text">JOINED BY 100+ LEARNERS</span>
-            </div>
+        <div aria-hidden="true" class="hero-glow-layer">
+            <div class="glow-blob glow-pink"></div>
+            <div class="glow-blob glow-lilac"></div>
+            <div class="glow-blob glow-yellow"></div>
         </div>
-    </section>
 
-    <section class="preview-section" id="flashcards">
+        <section class="hero-section">
+            <div class="hero-badge-wrap">
+
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" class="sparkle-float sparkle-left">
+                    <path d="M24 2c1.6 11.6 9.4 19.4 21 21-11.6 1.6-19.4 9.4-21 21-1.6-11.6-9.4-19.4-21-21C14.6 21.4 22.4 13.6 24 2Z" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"></path>
+                </svg>
+                <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" class="sparkle-float sparkle-right">
+                    <path d="M24 2c1.6 11.6 9.4 19.4 21 21-11.6 1.6-19.4 9.4-21 21-1.6-11.6-9.4-19.4-21-21C14.6 21.4 22.4 13.6 24 2Z" fill="var(--mint)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"></path>
+                </svg>
+
+                <span class="status-pill">
+                    <span class="status-dot"></span>
+                    <span>Live · No signup to explore</span>
+                </span>
+            </div>
+
+            <h1 class="hero-title">
+                Study without <br>
+                <span class="title-highlight">
+                    <span class="title-highlight-text">context switching</span>
+                    <span class="title-highlight-bar" aria-hidden="true"></span>
+                </span>
+            </h1>
+
+            <p class="hero-description">
+                Watch lectures, take notes, run code, and turn highlights into
+                <span class="bold-highlight">AI flashcards</span>
+                — all in one tab.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="signin.html" class="brutal-cta brutal-cta-pink">
+                    <span>Start learning free</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 7h10v10"></path>
+                        <path d="M7 17 17 7"></path>
+                    </svg>
+                </a>
+                <a href="#live-demo" class="brutal-cta brutal-cta-card">
+                    <span>Try the workspace</span>
+                </a>
+            </div>
+
+            <div class="social-proof-wrap">
+                <div class="avatar-stack">
+                    <div class="avatar-circle av-color-1"></div>
+                    <div class="avatar-circle av-color-2"></div>
+                    <div class="avatar-circle av-color-3"></div>
+                    <div class="avatar-circle av-color-4"></div>
+                </div>
+                <span class="social-proof-text">Joined by 100+ learners</span>
+            </div>
+        </section>
+
+        <section class="preview-section" id="flashcards">
         <div class="preview-card">
             <div class="preview-left">
                 <span class="tag-pill">✨ LIVE DEMO</span>
