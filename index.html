@@ -139,26 +139,126 @@
             </div>
         </section>
 
-        <section class="preview-section" id="flashcards">
-        <div class="preview-card">
-            <div class="preview-left">
-                <span class="tag-pill">✨ LIVE DEMO</span>
-                <h3>Select text → AI generates flashcards.</h3>
-                <p>Highlight anything in your notes. We turn it into recall-ready cards, instantly.</p>
-                <div class="sample-note"><p>Rate limiting protects APIs from abuse. <mark>Token Bucket allows short bursts up to bucket size and refills at a fixed rate.</mark></p></div>
-            </div>
-            <div class="preview-right">
-                <div class="flip-card" id="demoCard" role="button" tabindex="0" title="Click to flip">
-                    <div class="flip-inner">
-                        <div class="flip-front"><span class="card-label">QUESTION</span><p>Which algorithm allows short bursts of requests up to a bucket size?</p><span class="card-hint">Click to flip</span></div>
-                        <div class="flip-back"><span class="card-label">ANSWER</span><p>Token Bucket Algorithm — refills tokens at a fixed rate while allowing short bursts.</p><span class="card-hint">Click to flip</span></div>
+        <section class="demo-flashcard-section" id="flashcards">
+            <div class="demo-flashcard-card">
+                <div class="demo-flashcard-grid">
+
+                    <div class="demo-note-col">
+                        <span class="badge-pill badge-mint">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"></path>
+                                <path d="m14 7 3 3"></path>
+                                <path d="M5 6v4"></path>
+                                <path d="M19 14v4"></path>
+                                <path d="M10 2v2"></path>
+                                <path d="M7 8H3"></path>
+                                <path d="M21 16h-4"></path>
+                                <path d="M11 3H9"></path>
+                            </svg>
+                            Live demo
+                        </span>
+
+                        <h3 class="demo-heading">Select text → AI generates flashcards.</h3>
+                        <p class="demo-sub">Highlight anything in your notes. We turn it into recall-ready cards, instantly.</p>
+
+                        <div class="demo-hint-row">
+                            <span class="hint-pulse-dot"></span>
+                            <span>Try highlighting the text below</span>
+                        </div>
+
+                        <div class="sample-note-container" id="sampleNoteBox">
+                            <p class="sample-note-body" id="selectableText">
+                                Modern LLMs rely on Transformer self-attention to process entire sequences in parallel. Unlike sequential RNNs, Multi-Head Attention allows tokens to dynamically attend to contextual relationships across distant words.
+                                <mark class="demo-highlight-mark" id="interactiveMark">Scaled Dot-Product Attention computes query-key affinity scores normalized by the square root of the head dimension.</mark>
+                            </p>
+
+                            <div class="selection-popup" id="selectionPopup" role="dialog" aria-hidden="true">
+                                <span class="popup-title">Create flashcards?</span>
+                                <button type="button" class="popup-btn popup-btn-yes" id="btnCreateFlashcard">Yes</button>
+                                <button type="button" class="popup-btn popup-btn-no" id="btnDismissFlashcard">No</button>
+                            </div>
+                        </div>
+
+                        <div class="synthesis-banner" id="synthesisBanner" aria-live="polite">
+                            <span class="synthesis-icon-box">
+                                <svg class="spin-slow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+                                    <path d="M20 2v4"></path>
+                                    <path d="M22 4h-4"></path>
+                                    <circle cx="4" cy="20" r="2"></circle>
+                                </svg>
+                            </span>
+                            <span class="synthesis-text">Running AI recall synthesis…</span>
+                        </div>
                     </div>
+
+                    <div class="demo-cards-col">
+                        <div class="flashcard-deck" id="flashcardDeck">
+
+                            <div class="flashcard-item card-pos-1" data-index="0" role="button" tabindex="0" title="Click to flip or cycle">
+                                <div class="flashcard-flip-inner">
+                                    <div class="flashcard-face flashcard-front">
+                                        <span class="card-side-tag">Question</span>
+                                        <p class="card-question-text">Why is the dot product scaled by √d_k in Scaled Dot-Product Attention?</p>
+                                        <span class="card-flip-hint">Click to flip ↺</span>
+                                    </div>
+                                    <div class="flashcard-face flashcard-back">
+                                        <span class="card-side-tag">Answer Summary</span>
+                                        <p class="card-answer-text">To prevent large magnitude dot products from pushing softmax into regions with vanishingly small gradients.</p>
+                                        <span class="card-flip-hint">Click next card →</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flashcard-item card-pos-2" data-index="1" role="button" tabindex="0" title="Click to flip or cycle">
+                                <div class="flashcard-flip-inner">
+                                    <div class="flashcard-face flashcard-front">
+                                        <span class="card-side-tag">Question</span>
+                                        <p class="card-question-text">What is the primary architectural advantage of Transformers over RNNs?</p>
+                                        <span class="card-flip-hint">Click to flip ↺</span>
+                                    </div>
+                                    <div class="flashcard-face flashcard-back">
+                                        <span class="card-side-tag">Answer Summary</span>
+                                        <p class="card-answer-text">Transformers eliminate sequential recurrence, enabling massive parallel training across entire context sequences.</p>
+                                        <span class="card-flip-hint">Click next card →</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flashcard-item card-pos-3" data-index="2" role="button" tabindex="0" title="Click to flip or cycle">
+                                <div class="flashcard-flip-inner">
+                                    <div class="flashcard-face flashcard-front">
+                                        <span class="card-side-tag">Question</span>
+                                        <p class="card-question-text">What is the core purpose of Multi-Head Attention?</p>
+                                        <span class="card-flip-hint">Click to flip ↺</span>
+                                    </div>
+                                    <div class="flashcard-face flashcard-back">
+                                        <span class="card-side-tag">Answer Summary</span>
+                                        <p class="card-answer-text">It allows the model to jointly attend to information from different representation subspaces at different positions.</p>
+                                        <span class="card-flip-hint">Click next card →</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="features" class="features-section">
+        <section class="ribbon-ticker" aria-hidden="true">
+            <div class="ribbon-wrap">
+                <span class="ribbon-item">Video + notes<span class="ribbon-star">✦</span></span>
+                <span class="ribbon-item">Code workspace<span class="ribbon-star">✦</span></span>
+                <span class="ribbon-item">AI flashcards<span class="ribbon-star">✦</span></span>
+                <span class="ribbon-item">Timestamps<span class="ribbon-star">✦</span></span>
+                <span class="ribbon-item">Zero context switching<span class="ribbon-star">✦</span></span>
+                <span class="ribbon-item">Cloud sync</span>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
             <div class="features-header">
                 <span class="badge-pill badge-yellow">Features</span>
                 <h2 class="features-title">The whole learning loop, one screen.</h2>
