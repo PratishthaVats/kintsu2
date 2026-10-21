@@ -1,9 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-
-/* ================================================================
-   STEP 1 — Structure (layout skeleton only)
-================================================================ */
-
 * {
     margin: 0;
     padding: 0;
@@ -125,12 +120,6 @@
     padding: 8px 18px;
     text-decoration: none;
 }
-
-/* ================================================================
-   STEP 2 — Colour theme (from Figma auth frame).
-   Neo-brutalist sticker style: pale pink page, white cards/inputs,
-   thick ink outlines, hard offset shadows, hot pink badge accent.
-================================================================ */
 
 :root {
     --page-bg: #FDF2F8;
@@ -279,12 +268,6 @@ a {
     color: #FFFFFF;
 }
 
-/* ================================================================
-   STEP 3 — Typography (from Figma auth frame).
-   Display: Archivo (headings, brand, buttons). Microcopy: Space Mono
-   (labels, subtitle, divider, footer). Type only — no colour changes.
-================================================================ */
-
 :root {
     --font-display: 'Archivo', system-ui, sans-serif;
     --font-mono: 'Space Mono', ui-monospace, monospace;
@@ -383,21 +366,6 @@ body {
     font-weight: 700;
     font-size: 13px;
 }
-
-/* ================================================================
-   STEP 4 — Finish (geometry pass).
-   Rounded sticker geometry per Figma: 20px card, 12px fields and
-   buttons, pill badge / pill links. Pure CSS logo mark in header.
-   No colour or type changes — geometry only.
-================================================================ */
-
-/* (All radius/shadow values live in Steps 1–2 above; this step is
-   intentionally a no-op marker so the step history stays readable.) */
-
-/* ================================================================
-   Dark mode (toggled by script.js): flip the palette variables,
-   keep the neo-brutalist sticker style. Matches landing page.
-================================================================ */
 
 body.dark {
     --page-bg: #17111B;
