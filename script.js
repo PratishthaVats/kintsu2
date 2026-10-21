@@ -1,26 +1,53 @@
-const body = document.body, toggle = document.getElementById('darkToggle');
-if (localStorage.getItem('kintsu_theme') === 'dark') { body.classList.add('dark'); if (toggle) toggle.textContent = '☀️'; }
-if (toggle) toggle.onclick = () => {
-    const isDark = body.classList.toggle('dark');
-    toggle.textContent = isDark ? '☀️' : '🌙';
-    localStorage.setItem('kintsu_theme', isDark ? 'dark' : 'light');
-};
 
-const demoCard = document.getElementById('demoCard');
-if (demoCard) {
-    demoCard.onclick = () => demoCard.classList.toggle('flipped');
-    demoCard.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); demoCard.classList.toggle('flipped'); } };
-}
+document.addEventListener('DOMContentLoaded', function () {
 
-const wsWindow = document.getElementById('workspaceWindow');
-if (wsWindow) {
-    document.querySelectorAll('.ws-view-btn').forEach(b => b.onclick = () => {
-        document.querySelectorAll('.ws-view-btn').forEach(btn => btn.classList.remove('active'));
-        b.classList.add('active');
-        wsWindow.className = 'workspace-window mode-' + b.dataset.mode;
-    });
+    var toastBox = document.getElementById('toastNotification');
+    var toastTimeout;
 
-    const ytInput = document.getElementById('ytUrlInput'), embedBtn = document.getElementById('ytEmbedBtn'), ytPlayer = document.getElementById('ytPlayer'), timeDisplay = document.getElementById('ytTimeDisplay');
+    function showToast(message, duration) {
+        if (!toastBox) return;
+        duration = duration || 3000;
+        clearTimeout(toastTimeout);
+        toastBox.textContent = message;
+        toastBox.classList.add('show');
+        toastTimeout = setTimeout(function () {
+            toastBox.classList.remove('show');
+        }, duration);
+    }
+
+    var darkToggle = document.getElementById('darkToggle');
+    var savedTheme = localStorage.getItem('kintsu_theme');
+
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark');
+        document.documentElement.classList.add('dark');
+    }
+
+    if (darkToggle) {
+        darkToggle.addEventListener('click', function () {
+            document.body.classList.toggle('dark');
+            document.documentElement.classList.toggle('dark');
+            var isDark = document.body.classList.contains('dark');
+            localStorage.setItem('kintsu_theme', isDark ? 'dark' : 'light');
+            showToast(isDark ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 1800);
+        });
+    }
+
+    
+    var demoCard = document.getElementById('demoCard');
+    if (demoCard) {
+        demoCard.addEventListener('click', function () {
+            this.classList.toggle('flipped');
+        });
+        demoCard.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.classList.toggle('flipped');
+            }
+        });
+    }
+
+const ytInput = document.getElementById('ytUrlInput'), embedBtn = document.getElementById('ytEmbedBtn'), ytPlayer = document.getElementById('ytPlayer'), timeDisplay = document.getElementById('ytTimeDisplay');
     let curVideoId = 'LPZh9BOjkQs';
     const parseYt = u => (u.match(/(?:youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([\w-]{11})/) || [0, u.length === 11 ? u : null])[1];
     const loadVideo = (id, s = 0) => { curVideoId = id; ytPlayer.src = `https://www.youtube-nocookie.com/embed/${id}?enablejsapi=1&rel=0&autoplay=1${s ? '&start=' + s : ''}`; };
@@ -185,22 +212,21 @@ if (wsWindow) {
             }
         }, 150);
     };
-}
-
-// Sign In Form Interaction
 var signinForm = document.getElementById('signinForm');
-if (signinForm) {
-    signinForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var submitBtn = signinForm.querySelector('.submit');
-        if (submitBtn) {
-            submitBtn.textContent = 'SIGNING IN...';
-            setTimeout(function () {
-                submitBtn.textContent = '✓ SUCCESS';
+    if (signinForm) {
+        signinForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var submitBtn = signinForm.querySelector('.submit');
+            if (submitBtn) {
+                submitBtn.textContent = 'SIGNING IN...';
                 setTimeout(function () {
-                    window.location.href = 'index.html#features';
-                }, 500);
-            }, 600);
-        }
-    });
-}
+                    submitBtn.textContent = '✓ SUCCESS';
+                    setTimeout(function () {
+                        window.location.href = 'index.html#features';
+                    }, 500);
+                }, 600);
+            }
+        });
+    }
+});
+

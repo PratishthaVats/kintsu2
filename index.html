@@ -5,31 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kintsu — Study without context switching</title>
     <meta name="description" content="Watch lectures, take notes, run code, and turn highlights into AI flashcards — all in one tab.">
+    <meta property="og:title" content="Kintsu — Learn without context switching">
+    <meta property="og:description" content="Video, code compiler, notes, timestamps, and AI flashcards on one gamified study workspace.">
+    <meta name="theme-color" content="#fff2fb">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-left"><span class="wordmark">KINTSU</span></div>
-        <div class="nav-right">
-            <a href="#workspace" class="nav-btn outline">Workspace</a>
-            <a href="#features" class="nav-btn outline">Features</a>
-            <a href="#flashcards" class="nav-btn outline">Flashcards</a>
-            <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
-            <a href="signin.html" class="nav-btn signin">Sign in</a>
-        </div>
-    </nav>
 
-    <div class="ticker">
-        <div class="ticker-track">
-            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE TIMESTAMPS &nbsp;✦&nbsp;</span>
-            <span class="ticker-text">VIDEO + NOTES &nbsp;✦&nbsp; CODE BLOCKS &nbsp;✦&nbsp; ALL IN ONE SCREEN &nbsp;✦&nbsp; AI FLASHCARDS &nbsp;✦&nbsp; CODE EDITOR AND COMPILER &nbsp;✦&nbsp; YOUR WORKSPACE &nbsp;✦&nbsp; ACTIVE TIMESTAMPS &nbsp;✦&nbsp;</span>
+    <header class="header" id="top">
+        <nav class="nav-container">
+            <a class="nav-brand" href="/" aria-label="Kintsu Home">
+                <div class="logo-box">
+                    <span class="logo-icon">✦</span>
+                </div>
+                <span class="logo-text">Kintsu</span>
+            </a>
+
+            <div class="nav-actions">
+                <a href="signin.html" class="brutal-btn brutal-btn-card">Dashboard</a>
+                <a href="#flashcards" class="brutal-btn brutal-btn-card">Flashcards</a>
+
+                <button type="button" id="darkToggle" class="brutal-btn brutal-icon-btn" aria-label="Toggle dark mode">
+                    <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
+                    </svg>
+                    <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                </button>
+
+                <a href="signin.html" class="brutal-btn brutal-btn-pink">Sign in</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="top-marquee-banner" aria-hidden="true">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span class="marquee-item">VIDEO + NOTES</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">CODE BLOCKS</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">ALL IN ONE SCREEN</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">AI FLASHCARDS</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">CODE EDITOR AND COMPILER</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">YOUR WORKSPACE</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">ACTIVE TIMESTAMPS</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">LIGHT + DARK MODE</span><span class="marquee-star">✦</span>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <span class="marquee-item">VIDEO + NOTES</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">CODE BLOCKS</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">ALL IN ONE SCREEN</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">AI FLASHCARDS</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">CODE EDITOR AND COMPILER</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">YOUR WORKSPACE</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">ACTIVE TIMESTAMPS</span><span class="marquee-star">✦</span>
+                <span class="marquee-item">LIGHT + DARK MODE</span><span class="marquee-star">✦</span>
+            </div>
         </div>
     </div>
 
-    <section class="hero">
+    <main class="main-content">
+
+        <section class="hero">
         <div class="hero-content">
             <div class="sparkle-row">
                 <svg class="sparkle gold" viewBox="0 0 24 24" width="28" height="28"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41Z" fill="#f5a623"/></svg>
@@ -68,17 +118,85 @@
         </div>
     </section>
 
-    <section class="features" id="features">
-        <div class="features-header"><span class="tag-pill">FEATURES</span><h2>The whole learning loop, one screen.</h2></div>
-        <div class="features-grid">
-            <div class="feature-card"><span class="feature-icon icon-pink">📖</span><h3>Video, notes, and code</h3><p>Keep the lecture, your editor, and runnable examples in one focused workspace.</p></div>
-            <div class="feature-card"><span class="feature-icon icon-yellow">✨</span><h3>AI flashcards</h3><p>Highlight anything — get recall-ready decks in seconds.</p></div>
-            <div class="feature-card"><span class="feature-icon icon-mint">⏱️</span><h3>Active timestamps</h3><p>Jump from any note back to the exact moment in the video.</p></div>
-            <div class="feature-card"><span class="feature-icon icon-lilac">💻</span><h3>Executable code</h3><p>Practice the concept as you learn it. Python, JS, and more.</p></div>
-        </div>
-    </section>
+    <section id="features" class="features-section">
+            <div class="features-header">
+                <span class="badge-pill badge-yellow">Features</span>
+                <h2 class="features-title">The whole learning loop, one screen.</h2>
+            </div>
 
-    <section class="workspace-section" id="workspace">
+            <div class="features-grid">
+
+                <article class="feature-card">
+                    <span class="feature-icon-box bg-icon-pink">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 7v14"></path>
+                            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                        </svg>
+                    </span>
+                    <h3 class="feature-name">Video, notes, and code</h3>
+                    <p class="feature-desc">Keep the lecture, your editor, and runnable examples in one focused workspace.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon-box bg-icon-yellow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+                            <path d="M20 2v4"></path>
+                            <path d="M22 4h-4"></path>
+                            <circle cx="4" cy="20" r="2"></circle>
+                        </svg>
+                    </span>
+                    <h3 class="feature-name">AI flashcards</h3>
+                    <p class="feature-desc">Highlight anything — get recall-ready decks in seconds.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon-box bg-icon-mint">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 6v6h4"></path>
+                        </svg>
+                    </span>
+                    <h3 class="feature-name">Active timestamps</h3>
+                    <p class="feature-desc">Jump from any note back to the exact moment in the video.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon-box bg-icon-lilac">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"></path>
+                            <path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path>
+                        </svg>
+                    </span>
+                    <h3 class="feature-name">Executable code</h3>
+                    <p class="feature-desc">Practice the concept as you learn it. Python, JS, and more.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon-box bg-icon-sky">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
+                            <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
+                            <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
+                        </svg>
+                    </span>
+                    <h3 class="feature-name">Organized sessions</h3>
+                    <p class="feature-desc">Every lecture, note, and generated deck one search away.</p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-icon-box bg-icon-pink">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                        </svg>
+                    </span>
+                    <h3 class="feature-name">Unbroken focus</h3>
+                    <p class="feature-desc">Say goodbye to tab fatigue. Everything you need is right where you need it.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="workspace-section" id="workspace">
         <div class="workspace-header">
             <span class="workspace-live-badge">LIVE · NO SIGNUP</span>
             <h2 class="workspace-title">Try the real workspace right here.</h2>
@@ -190,24 +308,39 @@
         </div>
     </section>
 
-    <section class="bottom-cta">
-        <div class="bottom-cta-content">
-            <h2>Your next lecture can<br>become a study deck today.</h2>
-            <p>No credit card. Start with a single link.</p>
-            <a href="signin.html" class="btn primary">Open dashboard &nbsp;↗</a>
-        </div>
-    </section>
+    <section class="cta-banner-section">
+            <div class="cta-banner-content">
+                <h2 class="cta-banner-title">Your next lecture can become a study deck today.</h2>
+                <p class="cta-banner-sub">No credit card. Start with a single link.</p>
+                <div class="cta-banner-btn-wrap">
+                    <a href="signin.html" class="brutal-cta brutal-cta-white">
+                        <span>Open dashboard</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 7h10v10"></path>
+                            <path d="M7 17 17 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <footer class="footer">
-        <div class="footer-inner">
+    <footer class="site-footer">
+        <div class="footer-container">
             <span class="footer-brand">Kintsu</span>
             <div class="footer-links">
                 <a href="#features">Features</a>
+                <a href="#live-demo">Live Demo</a>
+                <a href="#flashcards">Flashcards</a>
                 <a href="signin.html">Dashboard</a>
-                <a href="https://github.com/agarwalpranav0711/kintsu" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
     </footer>
+
+    
+
+    <div id="toastNotification" class="toast-box" role="status" aria-live="polite"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
