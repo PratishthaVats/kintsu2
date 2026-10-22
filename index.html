@@ -382,6 +382,13 @@
                     <div class="yt-workspace-right" id="workspaceRight">
                         <div class="workspace-right-content">
 
+                            <div class="editor-tab-row">
+                                <div class="editor-tabs">
+                                    <button type="button" id="tabNotesBtn" class="tab-btn tab-btn-active">Notes</button>
+                                    <button type="button" id="tabCodeBtn" class="tab-btn">Code</button>
+                                </div>
+                            </div>
+
                             <div class="editor-tab-content" id="notesView">
                                 <div class="editor-shell">
 
@@ -496,6 +503,54 @@
                                                 </div>
                                                 <div class="toggle-topic-content">
                                                     <p>Linear algebra represents activations as vectors and layer weights as weight matrices.</p>
+
+                                                    <div class="embedded-sandbox-card" contenteditable="false">
+                                                        <div class="sandbox-topbar">
+                                                            <div class="sandbox-window-dots">
+                                                                <span class="dot-red"></span>
+                                                                <span class="dot-yellow"></span>
+                                                                <span class="dot-green"></span>
+                                                                <span class="sandbox-title">Code execution Sandbox</span>
+                                                            </div>
+                                                            <div class="sandbox-lang-picker">
+                                                                <select class="sandbox-select" id="embeddedLangSelect">
+                                                                    <option value="python">Python 3.14</option>
+                                                                    <option value="javascript">JavaScript (ES6)</option>
+                                                                    <option value="cpp">C++ (G++ 15)</option>
+                                                                    <option value="rust">Rust 1.93</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="sandbox-editor-wrapper">
+                                                            <div class="sandbox-code-header">
+                                                                <span>Single File Sandbox Input</span>
+                                                                <span class="syntax-badge" id="syntaxBadge">Syntax: python</span>
+                                                            </div>
+                                                            <textarea id="embeddedCodeInput" class="sandbox-textarea" spellcheck="false">import math
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+# Weighted sum with bias
+inputs = [0.8, 0.4, 0.9]
+weights = [0.5, -0.2, 0.7]
+bias = 0.1
+
+activation = sigmoid(sum(w * i for w, i in zip(weights, inputs)) + bias)
+print(f"Computed Neuron Activation: {activation:.4f}")</textarea>
+                                                        </div>
+
+                                                        <div class="sandbox-control-row">
+                                                            <input type="text" class="sandbox-stdin" placeholder="Hook standard runtime input data streams here (stdin)">
+                                                            <button type="button" class="sandbox-run-btn" id="btnRunEmbeddedCode">Run Engine</button>
+                                                        </div>
+
+                                                        <div class="sandbox-terminal">
+                                                            <div class="terminal-bar">Terminal Diagnostic Outputs</div>
+                                                            <pre class="terminal-output" id="embeddedTerminalOutput">Ready to execute. Click 'Run Engine' above.</pre>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -515,6 +570,49 @@
                                             </div>
 
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="editor-tab-content" id="codeView" style="display: none;">
+                                <div class="full-code-workspace">
+                                    <div class="sandbox-topbar">
+                                        <div class="sandbox-window-dots">
+                                            <span class="dot-red"></span>
+                                            <span class="dot-yellow"></span>
+                                            <span class="dot-green"></span>
+                                            <span class="sandbox-title">Interactive Code Compiler</span>
+                                        </div>
+                                        <div class="sandbox-lang-picker">
+                                            <select class="sandbox-select" id="fullCodeLangSelect">
+                                                <option value="python">Python 3.14</option>
+                                                <option value="javascript">JavaScript (Node)</option>
+                                                <option value="cpp">C++ 20</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <textarea id="fullCodeInput" class="full-code-textarea" spellcheck="false"># Dynamic Code Sandbox
+# Write code directly alongside your study lecture notes
+
+def solve(arr):
+    # Sort and return cumulative sum
+    prefix = []
+    curr = 0
+    for x in arr:
+        curr += x
+        prefix.append(curr)
+    return prefix
+
+sample = [3, 1, 4, 1, 5, 9]
+print("Original:", sample)
+print("Prefix sums:", solve(sample))</textarea>
+                                    <div class="sandbox-control-row">
+                                        <input type="text" class="sandbox-stdin" placeholder="Runtime inputs (stdin)...">
+                                        <button type="button" class="sandbox-run-btn" id="btnRunFullCode">Run Engine</button>
+                                    </div>
+                                    <div class="sandbox-terminal">
+                                        <div class="terminal-bar">Terminal Output</div>
+                                        <pre class="terminal-output" id="fullCodeTerminalOutput">Console ready.</pre>
                                     </div>
                                 </div>
                             </div>

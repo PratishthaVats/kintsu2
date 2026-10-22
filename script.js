@@ -487,6 +487,198 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    
+    var tabNotesBtn = document.getElementById('tabNotesBtn');
+    var tabCodeBtn = document.getElementById('tabCodeBtn');
+    var notesView = document.getElementById('notesView');
+    var codeView = document.getElementById('codeView');
+
+    if (tabNotesBtn && tabCodeBtn && notesView && codeView) {
+        tabNotesBtn.addEventListener('click', function () {
+            tabNotesBtn.classList.add('tab-btn-active');
+            tabCodeBtn.classList.remove('tab-btn-active');
+            notesView.style.display = 'block';
+            codeView.style.display = 'none';
+        });
+
+        tabCodeBtn.addEventListener('click', function () {
+            tabCodeBtn.classList.add('tab-btn-active');
+            tabNotesBtn.classList.remove('tab-btn-active');
+            notesView.style.display = 'none';
+            codeView.style.display = 'block';
+        });
+    }
+
+    var btnRunEmbeddedCode = document.getElementById('btnRunEmbeddedCode');
+    var embeddedCodeInput = document.getElementById('embeddedCodeInput');
+    var embeddedTerminalOutput = document.getElementById('embeddedTerminalOutput');
+    var embeddedLangSelect = document.getElementById('embeddedLangSelect');
+    var syntaxBadge = document.getElementById('syntaxBadge');
+
+    if (embeddedLangSelect && syntaxBadge) {
+        embeddedLangSelect.addEventListener('change', function () {
+            syntaxBadge.textContent = 'Syntax: ' + embeddedLangSelect.value;
+        });
+    }
+
+    if (btnRunEmbeddedCode && embeddedTerminalOutput) {
+        btnRunEmbeddedCode.addEventListener('click', function () {
+            var code = embeddedCodeInput ? embeddedCodeInput.value.trim() : '';
+            if (!code) {
+                embeddedTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Sandbox input is empty. Write code to execute.';
+                showToast('Sandbox code editor is empty ⚠️');
+                return;
+            }
+
+            embeddedTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling and running runtime environment...\n';
+            showToast('Executing code sandbox simulation…');
+
+            setTimeout(function () {
+                var timestamp = new Date().toLocaleTimeString();
+                embeddedTerminalOutput.textContent = 
+                    '[Sandbox Simulation Output • ' + timestamp + ']\n' +
+                    '> Runtime: ' + (embeddedLangSelect ? embeddedLangSelect.value : 'python') + ' (Simulated Environment)\n' +
+                    '> Status: 200 OK (0.04s)\n' +
+                    '-------------------------------------------\n' +
+                    'Computed Neuron Activation: 0.7330\n' +
+                    'Weights dot product: 0.9100\n' +
+                    'Bias offset applied: +0.1000\n' +
+                    'Neuron Classification State: TRIGGERED (1)\n' +
+                    '-------------------------------------------\n' +
+                    '[Process completed with exit code 0]';
+                showToast('Simulation execution completed! ✅');
+            }, 600);
+        });
+    }
+
+    var btnRunFullCode = document.getElementById('btnRunFullCode');
+    var fullCodeInput = document.getElementById('fullCodeInput');
+    var fullCodeTerminalOutput = document.getElementById('fullCodeTerminalOutput');
+    var fullCodeLangSelect = document.getElementById('fullCodeLangSelect');
+
+    if (btnRunFullCode && fullCodeTerminalOutput) {
+        btnRunFullCode.addEventListener('click', function () {
+            var code = fullCodeInput ? fullCodeInput.value.trim() : '';
+            if (!code) {
+                fullCodeTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Code editor is empty. Enter code to execute.';
+                showToast('Code workspace is empty ⚠️');
+                return;
+            }
+
+            fullCodeTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling in simulated sandbox container...\n';
+            showToast('Executing code workspace simulation…');
+
+            setTimeout(function () {
+                var timestamp = new Date().toLocaleTimeString();
+                fullCodeTerminalOutput.textContent = 
+                    '[Simulation Run Result • ' + timestamp + ']\n' +
+                    '> Runtime: ' + (fullCodeLangSelect ? fullCodeLangSelect.value : 'python') + ' (Isolated Sandbox Container)\n' +
+                    '-------------------------------------------\n' +
+                    'Original: [3, 1, 4, 1, 5, 9]\n' +
+                    'Prefix sums: [3, 4, 8, 9, 14, 23]\n' +
+                    '-------------------------------------------\n' +
+                    '[Completed in 0.038s with exit code 0]';
+                showToast('Ran code simulation successfully! ✅');
+            }, 500);
+        });
+    }
+
+    
+    var tabNotesBtn = document.getElementById('tabNotesBtn');
+    var tabCodeBtn = document.getElementById('tabCodeBtn');
+    var notesView = document.getElementById('notesView');
+    var codeView = document.getElementById('codeView');
+
+    if (tabNotesBtn && tabCodeBtn && notesView && codeView) {
+        tabNotesBtn.addEventListener('click', function () {
+            tabNotesBtn.classList.add('tab-btn-active');
+            tabCodeBtn.classList.remove('tab-btn-active');
+            notesView.style.display = 'block';
+            codeView.style.display = 'none';
+        });
+
+        tabCodeBtn.addEventListener('click', function () {
+            tabCodeBtn.classList.add('tab-btn-active');
+            tabNotesBtn.classList.remove('tab-btn-active');
+            notesView.style.display = 'none';
+            codeView.style.display = 'block';
+        });
+    }
+
+    var btnRunEmbeddedCode = document.getElementById('btnRunEmbeddedCode');
+    var embeddedCodeInput = document.getElementById('embeddedCodeInput');
+    var embeddedTerminalOutput = document.getElementById('embeddedTerminalOutput');
+    var embeddedLangSelect = document.getElementById('embeddedLangSelect');
+    var syntaxBadge = document.getElementById('syntaxBadge');
+
+    if (embeddedLangSelect && syntaxBadge) {
+        embeddedLangSelect.addEventListener('change', function () {
+            syntaxBadge.textContent = 'Syntax: ' + embeddedLangSelect.value;
+        });
+    }
+
+    if (btnRunEmbeddedCode && embeddedTerminalOutput) {
+        btnRunEmbeddedCode.addEventListener('click', function () {
+            var code = embeddedCodeInput ? embeddedCodeInput.value.trim() : '';
+            if (!code) {
+                embeddedTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Sandbox input is empty. Write code to execute.';
+                showToast('Sandbox code editor is empty ⚠️');
+                return;
+            }
+
+            embeddedTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling and running runtime environment...\n';
+            showToast('Executing code sandbox simulation…');
+
+            setTimeout(function () {
+                var timestamp = new Date().toLocaleTimeString();
+                embeddedTerminalOutput.textContent = 
+                    '[Sandbox Simulation Output • ' + timestamp + ']\n' +
+                    '> Runtime: ' + (embeddedLangSelect ? embeddedLangSelect.value : 'python') + ' (Simulated Environment)\n' +
+                    '> Status: 200 OK (0.04s)\n' +
+                    '-------------------------------------------\n' +
+                    'Computed Neuron Activation: 0.7330\n' +
+                    'Weights dot product: 0.9100\n' +
+                    'Bias offset applied: +0.1000\n' +
+                    'Neuron Classification State: TRIGGERED (1)\n' +
+                    '-------------------------------------------\n' +
+                    '[Process completed with exit code 0]';
+                showToast('Simulation execution completed! ✅');
+            }, 600);
+        });
+    }
+
+    var btnRunFullCode = document.getElementById('btnRunFullCode');
+    var fullCodeInput = document.getElementById('fullCodeInput');
+    var fullCodeTerminalOutput = document.getElementById('fullCodeTerminalOutput');
+    var fullCodeLangSelect = document.getElementById('fullCodeLangSelect');
+
+    if (btnRunFullCode && fullCodeTerminalOutput) {
+        btnRunFullCode.addEventListener('click', function () {
+            var code = fullCodeInput ? fullCodeInput.value.trim() : '';
+            if (!code) {
+                fullCodeTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Code editor is empty. Enter code to execute.';
+                showToast('Code workspace is empty ⚠️');
+                return;
+            }
+
+            fullCodeTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling in simulated sandbox container...\n';
+            showToast('Executing code workspace simulation…');
+
+            setTimeout(function () {
+                var timestamp = new Date().toLocaleTimeString();
+                fullCodeTerminalOutput.textContent = 
+                    '[Simulation Run Result • ' + timestamp + ']\n' +
+                    '> Runtime: ' + (fullCodeLangSelect ? fullCodeLangSelect.value : 'python') + ' (Isolated Sandbox Container)\n' +
+                    '-------------------------------------------\n' +
+                    'Original: [3, 1, 4, 1, 5, 9]\n' +
+                    'Prefix sums: [3, 4, 8, 9, 14, 23]\n' +
+                    '-------------------------------------------\n' +
+                    '[Completed in 0.038s with exit code 0]';
+                showToast('Ran code simulation successfully! ✅');
+            }, 500);
+        });
+    }
+
     var signinForm = document.getElementById('signinForm');
     if (signinForm) {
         signinForm.addEventListener('submit', function (e) {
