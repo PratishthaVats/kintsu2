@@ -28,6 +28,7 @@
 
             <div class="nav-actions">
                 <a href="signin.html" class="brutal-btn brutal-btn-card">Dashboard</a>
+                <a href="#live-demo" class="brutal-btn brutal-btn-card">Workspace</a>
                 <a href="#flashcards" class="brutal-btn brutal-btn-card">Flashcards</a>
 
                 <button type="button" id="darkToggle" class="brutal-btn brutal-icon-btn" aria-label="Toggle dark mode">
@@ -336,119 +337,58 @@
             </div>
         </section>
 
-        <section class="workspace-section" id="workspace">
-        <div class="workspace-header">
-            <span class="workspace-live-badge">LIVE · NO SIGNUP</span>
-            <h2 class="workspace-title">Try the real workspace right here.</h2>
-            <p class="workspace-subtitle">Paste a YouTube link, take real notes, and highlight text to generate real AI flashcards. Nothing is faked. Sign up when you want to save.</p>
-        </div>
-        <div class="workspace-wrapper">
-            <div class="workspace-window" id="workspaceWindow">
-                <div class="ws-pane ws-video-pane" id="wsVideoPane">
-                    <div class="ws-pane-header">
-                        <a href="signin.html" class="ws-pill-btn ws-btn-pink">BACK TO DASHBOARD</a>
-                        <div class="ws-view-switcher" role="tablist">
-                            <button class="ws-view-btn" data-mode="guide" type="button">GUIDE</button>
-                            <button class="ws-view-btn active" data-mode="split" type="button">SPLIT</button>
-                            <button class="ws-view-btn" data-mode="notes" type="button">NOTES</button>
-                        </div>
-                    </div>
-                    <div class="ws-url-bar">
-                        <input type="text" class="ws-url-input" id="ytUrlInput" value="https://www.youtube.com/watch?v=LPZh9BOjkQs" placeholder="Paste YouTube link here..." />
-                        <button class="ws-embed-btn" id="ytEmbedBtn" type="button">Embed</button>
-                    </div>
-                    <div class="ws-player-container">
-                        <iframe id="ytPlayer" src="https://www.youtube-nocookie.com/embed/LPZh9BOjkQs?enablejsapi=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="ws-video-footer">
-                        <div class="ws-time-indicator"><span class="ws-time-pill" id="ytTimeDisplay">0:00</span></div>
-                        <div class="ws-video-actions">
-                            <button class="ws-action-btn" id="aiNotesBtn" type="button">✨ AI Notes</button>
-                            <button class="ws-action-btn" id="addTimestampBtn" type="button">+ Add Timestamp</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="ws-divider" id="wsDivider" aria-hidden="true"><span class="ws-divider-knob"></span></div>
-                <div class="ws-pane ws-content-pane" id="wsContentPane">
-                    <div class="ws-tabs-bar">
-                        <div class="ws-tab-group">
-                            <button class="ws-tab-btn active" id="tabNotesBtn" data-tab="notes" type="button">Notes</button>
-                            <button class="ws-tab-btn" id="tabCodeBtn" data-tab="code" type="button">Code</button>
-                        </div>
-                    </div>
-                    <div class="ws-tab-view active" id="viewNotes">
-                        <div class="ws-toolbar">
-                            <div class="ws-tools-cluster">
-                                <button class="ws-tool-btn mic-btn" id="wsMicBtn" title="Voice note" type="button">🎙️</button>
-                                <span class="ws-tool-divider"></span>
-                                <button class="ws-tool-btn" data-format="bold" type="button"><strong>B</strong></button>
-                                <button class="ws-tool-btn" data-format="italic" type="button"><em>I</em></button>
-                                <button class="ws-tool-btn" data-format="underline" type="button"><u>U</u></button>
-                                <button class="ws-tool-btn" data-format="strikeThrough" type="button"><s>S</s></button>
-                                <button class="ws-tool-btn" data-format="code" type="button">&lt;/&gt;</button>
-                                <button class="ws-tool-btn quote-btn active-pink" data-format="blockquote" type="button">”</button>
-                                <button class="ws-tool-btn" data-format="h1" type="button">H1</button>
-                                <button class="ws-tool-btn" data-format="h2" type="button">H2</button>
-                                <button class="ws-tool-btn" data-format="insertUnorderedList" type="button">≡</button>
-                                <button class="ws-tool-btn" data-format="insertOrderedList" type="button">1.</button>
-                                <button class="ws-tool-btn" data-format="codeblock" type="button">{ }</button>
-                            </div>
-                            <button class="ws-code-switch-pill" id="quickCodeBtn" type="button">CODE</button>
-                        </div>
-                        <div class="ws-subtoolbar">
-                            <div class="ws-subtools-left">
-                                <button class="ws-subtool-pill pink-subtool" type="button">“”</button>
-                                <button class="ws-subtool-btn" data-format="insertUnorderedList" type="button">📋</button>
-                                <button class="ws-subtool-btn" data-format="insertHorizontalRule" type="button">—</button>
-                                <button class="ws-subtool-btn" data-format="undo" type="button">↺</button>
-                                <button class="ws-subtool-btn" data-format="redo" type="button">↻</button>
-                            </div>
-                            <span class="ws-status-text" id="wsAutoSaveStatus">✓ Auto-saved</span>
-                        </div>
-                        <div class="ws-note-editor">
-                            <h3 class="ws-note-title" contenteditable="true" spellcheck="false">Neural Network Fundamentals: Structural Overview</h3>
-                            <div class="ws-note-body" id="wsNoteBody" contenteditable="true" spellcheck="false">
-                                <ul class="ws-bullets"><li><strong>Biases:</strong> These are values added to the weighted sum of inputs, allowing a neuron to adjust its threshold for activation.</li></ul>
-                                <div class="ws-timestamp-card" data-time="240" contenteditable="false">
-                                    <div class="ws-ts-header" role="button" tabindex="0"><span class="ws-ts-icon ws-ts-play">▶</span><span class="ws-ts-label">4. Mathematical Representation</span><span class="ws-ts-time">04:00</span></div>
+        <section id="live-demo" class="workspace-section">
+            <div class="workspace-header">
+                <span class="badge-pill badge-yellow">Live · No signup</span>
+                <h2 class="workspace-title">Try the real workspace right here.</h2>
+                <p class="workspace-sub">Paste a YouTube link, take real notes, and highlight text to generate real AI flashcards. Nothing is faked. Sign up when you want to save.</p>
+            </div>
+
+            <div class="workspace-frame osn-scope">
+                <div class="yt-workspace-shell" id="workspaceShell" style="--left-panel-width: 50%;">
+
+                    <div class="yt-workspace-left" id="workspaceLeft">
+                        <div class="yt-workspace-grid" aria-hidden="true"></div>
+
+                        <div class="yt-video-card">
+                            <div class="yt-video-panel">
+
+                                <div class="yt-video-toolbar">
+                                    <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL" class="yt-url-input" value="https://www.youtube.com/watch?v=LPZh9BOjkQs">
+                                    <button type="button" id="btnEmbedVideo" class="yt-embed-btn">Embed</button>
                                 </div>
-                                <div class="ws-timestamp-card expanded" data-time="315" contenteditable="false">
-                                    <div class="ws-ts-header" role="button" tabindex="0"><span class="ws-ts-icon ws-ts-arrow">▼</span><span class="ws-ts-label">5. Modern Advancements: ReLU vs. Sigmoid</span><span class="ws-ts-time">05:15</span></div>
-                                    <div class="ws-ts-content"><p>While the Sigmoid function is historically significant, modern deep networks favor <mark class="ai-highlight-pill" id="sampleHighlightSpan">ReLU (Rectified Linear Unit)</mark>. ReLU simplifies the activation to <code class="ws-inline-code">max(0, a)</code>.</p></div>
+
+                                <div class="yt-video-frame-shell">
+                                    <iframe id="ytVideoPlayer" class="yt-video-frame" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="YouTube Video Player" src="https://www.youtube.com/embed/LPZh9BOjkQs?enablejsapi=1&rel=0&modestbranding=1"></iframe>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="ws-ai-tooltip" id="wsAiTooltip" style="display: none;"><button class="ws-ai-tooltip-btn" id="wsTriggerFlashcardBtn" type="button"><span>✨</span> Generate Flashcard</button></div>
-                        <div class="ws-generated-deck" id="wsGeneratedDeck" style="display: none;">
-                            <div class="ws-deck-top"><span class="ws-deck-badge">✨ AI GENERATED FLASHCARD FROM HIGHLIGHT</span><button class="ws-deck-dismiss" id="wsDismissDeckBtn" type="button">✕</button></div>
-                            <div class="ws-deck-card" id="wsMiniDeckCard" role="button" tabindex="0">
-                                <div class="ws-deck-inner">
-                                    <div class="ws-deck-front"><span class="ws-deck-type">QUESTION</span><p id="wsDeckQuestionText">What is the advantage of using ReLU (Rectified Linear Unit) over Sigmoid in deep networks?</p><span class="ws-deck-prompt">Click to flip</span></div>
-                                    <div class="ws-deck-back"><span class="ws-deck-type">ANSWER</span><p id="wsDeckAnswerText">ReLU simplifies activation to max(0, a), which mitigates the vanishing gradient problem and is much faster to compute.</p><span class="ws-deck-prompt">Click to flip</span></div>
+
+                                <div class="yt-timestamp-bar">
+                                    <span class="yt-timestamp-readout" id="videoTimeReadout">0:00</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ws-tab-view" id="viewCode" style="display: none;">
-                        <div class="ws-code-header">
-                            <div class="ws-code-lang"><label for="wsLangSelect">Language:</label><select id="wsLangSelect" class="ws-lang-dropdown"><option value="python">Python 3</option><option value="javascript">JavaScript</option></select></div>
-                            <div class="ws-code-btns"><button class="ws-code-action-btn" id="wsResetCodeBtn" type="button">Reset</button><button class="ws-code-run-btn" id="wsRunCodeBtn" type="button">▶ Run Code</button></div>
-                        </div>
-                        <div class="ws-editor-shell">
-                            <div class="ws-line-numbers" id="wsLineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</div>
-                            <textarea class="ws-code-input" id="wsCodeEditor" spellcheck="false" aria-label="Code Editor"></textarea>
-                        </div>
-                        <div class="ws-terminal">
-                            <div class="ws-terminal-bar"><span class="ws-term-title">CONSOLE OUTPUT</span><span class="ws-term-status" id="wsTermStatus">Ready</span></div>
-                            <pre class="ws-terminal-body" id="wsTerminalOutput">Click '▶ Run Code' to execute the script in-browser...</pre>
+
+                    <div class="yt-workspace-right" id="workspaceRight">
+                        <div class="workspace-right-content">
+                            <div class="editor-tab-content" id="notesView">
+                                <div class="editor-shell">
+                                    <div class="editor-scroll-area">
+                                        <div class="editor-document" id="editorCanvas" contenteditable="true" spellcheck="false">
+                                            <h1>Neural Network Fundamentals: Structural Overview</h1>
+                                            <p>This video provides a foundational look at the structure of neural networks, using the classic task of handwritten digit recognition as a pedagogical example.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="cta-banner-section">
+        <section class="cta-banner-section">
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Your next lecture can become a study deck today.</h2>
                 <p class="cta-banner-sub">No credit card. Start with a single link.</p>
@@ -476,8 +416,6 @@
             </div>
         </div>
     </footer>
-
-    
 
     <div id="toastNotification" class="toast-box" role="status" aria-live="polite"></div>
 
