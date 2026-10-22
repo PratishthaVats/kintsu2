@@ -679,6 +679,105 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    
+    var workspaceShell = document.getElementById('workspaceShell');
+    var workspaceLeft = document.getElementById('workspaceLeft');
+    var btnModeGuide = document.getElementById('btnModeGuide');
+    var btnModeSplit = document.getElementById('btnModeSplit');
+    var btnModeNotes = document.getElementById('btnModeNotes');
+
+    function setMode(mode) {
+        [btnModeGuide, btnModeSplit, btnModeNotes].forEach(function (b) {
+            if (b) b.classList.remove('workspace-mode-button-active');
+        });
+
+        if (mode === 'guide' && btnModeGuide) {
+            btnModeGuide.classList.add('workspace-mode-button-active');
+            if (workspaceShell) workspaceShell.style.setProperty('--left-panel-width', '70%');
+        } else if (mode === 'notes' && btnModeNotes) {
+            btnModeNotes.classList.add('workspace-mode-button-active');
+            if (workspaceShell) workspaceShell.style.setProperty('--left-panel-width', '0%');
+        } else if (btnModeSplit) {
+            btnModeSplit.classList.add('workspace-mode-button-active');
+            if (workspaceShell) workspaceShell.style.setProperty('--left-panel-width', '50%');
+        }
+    }
+
+    if (btnModeGuide) btnModeGuide.addEventListener('click', function () { setMode('guide'); });
+    if (btnModeSplit) btnModeSplit.addEventListener('click', function () { setMode('split'); });
+    if (btnModeNotes) btnModeNotes.addEventListener('click', function () { setMode('notes'); });
+
+    var workspaceResizer = document.getElementById('workspaceResizer');
+    var isDragging = false;
+
+    function applyResizerWidth(clientX) {
+        if (!workspaceShell) return;
+        var shellRect = workspaceShell.getBoundingClientRect();
+        var offset = clientX - shellRect.left;
+        var percentage = Math.max(25, Math.min(75, (offset / shellRect.width) * 100));
+        workspaceShell.style.setProperty('--left-panel-width', percentage + '%');
+        if (workspaceResizer) {
+            workspaceResizer.setAttribute('aria-valuenow', Math.round(percentage));
+        }
+    }
+
+    if (workspaceResizer && workspaceShell) {
+        workspaceResizer.addEventListener('mousedown', function (e) {
+            isDragging = true;
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+        });
+
+        window.addEventListener('mousemove', function (e) {
+            if (!isDragging) return;
+            applyResizerWidth(e.clientX);
+        });
+
+        window.addEventListener('mouseup', function () {
+            if (isDragging) {
+                isDragging = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
+
+        workspaceResizer.addEventListener('touchstart', function () {
+            isDragging = true;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', function (e) {
+            if (!isDragging || !e.touches || !e.touches[0]) return;
+            applyResizerWidth(e.touches[0].clientX);
+        }, { passive: true });
+
+        window.addEventListener('touchend', function () {
+            isDragging = false;
+        });
+
+        workspaceResizer.addEventListener('keydown', function (e) {
+            var currentVal = parseFloat(workspaceShell.style.getPropertyValue('--left-panel-width')) || 50;
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                var newVal = Math.max(25, currentVal - 5);
+                workspaceShell.style.setProperty('--left-panel-width', newVal + '%');
+                workspaceResizer.setAttribute('aria-valuenow', Math.round(newVal));
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                var newVal = Math.min(75, currentVal + 5);
+                workspaceShell.style.setProperty('--left-panel-width', newVal + '%');
+                workspaceResizer.setAttribute('aria-valuenow', Math.round(newVal));
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                workspaceShell.style.setProperty('--left-panel-width', '25%');
+                workspaceResizer.setAttribute('aria-valuenow', 25);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                workspaceShell.style.setProperty('--left-panel-width', '75%');
+                workspaceResizer.setAttribute('aria-valuenow', 75);
+            }
+        });
+    }
+
     var signinForm = document.getElementById('signinForm');
     if (signinForm) {
         signinForm.addEventListener('submit', function (e) {

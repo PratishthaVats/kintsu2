@@ -350,6 +350,16 @@
                     <div class="yt-workspace-left" id="workspaceLeft">
                         <div class="yt-workspace-grid" aria-hidden="true"></div>
 
+                        <div class="yt-workspace-topline">
+                            <a href="signin.html" class="workspace-badge-link">Back To Dashboard</a>
+
+                            <div class="workspace-mode-switcher" role="group" aria-label="Layout modes">
+                                <button type="button" class="workspace-mode-button" id="btnModeGuide">Guide</button>
+                                <button type="button" class="workspace-mode-button workspace-mode-button-active" id="btnModeSplit">Split</button>
+                                <button type="button" class="workspace-mode-button" id="btnModeNotes">Notes</button>
+                            </div>
+                        </div>
+
                         <div class="yt-video-card">
                             <div class="yt-video-panel">
 
@@ -377,6 +387,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div role="separator" tabindex="0" class="workspace-resizer" id="workspaceResizer" aria-label="Resize panels">
+                        <span class="workspace-resizer-handle"></span>
                     </div>
 
                     <div class="yt-workspace-right" id="workspaceRight">
@@ -617,10 +631,20 @@ print("Prefix sums:", solve(sample))</textarea>
                                 </div>
                             </div>
 
+                            <a href="signin.html" class="workspace-save-btn">Sign up free to save</a>
+
                         </div>
                     </div>
 
                 </div>
+
+                <div class="workspace-sticky-footer">
+                    <div class="sticky-footer-pill">
+                        <p class="sticky-footer-text">Loving it? Sign up free to save this.</p>
+                        <a href="signin.html" class="brutal-btn brutal-btn-pink sticky-signup-btn">Sign up</a>
+                    </div>
+                </div>
+
             </div>
         </section>
 

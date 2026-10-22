@@ -1070,6 +1070,64 @@ body.dark .flashcard-face {
     margin-bottom: 16px;
 }
 
+.workspace-badge-link {
+    cursor: pointer;
+    padding: 6px 14px;
+    background-color: var(--pink);
+    color: #ffffff;
+    font-size: 0.6875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--ink);
+    box-shadow: 2px 2px 0px var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.workspace-badge-link:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--ink);
+}
+
+.workspace-mode-switcher {
+    background-color: var(--card);
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-full);
+    padding: 3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    box-shadow: 3px 3px 0px var(--ink);
+}
+
+.workspace-mode-button {
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 5px 14px;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.workspace-mode-button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+body.dark .workspace-mode-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.workspace-mode-button-active,
+.workspace-mode-button-active:hover {
+    background-color: var(--pink-active);
+    color: #ffffff;
+}
+
 .yt-video-card {
     position: relative;
     z-index: 10;
@@ -1207,6 +1265,37 @@ body.dark .yt-action-btn {
 body.dark .yt-action-btn--ai {
     background-color: var(--pink);
     color: #ffffff;
+}
+
+.workspace-resizer {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: col-resize;
+    z-index: 20;
+    user-select: none;
+    margin-inline: -10px;
+}
+
+@media (max-width: 960px) {
+    .workspace-resizer {
+        display: none;
+    }
+}
+
+.workspace-resizer-handle {
+    width: 8px;
+    height: 72px;
+    background-color: var(--pink-active);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-full);
+    box-shadow: 2px 2px 0px var(--ink);
+    transition: transform 0.1s ease;
+}
+
+.workspace-resizer:hover .workspace-resizer-handle {
+    transform: scaleY(1.15);
 }
 
 .yt-workspace-right {
@@ -1736,6 +1825,68 @@ body.dark .toggle-topic-header {
     max-height: 140px;
     overflow-y: auto;
     white-space: pre-wrap;
+}
+
+.workspace-save-btn {
+    margin-top: 16px;
+    padding: 12px 24px;
+    background-color: var(--purple-btn);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.workspace-save-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: var(--shadow-brutal-md);
+}
+
+.workspace-sticky-footer {
+    position: sticky;
+    bottom: 16px;
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
+    margin-top: 16px;
+    pointer-events: none;
+}
+
+.sticky-footer-pill {
+    pointer-events: auto;
+    background-color: var(--yellow);
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-brutal);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.sticky-footer-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #000000;
+}
+
+.sticky-signup-btn {
+    padding: 6px 14px;
+    font-size: 0.75rem;
 }
 
 
