@@ -363,7 +363,17 @@
                                 </div>
 
                                 <div class="yt-timestamp-bar">
-                                    <span class="yt-timestamp-readout" id="videoTimeReadout">0:00</span>
+                                    <span class="yt-timestamp-readout" id="videoTimeReadout">3:33</span>
+
+                                    <div class="yt-actions-group">
+                                        <button type="button" id="btnAiNotes" class="yt-action-btn yt-action-btn--ai" title="Generate AI Summary from Transcript">
+                                            <span>✦</span>
+                                            <span id="aiNotesBtnText">AI Notes</span>
+                                        </button>
+                                        <button type="button" id="btnAddTimestamp" class="yt-action-btn" title="Insert current timestamp into notes">
+                                            + Add Timestamp
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -371,16 +381,144 @@
 
                     <div class="yt-workspace-right" id="workspaceRight">
                         <div class="workspace-right-content">
+
                             <div class="editor-tab-content" id="notesView">
                                 <div class="editor-shell">
+
+                                    <div class="editor-menu-bar">
+                                        <div class="editor-command-strip">
+                                            <button type="button" class="editor-command" id="cmdVoice" title="Voice to text" aria-label="Voice to text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19v3"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><rect x="9" y="2" width="6" height="13" rx="3"></rect></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdBold" title="Bold" aria-label="Bold">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdItalic" title="Italic" aria-label="Italic">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"></line><line x1="14" x2="5" y1="20" y2="20"></line><line x1="15" x2="9" y1="4" y2="20"></line></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdUnderline" title="Underline" aria-label="Underline">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"></path><line x1="4" x2="20" y1="20" y2="20"></line></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdStrike" title="Strike" aria-label="Strike">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"></path><path d="M14 12a4 4 0 0 1 0 8H6"></path><line x1="4" x2="20" y1="12" y2="12"></line></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdHighlight" title="Highlight text" aria-label="Highlight text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h3l6-6"></path><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdH1" title="Heading 1" aria-label="Heading 1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="m17 12 3-2v8"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdH2" title="Heading 2" aria-label="Heading 2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdBullet" title="Bullet list" aria-label="Bullet list">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01"></path><path d="M3 12h.01"></path><path d="M3 19h.01"></path><path d="M8 5h13"></path><path d="M8 12h13"></path><path d="M8 19h13"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdOrdered" title="Ordered list" aria-label="Ordered list">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"></path><path d="M11 12h10"></path><path d="M11 19h10"></path><path d="M4 4h1v5"></path><path d="M4 9h2"></path><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdQuote" title="Blockquote" aria-label="Blockquote">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdHr" title="Horizontal rule" aria-label="Horizontal rule">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdUndo" title="Undo" aria-label="Undo">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"></path></svg>
+                                            </button>
+                                            <button type="button" class="editor-command" id="cmdRedo" title="Redo" aria-label="Redo">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"></path><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13"></path></svg>
+                                            </button>
+                                        </div>
+                                        <button type="button" class="editor-code-pill" id="btnInsertCodeBlock">CODE</button>
+                                    </div>
+
                                     <div class="editor-scroll-area">
                                         <div class="editor-document" id="editorCanvas" contenteditable="true" spellcheck="false">
                                             <h1>Neural Network Fundamentals: Structural Overview</h1>
-                                            <p>This video provides a foundational look at the structure of neural networks, using the classic task of handwritten digit recognition as a pedagogical example.</p>
+                                            <p>This video provides a foundational look at the structure of neural networks, using the classic task of handwritten digit recognition as a pedagogical example <span data-timestamp="203" class="timestamp-link" title="Jump video to 3:23" role="button">[3:23]</span>.</p>
+
+                                            <div class="toggle-topic toggle-topic-open">
+                                                <div class="toggle-topic-header" contenteditable="false">
+                                                    <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
+                                                        <span class="toggle-topic-caret"></span>
+                                                    </button>
+                                                    <input class="toggle-topic-title" type="text" value="1. What is a Neuron?">
+                                                </div>
+                                                <div class="toggle-topic-content">
+                                                    <p>In this context, a neuron is defined simply as a container for a single number (an activation) between 0 and 1.</p>
+                                                    <ul>
+                                                        <li><strong>Input Layer:</strong> For a 28x28 pixel image, the network starts with 784 neurons, each representing the grayscale intensity of a pixel.</li>
+                                                        <li><strong>Output Layer:</strong> The final layer consists of 10 neurons, each representing one of the digits 0-9. The neuron with the highest activation indicates the network's classification.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="toggle-topic toggle-topic-open">
+                                                <div class="toggle-topic-header" contenteditable="false">
+                                                    <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
+                                                        <span class="toggle-topic-caret"></span>
+                                                    </button>
+                                                    <input class="toggle-topic-title" type="text" value="2. The Role of Hidden Layers">
+                                                </div>
+                                                <div class="toggle-topic-content">
+                                                    <p>Between the input and output lie the hidden layers. These handle hierarchical pattern recognition:</p>
+                                                    <ul>
+                                                        <li>Early layers detect simple <strong><em><u>edges</u></em></strong> <span data-timestamp="518" class="timestamp-link" title="Jump video to 8:38" role="button">(8:38)</span>.</li>
+                                                        <li>Mid-level layers combine edges into larger <strong>components</strong> (loops or strokes).</li>
+                                                        <li>Final layers synthesize these features into complete digit classifications.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="toggle-topic toggle-topic-open">
+                                                <div class="toggle-topic-header" contenteditable="false">
+                                                    <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
+                                                        <span class="toggle-topic-caret"></span>
+                                                    </button>
+                                                    <input class="toggle-topic-title" type="text" value="3. Weights and Biases">
+                                                </div>
+                                                <div class="toggle-topic-content">
+                                                    <p>The core intelligence of the network relies on weights and biases:</p>
+                                                    <ul>
+                                                        <li><strong>Weights:</strong> Quantify the strength and influence of connections between neurons.</li>
+                                                        <li><strong>Biases:</strong> Set activation thresholds to control when a neuron triggers.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="toggle-topic toggle-topic-open">
+                                                <div class="toggle-topic-header" contenteditable="false">
+                                                    <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
+                                                        <span class="toggle-topic-caret"></span>
+                                                    </button>
+                                                    <input class="toggle-topic-title" type="text" value="4. Mathematical Representation">
+                                                </div>
+                                                <div class="toggle-topic-content">
+                                                    <p>Linear algebra represents activations as vectors and layer weights as weight matrices.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="toggle-topic toggle-topic-open">
+                                                <div class="toggle-topic-header" contenteditable="false">
+                                                    <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
+                                                        <span class="toggle-topic-caret"></span>
+                                                    </button>
+                                                    <input class="toggle-topic-title" type="text" value="5. Modern Advancements: ReLU vs. Sigmoid">
+                                                </div>
+                                                <div class="toggle-topic-content">
+                                                    <p>While the Sigmoid function is historically significant, modern deep networks favor ReLU (Rectified Linear Unit), simplifying activation to <code>max(0, a)</code>.</p>
+                                                    <blockquote>
+                                                        Ultimately, a neural network is essentially one massive, complex mathematical function. It takes inputs and transforms them through thousands of interconnected weights and biases to produce accurate predictions.
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -416,6 +554,12 @@
             </div>
         </div>
     </footer>
+
+    <div id="workspaceSelectionBubble" class="workspace-selection-bubble" role="dialog" aria-hidden="true" style="display: none;">
+        <span class="bubble-title">Create flashcards?</span>
+        <button type="button" class="bubble-btn bubble-btn-yes" id="bubbleBtnYes">Yes</button>
+        <button type="button" class="bubble-btn bubble-btn-no" id="bubbleBtnNo">No</button>
+    </div>
 
     <div id="toastNotification" class="toast-box" role="status" aria-live="polite"></div>
 

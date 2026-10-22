@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         autoStepTimeout = setTimeout(function () {
             if (isUserInteracted) return;
             renderDemoText(DEFAULT_HIGHLIGHT);
-            if (selectionPopup) selectionPopup.classList.add('show');
+            if (selectionPopup) selectionPopup.classList.remove('show');
 
             autoStepTimeout = setTimeout(function () {
                 if (isUserInteracted) return;
@@ -251,6 +251,241 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // --- Commit 5: Rich-Text Notes and Timestamp Links ---
+    var editorCanvas = document.getElementById('editorCanvas');
+    var btnAddTimestamp = document.getElementById('btnAddTimestamp');
+    var btnAiNotes = document.getElementById('btnAiNotes');
+    var videoTimeReadout = document.getElementById('videoTimeReadout');
+
+    var currentLectureSeconds = 213;
+
+    function formatTime(secs) {
+        var m = Math.floor(secs / 60);
+        var s = secs % 60;
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    if (btnAddTimestamp && editorCanvas) {
+        btnAddTimestamp.addEventListener('click', function () {
+            var timeStr = formatTime(currentLectureSeconds);
+            var timestampSpan = document.createElement('span');
+            timestampSpan.className = 'timestamp-link';
+            timestampSpan.setAttribute('data-timestamp', currentLectureSeconds);
+            timestampSpan.setAttribute('role', 'button');
+            timestampSpan.title = 'Jump video to ' + timeStr;
+            timestampSpan.textContent = '[' + timeStr + ']';
+
+            editorCanvas.focus();
+            var sel = window.getSelection();
+            if (sel && sel.rangeCount > 0 && editorCanvas.contains(sel.anchorNode)) {
+                var range = sel.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(timestampSpan);
+                range.collapse(false);
+            } else {
+                editorCanvas.appendChild(timestampSpan);
+            }
+            showToast('Timestamp [' + timeStr + '] added to notes!');
+        });
+    }
+
+    if (btnAiNotes && editorCanvas) {
+        btnAiNotes.addEventListener('click', function () {
+            var btnText = document.getElementById('aiNotesBtnText');
+            if (btnText) btnText.textContent = 'Generating…';
+            showToast('Synthesizing notes preview from lecture transcript…');
+
+            setTimeout(function () {
+                if (btnText) btnText.textContent = 'AI Notes';
+                var summarySection = document.createElement('div');
+                summarySection.className = 'toggle-topic toggle-topic-open';
+                summarySection.innerHTML = 
+                    '<div class="toggle-topic-header" contenteditable="false">' +
+                        '<button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">' +
+                            '<span class="toggle-topic-caret"></span>' +
+                        '</button>' +
+                        '<input class="toggle-topic-title" type="text" value="AI Synthesis: Key Takeaways (' + formatTime(currentLectureSeconds) + ')">' +
+                    '</div>' +
+                    '<div class="toggle-topic-content">' +
+                        '<p>✨ <strong>Automated Lecture Synthesis (Preview):</strong></p>' +
+                        '<ul>' +
+                            '<li>Deep representations learn hierarchical feature detectors automatically through gradient descent.</li>' +
+                            '<li>Matrix operations leverage parallel SIMD and GPU tensors for high-throughput batching.</li>' +
+                        '</ul>' +
+                    '</div>';
+                editorCanvas.prepend(summarySection);
+                showToast('✨ AI Summary added to your notes!');
+            }, 1000);
+        });
+    }
+
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest('.timestamp-link');
+        if (link) {
+            var secs = parseInt(link.getAttribute('data-timestamp'), 10) || 0;
+            currentLectureSeconds = secs;
+            if (videoTimeReadout) {
+                videoTimeReadout.textContent = formatTime(secs);
+            }
+            if (ytVideoPlayer && ytVideoPlayer.contentWindow) {
+                try {
+                    ytVideoPlayer.contentWindow.postMessage(JSON.stringify({
+                        event: 'command',
+                        func: 'seekTo',
+                        args: [secs, true]
+                    }), '*');
+                } catch (err) {}
+            }
+            showToast('Seeking video to ' + formatTime(secs) + ' ⏩');
+        }
+    });
+
+    function setupFormatCommand(btnId, command, value) {
+        var btn = document.getElementById(btnId);
+        if (!btn) return;
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (editorCanvas) {
+                editorCanvas.focus();
+                document.execCommand(command, false, value || null);
+            }
+        });
+    }
+
+    setupFormatCommand('cmdBold', 'bold');
+    setupFormatCommand('cmdItalic', 'italic');
+    setupFormatCommand('cmdUnderline', 'underline');
+    setupFormatCommand('cmdStrike', 'strikeThrough');
+    setupFormatCommand('cmdH1', 'formatBlock', 'H1');
+    setupFormatCommand('cmdH2', 'formatBlock', 'H2');
+    setupFormatCommand('cmdBullet', 'insertUnorderedList');
+    setupFormatCommand('cmdOrdered', 'insertOrderedList');
+    setupFormatCommand('cmdQuote', 'formatBlock', 'BLOCKQUOTE');
+    setupFormatCommand('cmdHr', 'insertHorizontalRule');
+    setupFormatCommand('cmdUndo', 'undo');
+    setupFormatCommand('cmdRedo', 'redo');
+    setupFormatCommand('cmdHighlight', 'hiliteColor', 'rgba(236, 50, 159, 0.85)');
+
+    var workspaceSelectionBubble = document.getElementById('workspaceSelectionBubble');
+    var bubbleBtnYes = document.getElementById('bubbleBtnYes');
+    var bubbleBtnNo = document.getElementById('bubbleBtnNo');
+    var pendingSelectionRange = null;
+
+    function hideWorkspaceBubble() {
+        if (workspaceSelectionBubble) {
+            workspaceSelectionBubble.classList.remove('show');
+            workspaceSelectionBubble.style.display = 'none';
+        }
+        pendingSelectionRange = null;
+    }
+
+    function showWorkspaceBubble(rect) {
+        if (!workspaceSelectionBubble) return;
+        var top = rect.top - 46;
+        var left = rect.left + rect.width / 2;
+
+        if (top < 10) top = rect.bottom + 10;
+        if (left < 90) left = 90;
+        if (left > window.innerWidth - 90) left = window.innerWidth - 90;
+
+        workspaceSelectionBubble.style.top = top + 'px';
+        workspaceSelectionBubble.style.left = left + 'px';
+        workspaceSelectionBubble.style.display = 'flex';
+        workspaceSelectionBubble.classList.add('show');
+    }
+
+    document.addEventListener('mouseup', function (e) {
+        if (e.target && e.target.closest && e.target.closest('.workspace-selection-bubble')) {
+            return;
+        }
+
+        setTimeout(function () {
+            var sel = window.getSelection();
+            if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+                hideWorkspaceBubble();
+                return;
+            }
+
+            if (!editorCanvas || !editorCanvas.contains(sel.anchorNode)) {
+                hideWorkspaceBubble();
+                return;
+            }
+
+            var text = sel.toString().trim();
+            if (text.length < 5 || text.split(/\s+/).length > 250) {
+                hideWorkspaceBubble();
+                return;
+            }
+
+            var range = sel.getRangeAt(0);
+            pendingSelectionRange = range.cloneRange();
+            var rect = range.getBoundingClientRect();
+            showWorkspaceBubble(rect);
+        }, 10);
+    });
+
+    if (bubbleBtnYes) {
+        bubbleBtnYes.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (pendingSelectionRange) {
+                try {
+                    var mark = document.createElement('mark');
+                    mark.className = 'notes-highlight-mark';
+                    mark.title = 'AI Flashcard source';
+                    mark.appendChild(pendingSelectionRange.extractContents());
+                    pendingSelectionRange.insertNode(mark);
+                } catch (err) {
+                    document.execCommand('hiliteColor', false, 'rgba(236, 50, 159, 0.85)');
+                }
+            }
+
+            hideWorkspaceBubble();
+            showToast('✨ 3 AI Flashcards generated from note highlight!', 3500);
+            cycleCardDeck();
+        });
+    }
+
+    if (bubbleBtnNo) {
+        bubbleBtnNo.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            hideWorkspaceBubble();
+        });
+    }
+
+    window.addEventListener('scroll', hideWorkspaceBubble, { passive: true });
+    window.addEventListener('resize', hideWorkspaceBubble, { passive: true });
+
+    var cmdVoice = document.getElementById('cmdVoice');
+    if (cmdVoice) {
+        cmdVoice.addEventListener('click', function () {
+            showToast('🎙️ Voice-to-text listening… (Dictation simulation)');
+        });
+    }
+
+    var btnInsertCodeBlock = document.getElementById('btnInsertCodeBlock');
+    if (btnInsertCodeBlock && editorCanvas) {
+        btnInsertCodeBlock.addEventListener('click', function () {
+            var pre = document.createElement('pre');
+            pre.style.cssText = 'background:#0e0a15; color:#7ad1f5; border:2px solid var(--ink); border-radius:8px; padding:12px; margin:12px 0; font-family:var(--font-mono);';
+            pre.textContent = 'function calculateActivation(z) {\n  return 1 / (1 + Math.exp(-z));\n}';
+            editorCanvas.appendChild(pre);
+            showToast('Code block inserted into notes 💻');
+        });
+    }
+
+    document.addEventListener('click', function (e) {
+        var trigger = e.target.closest('.toggle-topic-trigger');
+        if (trigger) {
+            var topic = trigger.closest('.toggle-topic');
+            if (topic) {
+                topic.classList.toggle('closed');
+            }
+        }
+    });
 
     var signinForm = document.getElementById('signinForm');
     if (signinForm) {
