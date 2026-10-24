@@ -14,8 +14,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }, duration);
     }
 
+    function safeGetStorage(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function safeSetStorage(key, value) {
+        try {
+            localStorage.setItem(key, value);
+        } catch (e) {}
+    }
+
     var darkToggle = document.getElementById('darkToggle');
-    var savedTheme = localStorage.getItem('kintsu_theme');
+    var savedTheme = safeGetStorage('kintsu_theme');
 
     if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.body.classList.add('dark');
@@ -27,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.classList.toggle('dark');
             document.documentElement.classList.toggle('dark');
             var isDark = document.body.classList.contains('dark');
-            localStorage.setItem('kintsu_theme', isDark ? 'dark' : 'light');
+            safeSetStorage('kintsu_theme', isDark ? 'dark' : 'light');
             showToast(isDark ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 1800);
         });
     }
@@ -200,8 +214,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     card.classList.add('flipped');
                 }
             } else {
-                while (!card.classList.contains('card-pos-1')) {
+                var maxAttempts = cards.length;
+                while (!card.classList.contains('card-pos-1') && maxAttempts > 0) {
                     cycleCardDeck();
+                    maxAttempts--;
                 }
             }
         });
@@ -225,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (/^[\w-]{11}$/.test(trimmed)) {
             return trimmed;
         }
-        var match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+        var match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+?&v=|shorts\/|live\/))([\w-]{11})/);
         return match ? match[1] : null;
     }
 
@@ -233,20 +249,26 @@ document.addEventListener('DOMContentLoaded', function () {
         btnEmbedVideo.addEventListener('click', function () {
             var url = ytUrlInput.value.trim();
             if (!url) {
+                ytUrlInput.setAttribute('aria-invalid', 'true');
                 showToast('Please enter a YouTube video URL ⚠️');
+                ytUrlInput.focus();
                 return;
             }
             var videoId = extractYouTubeId(url);
             if (videoId) {
+                ytUrlInput.removeAttribute('aria-invalid');
                 ytVideoPlayer.src = 'https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?enablejsapi=1&rel=0&modestbranding=1';
                 showToast('Lecture video embedded successfully! 🎥');
             } else {
+                ytUrlInput.setAttribute('aria-invalid', 'true');
                 showToast('Invalid or unsupported YouTube URL ⚠️');
+                ytUrlInput.focus();
             }
         });
 
         ytUrlInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
+                e.preventDefault();
                 btnEmbedVideo.click();
             }
         });
@@ -521,8 +543,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    var isRunningEmbedded = false;
     if (btnRunEmbeddedCode && embeddedTerminalOutput) {
         btnRunEmbeddedCode.addEventListener('click', function () {
+            if (isRunningEmbedded) return;
             var code = embeddedCodeInput ? embeddedCodeInput.value.trim() : '';
             if (!code) {
                 embeddedTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Sandbox input is empty. Write code to execute.';
@@ -530,6 +554,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+            isRunningEmbedded = true;
+            btnRunEmbeddedCode.disabled = true;
+            btnRunEmbeddedCode.setAttribute('aria-busy', 'true');
             embeddedTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling and running runtime environment...\n';
             showToast('Executing code sandbox simulation…');
 
@@ -547,17 +574,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     '-------------------------------------------\n' +
                     '[Process completed with exit code 0]';
                 showToast('Simulation execution completed! ✅');
+                isRunningEmbedded = false;
+                btnRunEmbeddedCode.disabled = false;
+                btnRunEmbeddedCode.removeAttribute('aria-busy');
             }, 600);
         });
     }
 
-    var btnRunFullCode = document.getElementById('btnRunFullCode');
-    var fullCodeInput = document.getElementById('fullCodeInput');
-    var fullCodeTerminalOutput = document.getElementById('fullCodeTerminalOutput');
-    var fullCodeLangSelect = document.getElementById('fullCodeLangSelect');
-
+    var isRunningFullCode = false;
     if (btnRunFullCode && fullCodeTerminalOutput) {
         btnRunFullCode.addEventListener('click', function () {
+            if (isRunningFullCode) return;
             var code = fullCodeInput ? fullCodeInput.value.trim() : '';
             if (!code) {
                 fullCodeTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Code editor is empty. Enter code to execute.';
@@ -565,6 +592,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+            isRunningFullCode = true;
+            btnRunFullCode.disabled = true;
+            btnRunFullCode.setAttribute('aria-busy', 'true');
             fullCodeTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling in simulated sandbox container...\n';
             showToast('Executing code workspace simulation…');
 
@@ -579,102 +609,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     '-------------------------------------------\n' +
                     '[Completed in 0.038s with exit code 0]';
                 showToast('Ran code simulation successfully! ✅');
-            }, 500);
-        });
-    }
-
-    
-    var tabNotesBtn = document.getElementById('tabNotesBtn');
-    var tabCodeBtn = document.getElementById('tabCodeBtn');
-    var notesView = document.getElementById('notesView');
-    var codeView = document.getElementById('codeView');
-
-    if (tabNotesBtn && tabCodeBtn && notesView && codeView) {
-        tabNotesBtn.addEventListener('click', function () {
-            tabNotesBtn.classList.add('tab-btn-active');
-            tabCodeBtn.classList.remove('tab-btn-active');
-            notesView.style.display = 'block';
-            codeView.style.display = 'none';
-        });
-
-        tabCodeBtn.addEventListener('click', function () {
-            tabCodeBtn.classList.add('tab-btn-active');
-            tabNotesBtn.classList.remove('tab-btn-active');
-            notesView.style.display = 'none';
-            codeView.style.display = 'block';
-        });
-    }
-
-    var btnRunEmbeddedCode = document.getElementById('btnRunEmbeddedCode');
-    var embeddedCodeInput = document.getElementById('embeddedCodeInput');
-    var embeddedTerminalOutput = document.getElementById('embeddedTerminalOutput');
-    var embeddedLangSelect = document.getElementById('embeddedLangSelect');
-    var syntaxBadge = document.getElementById('syntaxBadge');
-
-    if (embeddedLangSelect && syntaxBadge) {
-        embeddedLangSelect.addEventListener('change', function () {
-            syntaxBadge.textContent = 'Syntax: ' + embeddedLangSelect.value;
-        });
-    }
-
-    if (btnRunEmbeddedCode && embeddedTerminalOutput) {
-        btnRunEmbeddedCode.addEventListener('click', function () {
-            var code = embeddedCodeInput ? embeddedCodeInput.value.trim() : '';
-            if (!code) {
-                embeddedTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Sandbox input is empty. Write code to execute.';
-                showToast('Sandbox code editor is empty ⚠️');
-                return;
-            }
-
-            embeddedTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling and running runtime environment...\n';
-            showToast('Executing code sandbox simulation…');
-
-            setTimeout(function () {
-                var timestamp = new Date().toLocaleTimeString();
-                embeddedTerminalOutput.textContent = 
-                    '[Sandbox Simulation Output • ' + timestamp + ']\n' +
-                    '> Runtime: ' + (embeddedLangSelect ? embeddedLangSelect.value : 'python') + ' (Simulated Environment)\n' +
-                    '> Status: 200 OK (0.04s)\n' +
-                    '-------------------------------------------\n' +
-                    'Computed Neuron Activation: 0.7330\n' +
-                    'Weights dot product: 0.9100\n' +
-                    'Bias offset applied: +0.1000\n' +
-                    'Neuron Classification State: TRIGGERED (1)\n' +
-                    '-------------------------------------------\n' +
-                    '[Process completed with exit code 0]';
-                showToast('Simulation execution completed! ✅');
-            }, 600);
-        });
-    }
-
-    var btnRunFullCode = document.getElementById('btnRunFullCode');
-    var fullCodeInput = document.getElementById('fullCodeInput');
-    var fullCodeTerminalOutput = document.getElementById('fullCodeTerminalOutput');
-    var fullCodeLangSelect = document.getElementById('fullCodeLangSelect');
-
-    if (btnRunFullCode && fullCodeTerminalOutput) {
-        btnRunFullCode.addEventListener('click', function () {
-            var code = fullCodeInput ? fullCodeInput.value.trim() : '';
-            if (!code) {
-                fullCodeTerminalOutput.textContent = '[Simulation Diagnostic]\nError: Code editor is empty. Enter code to execute.';
-                showToast('Code workspace is empty ⚠️');
-                return;
-            }
-
-            fullCodeTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling in simulated sandbox container...\n';
-            showToast('Executing code workspace simulation…');
-
-            setTimeout(function () {
-                var timestamp = new Date().toLocaleTimeString();
-                fullCodeTerminalOutput.textContent = 
-                    '[Simulation Run Result • ' + timestamp + ']\n' +
-                    '> Runtime: ' + (fullCodeLangSelect ? fullCodeLangSelect.value : 'python') + ' (Isolated Sandbox Container)\n' +
-                    '-------------------------------------------\n' +
-                    'Original: [3, 1, 4, 1, 5, 9]\n' +
-                    'Prefix sums: [3, 4, 8, 9, 14, 23]\n' +
-                    '-------------------------------------------\n' +
-                    '[Completed in 0.038s with exit code 0]';
-                showToast('Ran code simulation successfully! ✅');
+                isRunningFullCode = false;
+                btnRunFullCode.disabled = false;
+                btnRunFullCode.removeAttribute('aria-busy');
             }, 500);
         });
     }
@@ -718,11 +655,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function applyResizerWidth(clientX) {
         if (!workspaceShell || window.innerWidth <= 960) return;
         var shellRect = workspaceShell.getBoundingClientRect();
+        if (shellRect.width <= 0) return;
         var offset = clientX - shellRect.left;
         var percentage = Math.max(25, Math.min(75, (offset / shellRect.width) * 100));
+        if (isNaN(percentage)) return;
         workspaceShell.style.setProperty('--left-panel-width', percentage + '%');
         if (workspaceResizer) {
             workspaceResizer.setAttribute('aria-valuenow', Math.round(percentage));
+        }
+    }
+
+    function stopDragging() {
+        if (isDragging) {
+            isDragging = false;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
         }
     }
 
@@ -738,13 +685,8 @@ document.addEventListener('DOMContentLoaded', function () {
             applyResizerWidth(e.clientX);
         });
 
-        window.addEventListener('mouseup', function () {
-            if (isDragging) {
-                isDragging = false;
-                document.body.style.cursor = '';
-                document.body.style.userSelect = '';
-            }
-        });
+        window.addEventListener('mouseup', stopDragging);
+        window.addEventListener('blur', stopDragging);
 
         workspaceResizer.addEventListener('touchstart', function () {
             isDragging = true;
@@ -755,9 +697,8 @@ document.addEventListener('DOMContentLoaded', function () {
             applyResizerWidth(e.touches[0].clientX);
         }, { passive: true });
 
-        window.addEventListener('touchend', function () {
-            isDragging = false;
-        });
+        window.addEventListener('touchend', stopDragging);
+        window.addEventListener('touchcancel', stopDragging);
 
         workspaceResizer.addEventListener('keydown', function (e) {
             var currentVal = parseFloat(workspaceShell.style.getPropertyValue('--left-panel-width')) || 50;
@@ -892,11 +833,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var signinForm = document.getElementById('signinForm');
+    var isSigningIn = false;
     if (signinForm) {
         signinForm.addEventListener('submit', function (e) {
             e.preventDefault();
+            if (isSigningIn) return;
             var submitBtn = signinForm.querySelector('.submit');
             if (submitBtn) {
+                isSigningIn = true;
+                submitBtn.disabled = true;
                 submitBtn.textContent = 'SIGNING IN...';
                 setTimeout(function () {
                     submitBtn.textContent = '✓ SUCCESS';
