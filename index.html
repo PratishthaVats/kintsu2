@@ -648,6 +648,73 @@ print("Prefix sums:", solve(sample))</textarea>
             </div>
         </section>
 
+        <section id="feedback" class="feedback-section" aria-labelledby="feedbackTitle">
+            <div class="feedback-header">
+                <span class="badge-pill badge-mint">You → Maker</span>
+                <h2 id="feedbackTitle" class="feedback-title">Got a bug, idea, or beef? Send it.</h2>
+                <p class="feedback-sub">No account needed. Goes straight to the maker.</p>
+            </div>
+
+            <section class="feedback-card" aria-label="Feedback submission form">
+                <header class="feedback-card-top">
+                    <span class="feedback-icon-box" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path>
+                            <path d="M7.5 9.5c0 .687.265 1.383.697 1.844l3.009 3.264a1.14 1.14 0 0 0 .407.314 1 1 0 0 0 .783-.004 1.14 1.14 0 0 0 .398-.31l3.008-3.264A2.77 2.77 0 0 0 16.5 9.5 2.5 2.5 0 0 0 12 8a2.5 2.5 0 0 0-4.5 1.5"></path>
+                        </svg>
+                    </span>
+                    <div>
+                        <h3 class="feedback-card-title">Send feedback</h3>
+                        <p class="feedback-card-desc">Bug? Feature idea? Something confusing? Tell the maker directly.</p>
+                    </div>
+                </header>
+
+                <form class="feedback-form" id="feedbackForm" novalidate>
+                    <div class="category-pills-wrap">
+                        <span class="rating-text" id="catGroupLabel">Topic Category</span>
+                        <div class="category-pills-row" role="radiogroup" aria-labelledby="catGroupLabel">
+                            <button type="button" class="cat-pill" role="radio" aria-checked="false" data-cat="Bug">Bug</button>
+                            <button type="button" class="cat-pill cat-pill-active" role="radio" aria-checked="true" data-cat="Idea">Idea</button>
+                            <button type="button" class="cat-pill" role="radio" aria-checked="false" data-cat="UX">UX</button>
+                            <button type="button" class="cat-pill" role="radio" aria-checked="false" data-cat="Other">Other</button>
+                        </div>
+                    </div>
+
+                    <div class="rating-group">
+                        <label class="rating-label" for="ratingRange">
+                            <span class="rating-text">How's the experience? (<span id="ratingVal" aria-live="polite">4</span>/5)</span>
+                        </label>
+                        <input type="range" id="ratingRange" min="1" max="5" value="4" step="1" aria-label="Experience rating from 1 to 5" aria-valuemin="1" aria-valuemax="5" aria-valuenow="4" class="rating-slider">
+                    </div>
+
+                    <div class="message-group">
+                        <label class="message-label" for="feedbackText">
+                            <span class="message-text">Your message <span class="required-indicator" aria-hidden="true">*</span></span>
+                        </label>
+                        <textarea id="feedbackText" name="feedbackText" rows="4" maxlength="1000" placeholder="Tell me what worked, what didn't, or what you wish existed…" class="feedback-textarea" aria-required="true"></textarea>
+                    </div>
+
+                    <div class="feedback-bottom-row">
+                        <span class="anonymous-text" id="feedbackPrivacyNote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <span>Anonymous submission &bull; Demo mode</span>
+                        </span>
+                        <button type="submit" id="btnSendFeedback" class="brutal-btn brutal-btn-pink send-feedback-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                                <path d="m21.854 2.147-10.94 10.939"></path>
+                            </svg>
+                            <span>Send feedback</span>
+                        </button>
+                    </div>
+                    <div id="feedbackFormStatus" class="feedback-status-msg" role="status" aria-live="polite"></div>
+                </form>
+            </section>
+        </section>
+
         <section class="cta-banner-section">
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Your next lecture can become a study deck today.</h2>

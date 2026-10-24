@@ -1889,12 +1889,228 @@ body.dark .toggle-topic-header {
     font-size: 0.75rem;
 }
 
-
 .editor-document:empty::before {
     content: "Start typing your study notes here...";
     color: var(--muted-foreground);
     pointer-events: none;
 }
+
+.feedback-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+.feedback-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.feedback-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-top: 12px;
+}
+
+.feedback-sub {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin-top: 6px;
+}
+
+.feedback-card {
+    background-color: var(--card);
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-brutal-md);
+    padding: 24px;
+}
+
+.feedback-card-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.feedback-icon-box {
+    width: 44px;
+    height: 44px;
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-md);
+    background-color: var(--lilac);
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-brutal);
+    flex-shrink: 0;
+}
+
+.feedback-card-title {
+    font-size: 1.125rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.feedback-card-desc {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.category-pills-wrap,
+.rating-group,
+.message-group,
+.rating-label,
+.message-label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.category-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cat-pill {
+    padding: 6px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-brutal);
+    background-color: var(--background);
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.cat-pill:hover {
+    background-color: var(--muted);
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px var(--ink);
+}
+
+.cat-pill:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+}
+
+.cat-pill-active {
+    background-color: var(--pink);
+    color: var(--pink-foreground);
+}
+
+.rating-text,
+.message-text {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted-foreground);
+}
+
+.required-indicator {
+    color: var(--pink);
+    margin-left: 2px;
+}
+
+.rating-slider {
+    accent-color: var(--pink);
+    cursor: pointer;
+    width: 100%;
+}
+
+.rating-slider:focus-visible {
+    outline: 3px solid var(--pink);
+    outline-offset: 2px;
+}
+
+.feedback-textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--background);
+    color: var(--foreground);
+    border: 3px solid var(--ink);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    outline: none;
+    resize: vertical;
+}
+
+.feedback-textarea:focus {
+    box-shadow: 0 0 0 4px rgba(244, 63, 133, 0.4);
+}
+
+.feedback-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.anonymous-text {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--muted-foreground);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.send-feedback-btn {
+    padding: 10px 20px;
+}
+
+.send-feedback-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 2px 2px 0px var(--ink);
+}
+
+.feedback-status-msg {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-height: 1.25rem;
+    transition: color 0.15s ease;
+}
+
+.feedback-status-error {
+    color: #e11d48;
+}
+
+.feedback-status-success {
+    color: #059669;
+}
+
+body.dark .feedback-status-success {
+    color: #34d399;
+}
+
+body.dark .feedback-status-error {
+    color: #fb7185;
+}
+
 .cta-banner-section {
     border-top: 3px solid var(--ink);
     background-color: #0e0a15;

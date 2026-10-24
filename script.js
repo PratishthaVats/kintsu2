@@ -778,6 +778,114 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    
+    var feedbackForm = document.getElementById('feedbackForm');
+    var ratingRange = document.getElementById('ratingRange');
+    var ratingVal = document.getElementById('ratingVal');
+    var catPills = document.querySelectorAll('.cat-pill');
+    var feedbackText = document.getElementById('feedbackText');
+    var feedbackFormStatus = document.getElementById('feedbackFormStatus');
+    var btnSendFeedback = document.getElementById('btnSendFeedback');
+    var isSubmittingFeedback = false;
+
+    if (ratingRange && ratingVal) {
+        var updateRatingDisplay = function () {
+            ratingVal.textContent = ratingRange.value;
+            ratingRange.setAttribute('aria-valuenow', ratingRange.value);
+        };
+        ratingRange.addEventListener('input', updateRatingDisplay);
+        ratingRange.addEventListener('change', updateRatingDisplay);
+    }
+
+    function selectCatPill(targetPill) {
+        catPills.forEach(function (p) {
+            p.classList.remove('cat-pill-active');
+            p.setAttribute('aria-checked', 'false');
+        });
+        targetPill.classList.add('cat-pill-active');
+        targetPill.setAttribute('aria-checked', 'true');
+    }
+
+    catPills.forEach(function (pill, index) {
+        pill.addEventListener('click', function () {
+            selectCatPill(pill);
+        });
+        pill.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                var next = catPills[(index + 1) % catPills.length];
+                next.focus();
+                selectCatPill(next);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                var prev = catPills[(index - 1 + catPills.length) % catPills.length];
+                prev.focus();
+                selectCatPill(prev);
+            }
+        });
+    });
+
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (isSubmittingFeedback) return;
+
+            var message = feedbackText ? feedbackText.value.trim() : '';
+            if (!message) {
+                if (feedbackFormStatus) {
+                    feedbackFormStatus.textContent = 'Please enter your message before sending.';
+                    feedbackFormStatus.className = 'feedback-status-msg feedback-status-error';
+                }
+                showToast('Please type a message before submitting ✍️');
+                if (feedbackText) feedbackText.focus();
+                return;
+            }
+
+            var activePill = document.querySelector('.cat-pill.cat-pill-active');
+            var category = activePill ? (activePill.getAttribute('data-cat') || activePill.textContent.trim()) : 'Idea';
+            var rating = ratingRange ? ratingRange.value : '4';
+
+            isSubmittingFeedback = true;
+            if (btnSendFeedback) {
+                btnSendFeedback.disabled = true;
+                btnSendFeedback.setAttribute('aria-busy', 'true');
+                var btnSpan = btnSendFeedback.querySelector('span');
+                if (btnSpan) btnSpan.textContent = 'Sending…';
+            }
+
+            if (feedbackFormStatus) {
+                feedbackFormStatus.textContent = 'Sending feedback anonymously…';
+                feedbackFormStatus.className = 'feedback-status-msg';
+            }
+
+            setTimeout(function () {
+                showToast('Feedback noted (' + category + ' • ' + rating + '★)! Thank you 🙌', 4000);
+                if (feedbackFormStatus) {
+                    feedbackFormStatus.textContent = 'Thank you! Your feedback has been received anonymously for this demo session.';
+                    feedbackFormStatus.className = 'feedback-status-msg feedback-status-success';
+                }
+                feedbackForm.reset();
+                if (ratingVal) ratingVal.textContent = '4';
+                if (ratingRange) {
+                    ratingRange.value = '4';
+                    ratingRange.setAttribute('aria-valuenow', '4');
+                }
+                var defaultPill = document.querySelector('.cat-pill[data-cat="Idea"]') || catPills[0];
+                if (defaultPill) selectCatPill(defaultPill);
+
+                setTimeout(function () {
+                    isSubmittingFeedback = false;
+                    if (btnSendFeedback) {
+                        btnSendFeedback.disabled = false;
+                        btnSendFeedback.removeAttribute('aria-busy');
+                        var btnSpan = btnSendFeedback.querySelector('span');
+                        if (btnSpan) btnSpan.textContent = 'Send feedback';
+                    }
+                }, 1200);
+            }, 500);
+        });
+    }
+
     var signinForm = document.getElementById('signinForm');
     if (signinForm) {
         signinForm.addEventListener('submit', function (e) {
