@@ -935,7 +935,7 @@ body.dark .flashcard-face {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 24px;
 }
 
@@ -2205,4 +2205,412 @@ body.dark .feedback-status-error {
 .toast-box.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ==========================================================================
+   Responsive Refinements & Viewport Adaptations (Commit 9)
+   ========================================================================== */
+
+/* Large Tablets & Small Laptops (<= 1024px) */
+@media (max-width: 1024px) {
+    .nav-container {
+        padding: 10px 20px;
+    }
+
+    .hero-section {
+        padding: 48px 20px 40px;
+    }
+
+    .workspace-section {
+        padding: 32px 16px 72px;
+    }
+}
+
+/* Tablet Portrait & Mobile Stacking (<= 960px) */
+@media (max-width: 960px) {
+    .yt-workspace-shell {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .yt-workspace-left {
+        width: 100% !important;
+        border-right: none;
+        border-bottom: 4px solid var(--ink);
+        padding: 20px 16px;
+    }
+
+    .yt-workspace-right {
+        width: 100% !important;
+        height: auto;
+        padding: 20px 16px;
+    }
+
+    .workspace-resizer {
+        display: none !important;
+    }
+
+    .yt-workspace-shell.mode-guide .yt-workspace-right {
+        display: none;
+    }
+
+    .yt-workspace-shell.mode-notes .yt-workspace-left {
+        display: none;
+    }
+
+    .yt-workspace-shell.mode-notes .yt-workspace-right {
+        border-top: none;
+    }
+}
+
+/* Small Tablets & Large Phones (<= 768px) */
+@media (max-width: 768px) {
+    .header {
+        border-bottom-width: 2.5px;
+    }
+
+    .nav-container {
+        padding: 8px 16px;
+        gap: 12px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.25rem, 8vw, 4rem);
+        line-height: 1.04;
+    }
+
+    .hero-description {
+        font-size: 1.05rem;
+        margin-bottom: 28px;
+    }
+
+    .hero-cta-group {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-cta-group .brutal-cta {
+        width: 100%;
+        text-align: center;
+    }
+
+    .demo-flashcard-section {
+        padding: 24px 16px 60px;
+    }
+
+    .demo-flashcard-card {
+        padding: 24px 16px;
+    }
+
+    .features-section {
+        padding: 32px 16px 60px;
+    }
+
+    .feedback-section {
+        padding: 32px 16px 60px;
+    }
+
+    .cta-banner-section {
+        padding: 60px 16px;
+    }
+
+    .cta-banner-btn-wrap .brutal-cta {
+        width: 100%;
+    }
+}
+
+/* Mobile Devices (<= 640px) */
+@media (max-width: 640px) {
+    .nav-brand .logo-text {
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+    }
+
+    .nav-actions {
+        gap: 8px;
+    }
+
+    .nav-actions .brutal-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .nav-actions a[href="#flashcards"] {
+        display: none;
+    }
+
+    .sparkle-left,
+    .sparkle-right {
+        display: none;
+    }
+
+    .yt-workspace-topline {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .workspace-mode-switcher {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .workspace-mode-button {
+        flex: 1;
+        text-align: center;
+        padding: 6px 4px;
+        font-size: 0.625rem;
+    }
+
+    .yt-video-frame-shell {
+        min-height: 200px;
+        aspect-ratio: 16/9;
+    }
+
+    .yt-timestamp-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .yt-actions-group {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+    }
+
+    .yt-action-btn {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 8px 10px;
+    }
+
+    .editor-tab-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .editor-tabs {
+        width: 100%;
+        display: flex;
+    }
+
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 6px;
+    }
+
+    .editor-command-strip {
+        gap: 4px;
+    }
+
+    .editor-command {
+        width: 32px;
+        height: 32px;
+    }
+
+    .editor-document {
+        padding: 18px 14px;
+        min-height: 320px;
+        font-size: 0.875rem;
+    }
+
+    .sandbox-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .sandbox-select {
+        width: 100%;
+    }
+
+    .sandbox-control-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .sandbox-run-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sticky-footer-pill {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 10px 14px;
+    }
+
+    .sticky-signup-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .footer-links {
+        justify-content: center;
+        gap: 14px;
+    }
+}
+
+/* Compact Mobile Screens (<= 480px & 390px) */
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 8px 10px;
+    }
+
+    .logo-box {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .logo-text {
+        font-size: 0.9rem;
+    }
+
+    .nav-actions {
+        gap: 6px;
+    }
+
+    .nav-actions a[href="signin.html"].brutal-btn-card {
+        display: none;
+    }
+
+    .nav-actions .brutal-btn {
+        padding: 5px 10px;
+        font-size: 0.6875rem;
+    }
+
+    #darkToggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .hero-title {
+        font-size: clamp(1.85rem, 9vw, 2.5rem);
+    }
+
+    .status-pill {
+        padding: 6px 14px;
+        font-size: 0.6875rem;
+    }
+
+    .demo-cards-col {
+        min-height: 270px;
+    }
+
+    .flashcard-deck {
+        width: 100%;
+        max-width: 275px;
+        height: 195px;
+    }
+
+    .flashcard-face {
+        padding: 16px 12px;
+        border-width: 3px;
+        box-shadow: 4px 4px 0px var(--ink);
+    }
+
+    .card-pos-1 {
+        transform: rotate(1deg);
+    }
+
+    .card-pos-2 {
+        transform: translateY(8px) scale(0.98);
+    }
+
+    .card-pos-3 {
+        transform: translateY(16px) scale(0.96) rotate(-1deg);
+    }
+
+    .feedback-card {
+        padding: 18px 14px;
+    }
+
+    .category-pills-row {
+        gap: 6px;
+    }
+
+    .cat-pill {
+        padding: 6px 12px;
+        font-size: 0.65rem;
+        flex: 1 1 calc(50% - 6px);
+        text-align: center;
+    }
+
+    .feedback-bottom-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .send-feedback-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .toast-box {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: calc(100% - 24px);
+        max-width: none;
+        text-align: center;
+        padding: 10px 14px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Extra Compact Devices (<= 360px & 320px) */
+@media (max-width: 360px) {
+    .nav-container {
+        padding: 6px 8px;
+    }
+
+    .logo-text {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .flashcard-deck {
+        max-width: 250px;
+        height: 180px;
+    }
+
+    .yt-video-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .yt-embed-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .feature-card {
+        padding: 18px 12px;
+    }
+
+    .feedback-card {
+        padding: 14px 10px;
+    }
 }

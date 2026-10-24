@@ -691,6 +691,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (b) b.classList.remove('workspace-mode-button-active');
         });
 
+        if (workspaceShell) {
+            workspaceShell.classList.remove('mode-guide', 'mode-split', 'mode-notes');
+            workspaceShell.classList.add('mode-' + mode);
+        }
+
         if (mode === 'guide' && btnModeGuide) {
             btnModeGuide.classList.add('workspace-mode-button-active');
             if (workspaceShell) workspaceShell.style.setProperty('--left-panel-width', '70%');
@@ -711,7 +716,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var isDragging = false;
 
     function applyResizerWidth(clientX) {
-        if (!workspaceShell) return;
+        if (!workspaceShell || window.innerWidth <= 960) return;
         var shellRect = workspaceShell.getBoundingClientRect();
         var offset = clientX - shellRect.left;
         var percentage = Math.max(25, Math.min(75, (offset / shellRect.width) * 100));
