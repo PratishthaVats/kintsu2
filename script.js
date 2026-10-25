@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearTimeout(autoStepTimeout);
             clearInterval(autoDemoTimer);
             if (selectionPopup) selectionPopup.classList.remove('show');
-            renderDemoText(null); 
+            renderDemoText(null);
             showToast('Highlight dismissed', 1500);
         });
     }
@@ -230,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // YouTube Video Workspace & URL Embedding
     var ytUrlInput = document.getElementById('ytUrlInput');
     var btnEmbedVideo = document.getElementById('btnEmbedVideo');
     var ytVideoPlayer = document.getElementById('ytVideoPlayer');
@@ -274,13 +273,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- Commit 5: Rich-Text Notes and Timestamp Links ---
     var editorCanvas = document.getElementById('editorCanvas');
     var btnAddTimestamp = document.getElementById('btnAddTimestamp');
     var btnAiNotes = document.getElementById('btnAiNotes');
     var videoTimeReadout = document.getElementById('videoTimeReadout');
 
-    // Dashboard Note Handoff Integration (kintsu_active_note)
     try {
         var activeNoteRaw = safeGetStorage('kintsu_active_note');
         if (activeNoteRaw) {
@@ -351,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (btnText) btnText.textContent = 'AI Notes';
                 var summarySection = document.createElement('div');
                 summarySection.className = 'toggle-topic toggle-topic-open';
-                summarySection.innerHTML = 
+                summarySection.innerHTML =
                     '<div class="toggle-topic-header" contenteditable="false">' +
                         '<button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">' +
                             '<span class="toggle-topic-caret"></span>' +
@@ -538,7 +535,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    
     var tabNotesBtn = document.getElementById('tabNotesBtn');
     var tabCodeBtn = document.getElementById('tabCodeBtn');
     var notesView = document.getElementById('notesView');
@@ -591,7 +587,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setTimeout(function () {
                 var timestamp = new Date().toLocaleTimeString();
-                embeddedTerminalOutput.textContent = 
+                embeddedTerminalOutput.textContent =
                     '[Sandbox Simulation Output • ' + timestamp + ']\n' +
                     '> Runtime: ' + (embeddedLangSelect ? embeddedLangSelect.value : 'python') + ' (Simulated Environment)\n' +
                     '> Status: 200 OK (0.04s)\n' +
@@ -629,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setTimeout(function () {
                 var timestamp = new Date().toLocaleTimeString();
-                fullCodeTerminalOutput.textContent = 
+                fullCodeTerminalOutput.textContent =
                     '[Simulation Run Result • ' + timestamp + ']\n' +
                     '> Runtime: ' + (fullCodeLangSelect ? fullCodeLangSelect.value : 'python') + ' (Isolated Sandbox Container)\n' +
                     '-------------------------------------------\n' +
@@ -645,7 +641,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    
     var workspaceShell = document.getElementById('workspaceShell');
     var workspaceLeft = document.getElementById('workspaceLeft');
     var btnModeGuide = document.getElementById('btnModeGuide');
@@ -753,7 +748,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    
     var feedbackForm = document.getElementById('feedbackForm');
     var ratingRange = document.getElementById('ratingRange');
     var ratingVal = document.getElementById('ratingVal');

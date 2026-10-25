@@ -1,9 +1,3 @@
-/**
- * Kintsu Local Development & API Server
- * Zero dependencies — runs on pure Node.js standard library.
- * Serves static pages and provides real JSON file persistence on disk.
- */
-
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -13,12 +7,10 @@ const DATA_DIR = path.join(__dirname, 'data');
 const NOTES_FILE = path.join(DATA_DIR, 'notes.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
-// Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-// MIME types dictionary
 const MIME_TYPES = {
     '.html': 'text/html; charset=UTF-8',
     '.css': 'text/css; charset=UTF-8',
@@ -48,7 +40,6 @@ const server = http.createServer((req, res) => {
     const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const pathname = parsedUrl.pathname;
 
-    // CORS Headers for evaluation testing
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -59,7 +50,6 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 1. API Route: Save / Update Notes to data/notes.json
     if (pathname === '/api/notes' && req.method === 'POST') {
         readBody(req, (err, data) => {
             if (err) {
@@ -80,7 +70,6 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 2. API Route: Read Notes from data/notes.json
     if (pathname === '/api/notes' && req.method === 'GET') {
         if (!fs.existsSync(NOTES_FILE)) {
             res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -99,7 +88,6 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 3. API Route: Save User on Signin/Signup to data/users.json
     if (pathname === '/api/users' && req.method === 'POST') {
         readBody(req, (err, user) => {
             if (err || !user.email) {
@@ -141,11 +129,9 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // 4. Static File Serving
     let safePath = pathname === '/' ? '/index.html' : pathname;
     let filePath = path.join(__dirname, safePath);
 
-    // Prevent directory traversal
     if (!filePath.startsWith(__dirname)) {
         res.writeHead(403);
         res.end('Forbidden');

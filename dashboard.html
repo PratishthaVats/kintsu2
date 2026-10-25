@@ -12,14 +12,13 @@
 </head>
 <body class="dark-theme">
 
-    <!-- Top Navigation Bar -->
     <header class="dash-navbar">
         <div class="nav-brand-group">
             <a href="index.html" class="brand-link" title="Return to Home">
                 <div class="brand-avatar" aria-hidden="true">
                     <svg viewBox="0 0 36 36" width="28" height="28" fill="none">
                         <circle cx="18" cy="18" r="16" fill="#F472B6"/>
-                        <!-- Cat face sticker -->
+
                         <polygon points="10,12 14,19 8,19" fill="#18121E"/>
                         <polygon points="26,12 28,19 22,19" fill="#18121E"/>
                         <circle cx="18" cy="22" r="9" fill="#18121E"/>
@@ -43,10 +42,8 @@
         </nav>
     </header>
 
-    <!-- Main Container -->
     <div class="dash-container">
 
-        <!-- Vault Hero Section -->
         <section class="vault-hero">
             <div class="vault-hero-left">
                 <div class="study-vault-badge">
@@ -85,7 +82,6 @@
             </div>
         </section>
 
-        <!-- Multi-select Batch Toolbar (Hidden by default) -->
         <div class="batch-bar" id="batchBar" style="display: none;">
             <div class="batch-left">
                 <span id="selectedCountText">0 notes selected</span>
@@ -96,10 +92,8 @@
             </div>
         </div>
 
-        <!-- Dashboard Layout: Sidebar + Notes Grid -->
         <div class="dash-layout">
 
-            <!-- Left Sidebar (Boards) -->
             <aside class="boards-sidebar">
                 <div class="sidebar-head">
                     <div class="boards-title">
@@ -127,7 +121,6 @@
                 </button>
             </aside>
 
-            <!-- Center Content (Notes Grid) -->
             <main class="notes-content">
                 <div class="notes-header">
                     <h2 class="section-title">
@@ -137,10 +130,9 @@
                 </div>
 
                 <div class="notes-grid" id="notesGrid">
-                    <!-- Note Cards dynamically rendered by dashboard.js -->
+
                 </div>
 
-                <!-- Empty State (Shown when no notes match) -->
                 <div class="empty-state" id="emptyState" style="display: none;">
                     <div class="empty-icon">📓</div>
                     <h3>No notes found in this board</h3>
@@ -152,7 +144,6 @@
 
     </div>
 
-    <!-- Bottom Notification Banner (Yellow Pill) -->
     <div class="sample-note-banner" id="sampleBanner">
         <div class="banner-content">
             <span class="wave-icon">👋</span>
@@ -161,7 +152,6 @@
         <button type="button" class="btn-banner-gotit" id="dismissBannerBtn">GOT IT</button>
     </div>
 
-    <!-- Quick Start Floating Card (Bottom Right) -->
     <aside class="quick-start-widget" id="quickStartWidget">
         <div class="qs-header">
             <div class="qs-title-row">
@@ -180,7 +170,7 @@
                 <strong id="qsStepLabel">Step 1 - Paste your first video</strong>
             </div>
             <p class="qs-desc">Open the editor and paste a YouTube link - or use our suggested video to start immediately.</p>
-            
+
             <div class="qs-actions">
                 <button type="button" class="btn-qs-pink" id="qsSuggestedBtn">Use suggested video</button>
                 <button type="button" class="btn-qs-outline" id="qsPasteBtn">I'll paste my own ↗</button>
@@ -192,7 +182,6 @@
         </div>
     </aside>
 
-    <!-- Modal 1: Create New Note -->
     <div class="modal-backdrop" id="createNoteModal" style="display: none;">
         <div class="modal-card">
             <div class="modal-head">
@@ -254,7 +243,6 @@
         </div>
     </div>
 
-    <!-- Modal 2: Create New Board -->
     <div class="modal-backdrop" id="newBoardModal" style="display: none;">
         <div class="modal-card modal-small">
             <div class="modal-head">
@@ -278,7 +266,6 @@
         </div>
     </div>
 
-    <!-- Notification Toast -->
     <div class="dash-toast" id="dashToast" style="display: none;">
         <span id="toastMessage"></span>
         <button type="button" class="toast-undo" id="toastUndoBtn" style="display: none;">Undo</button>

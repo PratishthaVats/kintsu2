@@ -8,15 +8,12 @@
     <meta property="og:title" content="Kintsu — Learn without context switching">
     <meta property="og:description" content="Video, code compiler, notes, timestamps, and AI flashcards on one gamified study workspace.">
     <meta name="theme-color" content="#fff2fb">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header class="header" id="top">
         <nav class="nav-container">
             <a class="nav-brand" href="/" aria-label="Kintsu Home">
@@ -25,12 +22,10 @@
                 </div>
                 <span class="logo-text">Kintsu</span>
             </a>
-
             <div class="nav-actions">
                 <a href="dashboard.html" class="brutal-btn brutal-btn-card">Dashboard</a>
                 <a href="#live-demo" class="brutal-btn brutal-btn-card">Workspace</a>
                 <a href="#flashcards" class="brutal-btn brutal-btn-card">Flashcards</a>
-
                 <button type="button" id="darkToggle" class="brutal-btn brutal-icon-btn" aria-label="Toggle dark mode">
                     <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
@@ -47,12 +42,10 @@
                         <path d="m19.07 4.93-1.41 1.41"></path>
                     </svg>
                 </button>
-
                 <a href="signin.html" class="brutal-btn brutal-btn-pink">Sign in</a>
             </div>
         </nav>
     </header>
-
     <div class="top-marquee-banner" aria-hidden="true">
         <div class="marquee-track">
             <div class="marquee-content">
@@ -77,31 +70,25 @@
             </div>
         </div>
     </div>
-
     <main class="main-content">
-
         <div aria-hidden="true" class="hero-glow-layer">
             <div class="glow-blob glow-pink"></div>
             <div class="glow-blob glow-lilac"></div>
             <div class="glow-blob glow-yellow"></div>
         </div>
-
         <section class="hero-section">
             <div class="hero-badge-wrap">
-
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" class="sparkle-float sparkle-left">
                     <path d="M24 2c1.6 11.6 9.4 19.4 21 21-11.6 1.6-19.4 9.4-21 21-1.6-11.6-9.4-19.4-21-21C14.6 21.4 22.4 13.6 24 2Z" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"></path>
                 </svg>
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" class="sparkle-float sparkle-right">
                     <path d="M24 2c1.6 11.6 9.4 19.4 21 21-11.6 1.6-19.4 9.4-21 21-1.6-11.6-9.4-19.4-21-21C14.6 21.4 22.4 13.6 24 2Z" fill="var(--mint)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"></path>
                 </svg>
-
                 <span class="status-pill">
                     <span class="status-dot"></span>
                     <span>Live · No signup to explore</span>
                 </span>
             </div>
-
             <h1 class="hero-title">
                 Study without <br>
                 <span class="title-highlight">
@@ -109,13 +96,11 @@
                     <span class="title-highlight-bar" aria-hidden="true"></span>
                 </span>
             </h1>
-
             <p class="hero-description">
                 Watch lectures, take notes, run code, and turn highlights into
                 <span class="bold-highlight">AI flashcards</span>
                 — all in one tab.
             </p>
-
             <div class="hero-cta-group">
                 <a href="signin.html" class="brutal-cta brutal-cta-pink">
                     <span>Start learning free</span>
@@ -128,7 +113,6 @@
                     <span>Try the workspace</span>
                 </a>
             </div>
-
             <div class="social-proof-wrap">
                 <div class="avatar-stack">
                     <div class="avatar-circle av-color-1"></div>
@@ -139,11 +123,9 @@
                 <span class="social-proof-text">Joined by 100+ learners</span>
             </div>
         </section>
-
         <section class="demo-flashcard-section" id="flashcards">
             <div class="demo-flashcard-card">
                 <div class="demo-flashcard-grid">
-
                     <div class="demo-note-col">
                         <span class="badge-pill badge-mint">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -158,28 +140,23 @@
                             </svg>
                             Live demo
                         </span>
-
                         <h3 class="demo-heading">Select text → AI generates flashcards.</h3>
                         <p class="demo-sub">Highlight anything in your notes. We turn it into recall-ready cards, instantly.</p>
-
                         <div class="demo-hint-row">
                             <span class="hint-pulse-dot"></span>
                             <span>Try highlighting the text below</span>
                         </div>
-
                         <div class="sample-note-container" id="sampleNoteBox">
                             <p class="sample-note-body" id="selectableText">
                                 Modern LLMs rely on Transformer self-attention to process entire sequences in parallel. Unlike sequential RNNs, Multi-Head Attention allows tokens to dynamically attend to contextual relationships across distant words.
                                 <mark class="demo-highlight-mark" id="interactiveMark">Scaled Dot-Product Attention computes query-key affinity scores normalized by the square root of the head dimension.</mark>
                             </p>
-
                             <div class="selection-popup" id="selectionPopup" role="dialog" aria-hidden="true">
                                 <span class="popup-title">Create flashcards?</span>
                                 <button type="button" class="popup-btn popup-btn-yes" id="btnCreateFlashcard">Yes</button>
                                 <button type="button" class="popup-btn popup-btn-no" id="btnDismissFlashcard">No</button>
                             </div>
                         </div>
-
                         <div class="synthesis-banner" id="synthesisBanner" aria-live="polite">
                             <span class="synthesis-icon-box">
                                 <svg class="spin-slow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -192,10 +169,8 @@
                             <span class="synthesis-text">Running AI recall synthesis…</span>
                         </div>
                     </div>
-
                     <div class="demo-cards-col">
                         <div class="flashcard-deck" id="flashcardDeck">
-
                             <div class="flashcard-item card-pos-1" data-index="0" role="button" tabindex="0" title="Click to flip or cycle">
                                 <div class="flashcard-flip-inner">
                                     <div class="flashcard-face flashcard-front">
@@ -210,7 +185,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="flashcard-item card-pos-2" data-index="1" role="button" tabindex="0" title="Click to flip or cycle">
                                 <div class="flashcard-flip-inner">
                                     <div class="flashcard-face flashcard-front">
@@ -225,7 +199,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="flashcard-item card-pos-3" data-index="2" role="button" tabindex="0" title="Click to flip or cycle">
                                 <div class="flashcard-flip-inner">
                                     <div class="flashcard-face flashcard-front">
@@ -240,14 +213,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
-
         <section class="ribbon-ticker" aria-hidden="true">
             <div class="ribbon-wrap">
                 <span class="ribbon-item">Video + notes<span class="ribbon-star">✦</span></span>
@@ -258,15 +228,12 @@
                 <span class="ribbon-item">Cloud sync</span>
             </div>
         </section>
-
         <section id="features" class="features-section">
             <div class="features-header">
                 <span class="badge-pill badge-yellow">Features</span>
                 <h2 class="features-title">The whole learning loop, one screen.</h2>
             </div>
-
             <div class="features-grid">
-
                 <article class="feature-card">
                     <span class="feature-icon-box bg-icon-pink">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -277,7 +244,6 @@
                     <h3 class="feature-name">Video, notes, and code</h3>
                     <p class="feature-desc">Keep the lecture, your editor, and runnable examples in one focused workspace.</p>
                 </article>
-
                 <article class="feature-card">
                     <span class="feature-icon-box bg-icon-yellow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -290,7 +256,6 @@
                     <h3 class="feature-name">AI flashcards</h3>
                     <p class="feature-desc">Highlight anything — get recall-ready decks in seconds.</p>
                 </article>
-
                 <article class="feature-card">
                     <span class="feature-icon-box bg-icon-mint">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -301,7 +266,6 @@
                     <h3 class="feature-name">Active timestamps</h3>
                     <p class="feature-desc">Jump from any note back to the exact moment in the video.</p>
                 </article>
-
                 <article class="feature-card">
                     <span class="feature-icon-box bg-icon-lilac">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -312,7 +276,6 @@
                     <h3 class="feature-name">Executable code</h3>
                     <p class="feature-desc">Practice the concept as you learn it. Python, JS, and more.</p>
                 </article>
-
                 <article class="feature-card">
                     <span class="feature-icon-box bg-icon-sky">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -324,7 +287,6 @@
                     <h3 class="feature-name">Organized sessions</h3>
                     <p class="feature-desc">Every lecture, note, and generated deck one search away.</p>
                 </article>
-
                 <article class="feature-card">
                     <span class="feature-icon-box bg-icon-pink">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -336,7 +298,6 @@
                 </article>
             </div>
         </section>
-
         <div id="workspace"></div>
         <section id="live-demo" class="workspace-section">
             <div class="workspace-header">
@@ -344,38 +305,29 @@
                 <h2 class="workspace-title">Try the real workspace right here.</h2>
                 <p class="workspace-sub">Paste a YouTube link, take real notes, and highlight text to generate real AI flashcards. Nothing is faked. Sign up when you want to save.</p>
             </div>
-
             <div class="workspace-frame osn-scope">
                 <div class="yt-workspace-shell" id="workspaceShell" style="--left-panel-width: 50%;">
-
                     <div class="yt-workspace-left" id="workspaceLeft">
                         <div class="yt-workspace-grid" aria-hidden="true"></div>
-
                         <div class="yt-workspace-topline">
                             <a href="dashboard.html" class="workspace-badge-link">Back To Dashboard</a>
-
                             <div class="workspace-mode-switcher" role="group" aria-label="Layout modes">
                                 <button type="button" class="workspace-mode-button" id="btnModeGuide">Guide</button>
                                 <button type="button" class="workspace-mode-button workspace-mode-button-active" id="btnModeSplit">Split</button>
                                 <button type="button" class="workspace-mode-button" id="btnModeNotes">Notes</button>
                             </div>
                         </div>
-
                         <div class="yt-video-card">
                             <div class="yt-video-panel">
-
                                 <div class="yt-video-toolbar">
                                     <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL" class="yt-url-input" value="https://www.youtube.com/watch?v=LPZh9BOjkQs">
                                     <button type="button" id="btnEmbedVideo" class="yt-embed-btn">Embed</button>
                                 </div>
-
                                 <div class="yt-video-frame-shell">
                                     <iframe id="ytVideoPlayer" class="yt-video-frame" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="YouTube Video Player" src="https://www.youtube.com/embed/LPZh9BOjkQs?enablejsapi=1&rel=0&modestbranding=1"></iframe>
                                 </div>
-
                                 <div class="yt-timestamp-bar">
                                     <span class="yt-timestamp-readout" id="videoTimeReadout">3:33</span>
-
                                     <div class="yt-actions-group">
                                         <button type="button" id="btnAiNotes" class="yt-action-btn yt-action-btn--ai" title="Generate AI Summary from Transcript">
                                             <span>✦</span>
@@ -389,24 +341,19 @@
                             </div>
                         </div>
                     </div>
-
                     <div role="separator" tabindex="0" class="workspace-resizer" id="workspaceResizer" aria-label="Resize panels">
                         <span class="workspace-resizer-handle"></span>
                     </div>
-
                     <div class="yt-workspace-right" id="workspaceRight">
                         <div class="workspace-right-content">
-
                             <div class="editor-tab-row">
                                 <div class="editor-tabs">
                                     <button type="button" id="tabNotesBtn" class="tab-btn tab-btn-active">Notes</button>
                                     <button type="button" id="tabCodeBtn" class="tab-btn">Code</button>
                                 </div>
                             </div>
-
                             <div class="editor-tab-content" id="notesView">
                                 <div class="editor-shell">
-
                                     <div class="editor-menu-bar">
                                         <div class="editor-command-strip">
                                             <button type="button" class="editor-command" id="cmdVoice" title="Voice to text" aria-label="Voice to text">
@@ -454,12 +401,10 @@
                                         </div>
                                         <button type="button" class="editor-code-pill" id="btnInsertCodeBlock">CODE</button>
                                     </div>
-
                                     <div class="editor-scroll-area">
                                         <div class="editor-document" id="editorCanvas" contenteditable="true" spellcheck="false">
                                             <h1>Neural Network Fundamentals: Structural Overview</h1>
                                             <p>This video provides a foundational look at the structure of neural networks, using the classic task of handwritten digit recognition as a pedagogical example <span data-timestamp="203" class="timestamp-link" title="Jump video to 3:23" role="button">[3:23]</span>.</p>
-
                                             <div class="toggle-topic toggle-topic-open">
                                                 <div class="toggle-topic-header" contenteditable="false">
                                                     <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
@@ -475,7 +420,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
                                             <div class="toggle-topic toggle-topic-open">
                                                 <div class="toggle-topic-header" contenteditable="false">
                                                     <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
@@ -492,7 +436,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
                                             <div class="toggle-topic toggle-topic-open">
                                                 <div class="toggle-topic-header" contenteditable="false">
                                                     <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
@@ -508,7 +451,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
                                             <div class="toggle-topic toggle-topic-open">
                                                 <div class="toggle-topic-header" contenteditable="false">
                                                     <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
@@ -518,7 +460,6 @@
                                                 </div>
                                                 <div class="toggle-topic-content">
                                                     <p>Linear algebra represents activations as vectors and layer weights as weight matrices.</p>
-
                                                     <div class="embedded-sandbox-card" contenteditable="false">
                                                         <div class="sandbox-topbar">
                                                             <div class="sandbox-window-dots">
@@ -536,31 +477,25 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-
                                                         <div class="sandbox-editor-wrapper">
                                                             <div class="sandbox-code-header">
                                                                 <span>Single File Sandbox Input</span>
                                                                 <span class="syntax-badge" id="syntaxBadge">Syntax: python</span>
                                                             </div>
                                                             <textarea id="embeddedCodeInput" class="sandbox-textarea" spellcheck="false">import math
-
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
-
 # Weighted sum with bias
 inputs = [0.8, 0.4, 0.9]
 weights = [0.5, -0.2, 0.7]
 bias = 0.1
-
 activation = sigmoid(sum(w * i for w, i in zip(weights, inputs)) + bias)
 print(f"Computed Neuron Activation: {activation:.4f}")</textarea>
                                                         </div>
-
                                                         <div class="sandbox-control-row">
                                                             <input type="text" class="sandbox-stdin" placeholder="Hook standard runtime input data streams here (stdin)">
                                                             <button type="button" class="sandbox-run-btn" id="btnRunEmbeddedCode">Run Engine</button>
                                                         </div>
-
                                                         <div class="sandbox-terminal">
                                                             <div class="terminal-bar">Terminal Diagnostic Outputs</div>
                                                             <pre class="terminal-output" id="embeddedTerminalOutput">Ready to execute. Click 'Run Engine' above.</pre>
@@ -568,7 +503,6 @@ print(f"Computed Neuron Activation: {activation:.4f}")</textarea>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="toggle-topic toggle-topic-open">
                                                 <div class="toggle-topic-header" contenteditable="false">
                                                     <button type="button" class="toggle-topic-trigger" aria-label="Toggle topic">
@@ -583,12 +517,10 @@ print(f"Computed Neuron Activation: {activation:.4f}")</textarea>
                                                     </blockquote>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="editor-tab-content" id="codeView" style="display: none;">
                                 <div class="full-code-workspace">
                                     <div class="sandbox-topbar">
@@ -608,7 +540,6 @@ print(f"Computed Neuron Activation: {activation:.4f}")</textarea>
                                     </div>
                                     <textarea id="fullCodeInput" class="full-code-textarea" spellcheck="false"># Dynamic Code Sandbox
 # Write code directly alongside your study lecture notes
-
 def solve(arr):
     # Sort and return cumulative sum
     prefix = []
@@ -617,7 +548,6 @@ def solve(arr):
         curr += x
         prefix.append(curr)
     return prefix
-
 sample = [3, 1, 4, 1, 5, 9]
 print("Original:", sample)
 print("Prefix sums:", solve(sample))</textarea>
@@ -631,31 +561,24 @@ print("Prefix sums:", solve(sample))</textarea>
                                     </div>
                                 </div>
                             </div>
-
                             <a href="signin.html" class="workspace-save-btn">Sign up free to save</a>
-
                         </div>
                     </div>
-
                 </div>
-
                 <div class="workspace-sticky-footer">
                     <div class="sticky-footer-pill">
                         <p class="sticky-footer-text">Loving it? Sign up free to save this.</p>
                         <a href="signin.html" class="brutal-btn brutal-btn-pink sticky-signup-btn">Sign up</a>
                     </div>
                 </div>
-
             </div>
         </section>
-
         <section id="feedback" class="feedback-section" aria-labelledby="feedbackTitle">
             <div class="feedback-header">
                 <span class="badge-pill badge-mint">You → Maker</span>
                 <h2 id="feedbackTitle" class="feedback-title">Got a bug, idea, or beef? Send it.</h2>
                 <p class="feedback-sub">No account needed. Goes straight to the maker.</p>
             </div>
-
             <section class="feedback-card" aria-label="Feedback submission form">
                 <header class="feedback-card-top">
                     <span class="feedback-icon-box" aria-hidden="true">
@@ -669,7 +592,6 @@ print("Prefix sums:", solve(sample))</textarea>
                         <p class="feedback-card-desc">Bug? Feature idea? Something confusing? Tell the maker directly.</p>
                     </div>
                 </header>
-
                 <form class="feedback-form" id="feedbackForm" novalidate>
                     <div class="category-pills-wrap">
                         <span class="rating-text" id="catGroupLabel">Topic Category</span>
@@ -680,21 +602,18 @@ print("Prefix sums:", solve(sample))</textarea>
                             <button type="button" class="cat-pill" role="radio" aria-checked="false" data-cat="Other">Other</button>
                         </div>
                     </div>
-
                     <div class="rating-group">
                         <label class="rating-label" for="ratingRange">
                             <span class="rating-text">How's the experience? (<span id="ratingVal" aria-live="polite">4</span>/5)</span>
                         </label>
                         <input type="range" id="ratingRange" min="1" max="5" value="4" step="1" aria-label="Experience rating from 1 to 5" aria-valuemin="1" aria-valuemax="5" aria-valuenow="4" class="rating-slider">
                     </div>
-
                     <div class="message-group">
                         <label class="message-label" for="feedbackText">
                             <span class="message-text">Your message <span class="required-indicator" aria-hidden="true">*</span></span>
                         </label>
                         <textarea id="feedbackText" name="feedbackText" rows="4" maxlength="1000" placeholder="Tell me what worked, what didn't, or what you wish existed…" class="feedback-textarea" aria-required="true"></textarea>
                     </div>
-
                     <div class="feedback-bottom-row">
                         <span class="anonymous-text" id="feedbackPrivacyNote">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -715,7 +634,6 @@ print("Prefix sums:", solve(sample))</textarea>
                 </form>
             </section>
         </section>
-
         <section class="cta-banner-section">
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Your next lecture can become a study deck today.</h2>
@@ -732,7 +650,6 @@ print("Prefix sums:", solve(sample))</textarea>
             </div>
         </section>
     </main>
-
     <footer class="site-footer">
         <div class="footer-container">
             <span class="footer-brand">Kintsu</span>
@@ -744,15 +661,12 @@ print("Prefix sums:", solve(sample))</textarea>
             </div>
         </div>
     </footer>
-
     <div id="workspaceSelectionBubble" class="workspace-selection-bubble" role="dialog" aria-hidden="true" style="display: none;">
         <span class="bubble-title">Create flashcards?</span>
         <button type="button" class="bubble-btn bubble-btn-yes" id="bubbleBtnYes">Yes</button>
         <button type="button" class="bubble-btn bubble-btn-no" id="bubbleBtnNo">No</button>
     </div>
-
     <div id="toastNotification" class="toast-box" role="status" aria-live="polite"></div>
-
     <script src="script.js"></script>
 </body>
 </html>
