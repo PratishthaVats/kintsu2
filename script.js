@@ -280,6 +280,35 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnAiNotes = document.getElementById('btnAiNotes');
     var videoTimeReadout = document.getElementById('videoTimeReadout');
 
+    // Dashboard Note Handoff Integration (kintsu_active_note)
+    try {
+        var activeNoteRaw = safeGetStorage('kintsu_active_note');
+        if (activeNoteRaw) {
+            var activeNote = JSON.parse(activeNoteRaw);
+            if (activeNote && typeof activeNote === 'object') {
+                if (activeNote.videoUrl && typeof activeNote.videoUrl === 'string' && ytVideoPlayer) {
+                    var handoffVideoId = extractYouTubeId(activeNote.videoUrl);
+                    if (handoffVideoId) {
+                        ytVideoPlayer.src = 'https://www.youtube.com/embed/' + encodeURIComponent(handoffVideoId) + '?enablejsapi=1&rel=0&modestbranding=1';
+                        if (ytUrlInput) ytUrlInput.value = activeNote.videoUrl;
+                    }
+                }
+                if (activeNote.title && typeof activeNote.title === 'string' && editorCanvas) {
+                    var noteTitleH1 = editorCanvas.querySelector('h1');
+                    if (noteTitleH1) {
+                        noteTitleH1.textContent = activeNote.title;
+                    }
+                }
+                if (activeNote.summary && typeof activeNote.summary === 'string' && editorCanvas) {
+                    var noteIntroP = editorCanvas.querySelector('p');
+                    if (noteIntroP) {
+                        noteIntroP.textContent = activeNote.summary;
+                    }
+                }
+            }
+        }
+    } catch (e) {}
+
     var currentLectureSeconds = 213;
 
     function formatTime(secs) {
@@ -838,7 +867,39 @@ document.addEventListener('DOMContentLoaded', function () {
         signinForm.addEventListener('submit', function (e) {
             e.preventDefault();
             if (isSigningIn) return;
+
+            var emailInput = signinForm.querySelector('input[type="email"]');
+            var passwordInput = signinForm.querySelector('input[type="password"]');
             var submitBtn = signinForm.querySelector('.submit');
+
+            var email = emailInput ? emailInput.value.trim() : '';
+            var password = passwordInput ? passwordInput.value : '';
+
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address.');
+                if (emailInput) emailInput.focus();
+                return;
+            }
+
+            if (!password || password.length < 4) {
+                alert('Password must be at least 4 characters long.');
+                if (passwordInput) passwordInput.focus();
+                return;
+            }
+
+            var username = email.split('@')[0];
+            var userRecord = { email: email, username: username };
+
+            safeSetStorage('kintsu_user', JSON.stringify(userRecord));
+
+            if (window.fetch) {
+                fetch('/api/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userRecord)
+                }).catch(function () {});
+            }
+
             if (submitBtn) {
                 isSigningIn = true;
                 submitBtn.disabled = true;
@@ -846,9 +907,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(function () {
                     submitBtn.textContent = '✓ SUCCESS';
                     setTimeout(function () {
-                        window.location.href = 'index.html#features';
-                    }, 500);
-                }, 600);
+                        window.location.href = 'dashboard.html';
+                    }, 400);
+                }, 500);
             }
         });
     }
