@@ -148,4 +148,87 @@ window.openNote = function (id) {
 
 // Delete Note
 window.deleteNote = function (id) {
+    notes = notes.filter(n => n.id !== id);
+    saveNotes();
+    renderNotes();
+};
+
+// 4. FORM VALIDATION & SUBMISSION: Add Note
+if (createForm) {
+    createForm.onsubmit = function (e) {
+        e.preventDefault();
+        let isValid = true;
+        const title = titleInput.value.trim();
+        const url = videoInput.value.trim();
+
+        if (!title || title.length < 3) {
+            titleInput.classList.add('error');
+            titleError.textContent = 'Title must be at least 3 characters.';
+            isValid = false;
+        } else {
+            titleInput.classList.remove('error');
+            titleError.textContent = '';
+        }
+
+        if (!url || !url.includes('youtu')) {
+            videoInput.classList.add('error');
+            videoError.textContent = 'Please enter a valid YouTube video link.';
+            isValid = false;
+        } else {
+            videoInput.classList.remove('error');
+            videoError.textContent = '';
+        }
+
+        if (!isValid) return;
+
+        const selectedTheme = createForm.querySelector('input[name="coverTheme"]:checked')?.value || 'llm';
+        notes.unshift({
+            id: 'LP' + Math.random().toString(36).substring(2, 8).toUpperCase(),
+            title: title,
+            videoUrl: url,
+            coverTheme: selectedTheme,
+            date: new Date().toLocaleDateString('en-GB')
+        });
+
+        saveNotes();
+        renderNotes();
+        createForm.reset();
+        modal.style.display = 'none';
+    };
+}
+
+// 5. EVALUATION PARAMETER 4: Export Saved Notes to JSON File
+const exportBtn = document.getElementById('exportJsonBtn');
+if (exportBtn) {
+    exportBtn.onclick = () => {
+        const blob = new Blob([JSON.stringify(notes, null, 2)], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'kintsu_vault_notes.json';
+        link.click();
+    };
+}
+
+// 6. MODAL & WIDGET CONTROLS
+document.getElementById('openCreateNoteModalBtn').onclick = () => { modal.style.display = 'flex'; };
+document.getElementById('closeCreateModalBtn').onclick = () => { modal.style.display = 'none'; };
+document.getElementById('cancelCreateModalBtn').onclick = () => { modal.style.display = 'none'; };
+
+const qsSuggested = document.getElementById('qsSuggestedBtn');
+if (qsSuggested) {
+    qsSuggested.onclick = () => {
+        modal.style.display = 'flex';
+        titleInput.value = 'Python for Beginners · Programming with Mosh';
+        videoInput.value = 'https://www.youtube.com/watch?v=_uQrJ0TkZlc';
+    };
+}
+const qsPaste = document.getElementById('qsPasteBtn');
+if (qsPaste) qsPaste.onclick = () => { modal.style.display = 'flex'; };
+const qsClose = document.getElementById('qsCloseBtn');
+if (qsClose) qsClose.onclick = () => { document.getElementById('quickStartWidget').style.display = 'none'; };
+
+function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 initApp();
