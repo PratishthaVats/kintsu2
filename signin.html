@@ -11,12 +11,12 @@
 
     <!-- Header / Nav -->
     <header class="header">
-        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>KINTSU</a>
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>KINTSU</a>
         <div class="nav-right">
-            <a href="#">Dashboard</a>
-            <a href="#">Flashcards</a>
-            <button type="button" id="darkToggle">Toggle</button>
-            <a href="/signin.html">Sign in</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#flashcards">Flashcards</a>
+            <button type="button" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
+            <a href="signin.html">Sign in</a>
         </div>
     </header>
 
@@ -33,12 +33,12 @@
             <form class="form" id="signinForm" method="POST">
                 <label class="label">
                     <span class="label-text">EMAIL</span>
-                    <input class="input" type="email" name="email" required>
+                    <input class="input" type="email" name="email" required placeholder="name@domain.com" autocomplete="email">
                 </label>
 
                 <label class="label">
                     <span class="label-text">PASSWORD</span>
-                    <input class="input" type="password" name="password" required>
+                    <input class="input" type="password" name="password" required placeholder="••••••••" autocomplete="current-password">
                 </label>
 
                 <button class="submit" type="submit">SIGN IN</button>

@@ -211,6 +211,7 @@ a {
     border-radius: 12px;
     box-shadow: 4px 4px 0 var(--ink);
     color: var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .submit:hover {
@@ -239,6 +240,7 @@ a {
     border-radius: 12px;
     box-shadow: 4px 4px 0 var(--ink);
     color: var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 #googleBtn:hover {
@@ -261,6 +263,7 @@ a {
     border-radius: 999px;
     box-shadow: 3px 3px 0 var(--ink);
     color: var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .create:hover {
