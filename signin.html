@@ -4,24 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in · Kintsu</title>
-
     <link rel="stylesheet" href="signin.css">
 </head>
 <body>
 
-    <header class="header">
-        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>KINTSU</a>
-        <div class="nav-right">
-            <a href="index.html#features">Features</a>
-            <a href="index.html#flashcards">Flashcards</a>
-            <button type="button" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
-            <a href="signin.html">Sign in</a>
-        </div>
+    <header class="header" id="top">
+        <nav class="nav-container">
+            <a class="nav-brand" href="index.html" aria-label="Kintsu Home">
+                <div class="logo-box">
+                    <span class="logo-icon">✦</span>
+                </div>
+                <span class="logo-text">Kintsu</span>
+            </a>
+            <div class="nav-actions">
+                <a href="dashboard.html" class="brutal-btn brutal-btn-card">Dashboard</a>
+                <a href="index.html#live-demo" class="brutal-btn brutal-btn-card">Workspace</a>
+                <a href="index.html#flashcards" class="brutal-btn brutal-btn-card">Flashcards</a>
+                <button type="button" id="darkToggle" class="brutal-btn brutal-icon-btn" aria-label="Toggle dark mode">
+                    <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
+                    </svg>
+                    <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                </button>
+                <a href="signin.html" class="brutal-btn brutal-btn-pink">Sign in</a>
+            </div>
+        </nav>
     </header>
 
     <main class="main">
         <div class="card">
-
             <div class="card-head">
                 <span class="badge">SIGN IN</span>
                 <h1 class="title">Welcome back</h1>
@@ -54,7 +75,6 @@
                 <span class="foot-text">New here?</span>
                 <a class="create" href="#">Create an account</a>
             </div>
-
         </div>
     </main>
 

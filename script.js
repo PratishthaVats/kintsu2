@@ -1,41 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-    var toastBox = document.getElementById('toastNotification');
-    var toastTimeout;
-
+    var toastBox = document.getElementById('toastNotification'), toastTimeout;
     function showToast(message, duration) {
         if (!toastBox) return;
         duration = duration || 3000;
         clearTimeout(toastTimeout);
         toastBox.textContent = message;
         toastBox.classList.add('show');
-        toastTimeout = setTimeout(function () {
-            toastBox.classList.remove('show');
-        }, duration);
+        toastTimeout = setTimeout(function () { toastBox.classList.remove('show'); }, duration);
     }
-
     function safeGetStorage(key) {
         try {
             return localStorage.getItem(key);
-        } catch (e) {
-            return null;
-        }
+        } catch (e) { return null; }
     }
-
     function safeSetStorage(key, value) {
         try {
             localStorage.setItem(key, value);
         } catch (e) {}
     }
-
-    var darkToggle = document.getElementById('darkToggle');
-    var savedTheme = safeGetStorage('kintsu_theme');
-
+    var darkToggle = document.getElementById('darkToggle'), savedTheme = safeGetStorage('kintsu_theme');
     if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.body.classList.add('dark');
         document.documentElement.classList.add('dark');
     }
-
     if (darkToggle) {
         darkToggle.addEventListener('click', function () {
             document.body.classList.toggle('dark');
@@ -45,38 +32,16 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast(isDark ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 1800);
         });
     }
-
-    var selectableText = document.getElementById('selectableText');
-    var selectionPopup = document.getElementById('selectionPopup');
-    var btnCreateFlashcard = document.getElementById('btnCreateFlashcard');
-    var btnDismissFlashcard = document.getElementById('btnDismissFlashcard');
-    var synthesisBanner = document.getElementById('synthesisBanner');
-    var flashcardDeck = document.getElementById('flashcardDeck');
-
-    var FULL_DEMO_TEXT = "Modern LLMs rely on Transformer self-attention to process entire sequences in parallel. Unlike sequential RNNs, Multi-Head Attention allows tokens to dynamically attend to contextual relationships across distant words. Scaled Dot-Product Attention computes query-key affinity scores normalized by the square root of the head dimension.";
-    var DEFAULT_HIGHLIGHT = "Scaled Dot-Product Attention computes query-key affinity scores normalized by the square root of the head dimension.";
-
-    var isUserInteracted = false;
-    var autoDemoTimer = null;
-    var autoStepTimeout = null;
-
+    var selectableText = document.getElementById('selectableText'), selectionPopup = document.getElementById('selectionPopup'), btnCreateFlashcard = document.getElementById('btnCreateFlashcard'), btnDismissFlashcard = document.getElementById('btnDismissFlashcard'), synthesisBanner = document.getElementById('synthesisBanner'), flashcardDeck = document.getElementById('flashcardDeck'), FULL_DEMO_TEXT = "Modern LLMs rely on Transformer self-attention to process entire sequences in parallel. Unlike sequential RNNs, Multi-Head Attention allows tokens to dynamically attend to contextual relationships across distant words. Scaled Dot-Product Attention computes query-key affinity scores normalized by the square root of the head dimension.", DEFAULT_HIGHLIGHT = "Scaled Dot-Product Attention computes query-key affinity scores normalized by the square root of the head dimension.", isUserInteracted = false, autoDemoTimer = null, autoStepTimeout = null;
     function renderDemoText(highlightPhrase) {
         if (!selectableText) return;
         selectableText.innerHTML = '';
-
         if (!highlightPhrase || !FULL_DEMO_TEXT.includes(highlightPhrase)) {
             selectableText.textContent = FULL_DEMO_TEXT;
             return;
         }
-
-        var idx = FULL_DEMO_TEXT.indexOf(highlightPhrase);
-        var beforeText = FULL_DEMO_TEXT.substring(0, idx);
-        var afterText = FULL_DEMO_TEXT.substring(idx + highlightPhrase.length);
-
-        if (beforeText) {
-            selectableText.appendChild(document.createTextNode(beforeText));
-        }
-
+        var idx = FULL_DEMO_TEXT.indexOf(highlightPhrase), beforeText = FULL_DEMO_TEXT.substring(0, idx), afterText = FULL_DEMO_TEXT.substring(idx + highlightPhrase.length);
+        if (beforeText) { selectableText.appendChild(document.createTextNode(beforeText)); }
         var mark = document.createElement('mark');
         mark.className = 'demo-highlight-mark';
         mark.id = 'interactiveMark';
@@ -84,50 +49,33 @@ document.addEventListener('DOMContentLoaded', function () {
         mark.title = 'Click to show flashcard prompt';
         mark.addEventListener('click', function (e) {
             e.stopPropagation();
-            if (selectionPopup) {
-                selectionPopup.classList.toggle('show');
-            }
+            if (selectionPopup) { selectionPopup.classList.toggle('show'); }
         });
         selectableText.appendChild(mark);
-
-        if (afterText) {
-            selectableText.appendChild(document.createTextNode(afterText));
-        }
+        if (afterText) { selectableText.appendChild(document.createTextNode(afterText)); }
     }
-
     renderDemoText(DEFAULT_HIGHLIGHT);
-    if (selectionPopup) {
-        selectionPopup.classList.add('show');
-    }
-
+    if (selectionPopup) { selectionPopup.classList.add('show'); }
     function handleDemoSelection() {
         var sel = window.getSelection();
         if (!sel || sel.isCollapsed) return;
-
-        var selectedStr = sel.toString().trim();
-        var normalized = selectedStr.replace(/\s+/g, ' ');
-
+        var selectedStr = sel.toString().trim(), normalized = selectedStr.replace(/\s+/g, ' ');
         if (normalized.length >= 6) {
             var matchIdx = FULL_DEMO_TEXT.indexOf(normalized);
             if (matchIdx !== -1) {
                 isUserInteracted = true;
                 clearTimeout(autoStepTimeout);
                 clearInterval(autoDemoTimer);
-
                 renderDemoText(normalized);
-                if (selectionPopup) {
-                    selectionPopup.classList.add('show');
-                }
+                if (selectionPopup) { selectionPopup.classList.add('show'); }
                 sel.removeAllRanges();
             }
         }
     }
-
     if (selectableText) {
         selectableText.addEventListener('mouseup', handleDemoSelection);
         selectableText.addEventListener('touchend', handleDemoSelection);
     }
-
     if (btnDismissFlashcard) {
         btnDismissFlashcard.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -139,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Highlight dismissed', 1500);
         });
     }
-
     if (btnCreateFlashcard) {
         btnCreateFlashcard.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -148,9 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearInterval(autoDemoTimer);
             if (selectionPopup) selectionPopup.classList.remove('show');
             if (synthesisBanner) synthesisBanner.classList.add('active');
-
             showToast('Running AI recall synthesis…', 2000);
-
             setTimeout(function () {
                 if (synthesisBanner) synthesisBanner.classList.remove('active');
                 cycleCardDeck();
@@ -158,22 +103,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1200);
         });
     }
-
     function runAutoDemoCycle() {
         if (isUserInteracted) return;
         renderDemoText(null);
         if (selectionPopup) selectionPopup.classList.remove('show');
-
         autoStepTimeout = setTimeout(function () {
             if (isUserInteracted) return;
             renderDemoText(DEFAULT_HIGHLIGHT);
             if (selectionPopup) selectionPopup.classList.remove('show');
-
             autoStepTimeout = setTimeout(function () {
                 if (isUserInteracted) return;
                 if (selectionPopup) selectionPopup.classList.remove('show');
                 if (synthesisBanner) synthesisBanner.classList.add('active');
-
                 autoStepTimeout = setTimeout(function () {
                     if (isUserInteracted) return;
                     if (synthesisBanner) synthesisBanner.classList.remove('active');
@@ -182,37 +123,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 2000);
         }, 1200);
     }
-
     autoDemoTimer = setInterval(function () {
-        if (!isUserInteracted) {
-            runAutoDemoCycle();
-        }
+        if (!isUserInteracted) { runAutoDemoCycle(); }
     }, 14000);
-
-    var cards = Array.from(document.querySelectorAll('.flashcard-item'));
-    var cardPositions = ['card-pos-1', 'card-pos-2', 'card-pos-3'];
-
+    var cards = Array.from(document.querySelectorAll('.flashcard-item')), cardPositions = ['card-pos-1', 'card-pos-2', 'card-pos-3'];
     function cycleCardDeck() {
         if (!cards.length) return;
-
         cards.forEach(function (c) { c.classList.remove('flipped'); });
-
         var top = cards.shift();
         cards.push(top);
-
-        cards.forEach(function (card, i) {
-            card.className = 'flashcard-item ' + cardPositions[i];
-        });
+        cards.forEach(function (card, i) { card.className = 'flashcard-item ' + cardPositions[i]; });
     }
-
     cards.forEach(function (card) {
         card.addEventListener('click', function () {
             if (card.classList.contains('card-pos-1')) {
                 if (card.classList.contains('flipped')) {
                     cycleCardDeck();
-                } else {
-                    card.classList.add('flipped');
-                }
+                } else { card.classList.add('flipped'); }
             } else {
                 var maxAttempts = cards.length;
                 while (!card.classList.contains('card-pos-1') && maxAttempts > 0) {
@@ -221,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
-
         card.addEventListener('keydown', function (e) {
             if (e.key === ' ' || e.key === 'Enter') {
                 e.preventDefault();
@@ -229,21 +155,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
-    var ytUrlInput = document.getElementById('ytUrlInput');
-    var btnEmbedVideo = document.getElementById('btnEmbedVideo');
-    var ytVideoPlayer = document.getElementById('ytVideoPlayer');
-
+    var ytUrlInput = document.getElementById('ytUrlInput'), btnEmbedVideo = document.getElementById('btnEmbedVideo'), ytVideoPlayer = document.getElementById('ytVideoPlayer');
     function extractYouTubeId(url) {
         if (!url) return null;
         var trimmed = url.trim();
-        if (/^[\w-]{11}$/.test(trimmed)) {
-            return trimmed;
-        }
+        if (/^[\w-]{11}$/.test(trimmed)) { return trimmed; }
         var match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+?&v=|shorts\/|live\/))([\w-]{11})/);
         return match ? match[1] : null;
     }
-
     if (btnEmbedVideo && ytUrlInput && ytVideoPlayer) {
         btnEmbedVideo.addEventListener('click', function () {
             var url = ytUrlInput.value.trim();
@@ -264,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 ytUrlInput.focus();
             }
         });
-
         ytUrlInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -272,12 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-    var editorCanvas = document.getElementById('editorCanvas');
-    var btnAddTimestamp = document.getElementById('btnAddTimestamp');
-    var btnAiNotes = document.getElementById('btnAiNotes');
-    var videoTimeReadout = document.getElementById('videoTimeReadout');
-
+    var editorCanvas = document.getElementById('editorCanvas'), btnAddTimestamp = document.getElementById('btnAddTimestamp'), btnAiNotes = document.getElementById('btnAiNotes'), videoTimeReadout = document.getElementById('videoTimeReadout');
     try {
         var activeNoteRaw = safeGetStorage('kintsu_active_note');
         if (activeNoteRaw) {
@@ -292,38 +205,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 if (activeNote.title && typeof activeNote.title === 'string' && editorCanvas) {
                     var noteTitleH1 = editorCanvas.querySelector('h1');
-                    if (noteTitleH1) {
-                        noteTitleH1.textContent = activeNote.title;
-                    }
+                    if (noteTitleH1) { noteTitleH1.textContent = activeNote.title; }
                 }
                 if (activeNote.summary && typeof activeNote.summary === 'string' && editorCanvas) {
                     var noteIntroP = editorCanvas.querySelector('p');
-                    if (noteIntroP) {
-                        noteIntroP.textContent = activeNote.summary;
-                    }
+                    if (noteIntroP) { noteIntroP.textContent = activeNote.summary; }
                 }
             }
         }
     } catch (e) {}
-
     var currentLectureSeconds = 213;
-
     function formatTime(secs) {
-        var m = Math.floor(secs / 60);
-        var s = secs % 60;
+        var m = Math.floor(secs / 60), s = secs % 60;
         return m + ':' + (s < 10 ? '0' : '') + s;
     }
-
     if (btnAddTimestamp && editorCanvas) {
         btnAddTimestamp.addEventListener('click', function () {
-            var timeStr = formatTime(currentLectureSeconds);
-            var timestampSpan = document.createElement('span');
+            var timeStr = formatTime(currentLectureSeconds), timestampSpan = document.createElement('span');
             timestampSpan.className = 'timestamp-link';
             timestampSpan.setAttribute('data-timestamp', currentLectureSeconds);
             timestampSpan.setAttribute('role', 'button');
             timestampSpan.title = 'Jump video to ' + timeStr;
             timestampSpan.textContent = '[' + timeStr + ']';
-
             editorCanvas.focus();
             var sel = window.getSelection();
             if (sel && sel.rangeCount > 0 && editorCanvas.contains(sel.anchorNode)) {
@@ -331,19 +234,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 range.deleteContents();
                 range.insertNode(timestampSpan);
                 range.collapse(false);
-            } else {
-                editorCanvas.appendChild(timestampSpan);
-            }
+            } else { editorCanvas.appendChild(timestampSpan); }
             showToast('Timestamp [' + timeStr + '] added to notes!');
         });
     }
-
     if (btnAiNotes && editorCanvas) {
         btnAiNotes.addEventListener('click', function () {
             var btnText = document.getElementById('aiNotesBtnText');
             if (btnText) btnText.textContent = 'Generating…';
             showToast('Synthesizing notes preview from lecture transcript…');
-
             setTimeout(function () {
                 if (btnText) btnText.textContent = 'AI Notes';
                 var summarySection = document.createElement('div');
@@ -367,15 +266,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1000);
         });
     }
-
     document.addEventListener('click', function (e) {
         var link = e.target.closest('.timestamp-link');
         if (link) {
             var secs = parseInt(link.getAttribute('data-timestamp'), 10) || 0;
             currentLectureSeconds = secs;
-            if (videoTimeReadout) {
-                videoTimeReadout.textContent = formatTime(secs);
-            }
+            if (videoTimeReadout) { videoTimeReadout.textContent = formatTime(secs); }
             if (ytVideoPlayer && ytVideoPlayer.contentWindow) {
                 try {
                     ytVideoPlayer.contentWindow.postMessage(JSON.stringify({
@@ -388,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Seeking video to ' + formatTime(secs) + ' ⏩');
         }
     });
-
     function setupFormatCommand(btnId, command, value) {
         var btn = document.getElementById(btnId);
         if (!btn) return;
@@ -400,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
     setupFormatCommand('cmdBold', 'bold');
     setupFormatCommand('cmdItalic', 'italic');
     setupFormatCommand('cmdUnderline', 'underline');
@@ -414,12 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setupFormatCommand('cmdUndo', 'undo');
     setupFormatCommand('cmdRedo', 'redo');
     setupFormatCommand('cmdHighlight', 'hiliteColor', 'rgba(236, 50, 159, 0.85)');
-
-    var workspaceSelectionBubble = document.getElementById('workspaceSelectionBubble');
-    var bubbleBtnYes = document.getElementById('bubbleBtnYes');
-    var bubbleBtnNo = document.getElementById('bubbleBtnNo');
-    var pendingSelectionRange = null;
-
+    var workspaceSelectionBubble = document.getElementById('workspaceSelectionBubble'), bubbleBtnYes = document.getElementById('bubbleBtnYes'), bubbleBtnNo = document.getElementById('bubbleBtnNo'), pendingSelectionRange = null;
     function hideWorkspaceBubble() {
         if (workspaceSelectionBubble) {
             workspaceSelectionBubble.classList.remove('show');
@@ -427,57 +316,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         pendingSelectionRange = null;
     }
-
     function showWorkspaceBubble(rect) {
         if (!workspaceSelectionBubble) return;
-        var top = rect.top - 46;
-        var left = rect.left + rect.width / 2;
-
+        var top = rect.top - 46, left = rect.left + rect.width / 2;
         if (top < 10) top = rect.bottom + 10;
         if (left < 90) left = 90;
         if (left > window.innerWidth - 90) left = window.innerWidth - 90;
-
         workspaceSelectionBubble.style.top = top + 'px';
         workspaceSelectionBubble.style.left = left + 'px';
         workspaceSelectionBubble.style.display = 'flex';
         workspaceSelectionBubble.classList.add('show');
     }
-
     document.addEventListener('mouseup', function (e) {
-        if (e.target && e.target.closest && e.target.closest('.workspace-selection-bubble')) {
-            return;
-        }
-
+        if (e.target && e.target.closest && e.target.closest('.workspace-selection-bubble')) { return; }
         setTimeout(function () {
             var sel = window.getSelection();
             if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
                 hideWorkspaceBubble();
                 return;
             }
-
             if (!editorCanvas || !editorCanvas.contains(sel.anchorNode)) {
                 hideWorkspaceBubble();
                 return;
             }
-
             var text = sel.toString().trim();
             if (text.length < 5 || text.split(/\s+/).length > 250) {
                 hideWorkspaceBubble();
                 return;
             }
-
             var range = sel.getRangeAt(0);
             pendingSelectionRange = range.cloneRange();
             var rect = range.getBoundingClientRect();
             showWorkspaceBubble(rect);
         }, 10);
     });
-
     if (bubbleBtnYes) {
         bubbleBtnYes.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-
             if (pendingSelectionRange) {
                 try {
                     var mark = document.createElement('mark');
@@ -485,17 +361,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     mark.title = 'AI Flashcard source';
                     mark.appendChild(pendingSelectionRange.extractContents());
                     pendingSelectionRange.insertNode(mark);
-                } catch (err) {
-                    document.execCommand('hiliteColor', false, 'rgba(236, 50, 159, 0.85)');
-                }
+                } catch (err) { document.execCommand('hiliteColor', false, 'rgba(236, 50, 159, 0.85)'); }
             }
-
             hideWorkspaceBubble();
             showToast('✨ 3 AI Flashcards generated from note highlight!', 3500);
             cycleCardDeck();
         });
     }
-
     if (bubbleBtnNo) {
         bubbleBtnNo.addEventListener('click', function (e) {
             e.preventDefault();
@@ -503,17 +375,12 @@ document.addEventListener('DOMContentLoaded', function () {
             hideWorkspaceBubble();
         });
     }
-
     window.addEventListener('scroll', hideWorkspaceBubble, { passive: true });
     window.addEventListener('resize', hideWorkspaceBubble, { passive: true });
-
     var cmdVoice = document.getElementById('cmdVoice');
     if (cmdVoice) {
-        cmdVoice.addEventListener('click', function () {
-            showToast('🎙️ Voice-to-text listening… (Dictation simulation)');
-        });
+        cmdVoice.addEventListener('click', function () { showToast('🎙️ Voice-to-text listening… (Dictation simulation)'); });
     }
-
     var btnInsertCodeBlock = document.getElementById('btnInsertCodeBlock');
     if (btnInsertCodeBlock && editorCanvas) {
         btnInsertCodeBlock.addEventListener('click', function () {
@@ -524,22 +391,14 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Code block inserted into notes 💻');
         });
     }
-
     document.addEventListener('click', function (e) {
         var trigger = e.target.closest('.toggle-topic-trigger');
         if (trigger) {
             var topic = trigger.closest('.toggle-topic');
-            if (topic) {
-                topic.classList.toggle('closed');
-            }
+            if (topic) { topic.classList.toggle('closed'); }
         }
     });
-
-    var tabNotesBtn = document.getElementById('tabNotesBtn');
-    var tabCodeBtn = document.getElementById('tabCodeBtn');
-    var notesView = document.getElementById('notesView');
-    var codeView = document.getElementById('codeView');
-
+    var tabNotesBtn = document.getElementById('tabNotesBtn'), tabCodeBtn = document.getElementById('tabCodeBtn'), notesView = document.getElementById('notesView'), codeView = document.getElementById('codeView');
     if (tabNotesBtn && tabCodeBtn && notesView && codeView) {
         tabNotesBtn.addEventListener('click', function () {
             tabNotesBtn.classList.add('tab-btn-active');
@@ -547,7 +406,6 @@ document.addEventListener('DOMContentLoaded', function () {
             notesView.style.display = 'block';
             codeView.style.display = 'none';
         });
-
         tabCodeBtn.addEventListener('click', function () {
             tabCodeBtn.classList.add('tab-btn-active');
             tabNotesBtn.classList.remove('tab-btn-active');
@@ -555,19 +413,10 @@ document.addEventListener('DOMContentLoaded', function () {
             codeView.style.display = 'block';
         });
     }
-
-    var btnRunEmbeddedCode = document.getElementById('btnRunEmbeddedCode');
-    var embeddedCodeInput = document.getElementById('embeddedCodeInput');
-    var embeddedTerminalOutput = document.getElementById('embeddedTerminalOutput');
-    var embeddedLangSelect = document.getElementById('embeddedLangSelect');
-    var syntaxBadge = document.getElementById('syntaxBadge');
-
+    var btnRunEmbeddedCode = document.getElementById('btnRunEmbeddedCode'), embeddedCodeInput = document.getElementById('embeddedCodeInput'), embeddedTerminalOutput = document.getElementById('embeddedTerminalOutput'), embeddedLangSelect = document.getElementById('embeddedLangSelect'), syntaxBadge = document.getElementById('syntaxBadge');
     if (embeddedLangSelect && syntaxBadge) {
-        embeddedLangSelect.addEventListener('change', function () {
-            syntaxBadge.textContent = 'Syntax: ' + embeddedLangSelect.value;
-        });
+        embeddedLangSelect.addEventListener('change', function () { syntaxBadge.textContent = 'Syntax: ' + embeddedLangSelect.value; });
     }
-
     var isRunningEmbedded = false;
     if (btnRunEmbeddedCode && embeddedTerminalOutput) {
         btnRunEmbeddedCode.addEventListener('click', function () {
@@ -578,13 +427,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 showToast('Sandbox code editor is empty ⚠️');
                 return;
             }
-
             isRunningEmbedded = true;
             btnRunEmbeddedCode.disabled = true;
             btnRunEmbeddedCode.setAttribute('aria-busy', 'true');
             embeddedTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling and running runtime environment...\n';
             showToast('Executing code sandbox simulation…');
-
             setTimeout(function () {
                 var timestamp = new Date().toLocaleTimeString();
                 embeddedTerminalOutput.textContent =
@@ -605,7 +452,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 600);
         });
     }
-
     var isRunningFullCode = false;
     if (btnRunFullCode && fullCodeTerminalOutput) {
         btnRunFullCode.addEventListener('click', function () {
@@ -616,13 +462,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 showToast('Code workspace is empty ⚠️');
                 return;
             }
-
             isRunningFullCode = true;
             btnRunFullCode.disabled = true;
             btnRunFullCode.setAttribute('aria-busy', 'true');
             fullCodeTerminalOutput.textContent = '[Sandbox Simulation Environment]\nCompiling in simulated sandbox container...\n';
             showToast('Executing code workspace simulation…');
-
             setTimeout(function () {
                 var timestamp = new Date().toLocaleTimeString();
                 fullCodeTerminalOutput.textContent =
@@ -640,23 +484,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 500);
         });
     }
-
-    var workspaceShell = document.getElementById('workspaceShell');
-    var workspaceLeft = document.getElementById('workspaceLeft');
-    var btnModeGuide = document.getElementById('btnModeGuide');
-    var btnModeSplit = document.getElementById('btnModeSplit');
-    var btnModeNotes = document.getElementById('btnModeNotes');
-
+    var workspaceShell = document.getElementById('workspaceShell'), workspaceLeft = document.getElementById('workspaceLeft'), btnModeGuide = document.getElementById('btnModeGuide'), btnModeSplit = document.getElementById('btnModeSplit'), btnModeNotes = document.getElementById('btnModeNotes');
     function setMode(mode) {
-        [btnModeGuide, btnModeSplit, btnModeNotes].forEach(function (b) {
-            if (b) b.classList.remove('workspace-mode-button-active');
-        });
-
+        [btnModeGuide, btnModeSplit, btnModeNotes].forEach(function (b) { if (b) b.classList.remove('workspace-mode-button-active'); });
         if (workspaceShell) {
             workspaceShell.classList.remove('mode-guide', 'mode-split', 'mode-notes');
             workspaceShell.classList.add('mode-' + mode);
         }
-
         if (mode === 'guide' && btnModeGuide) {
             btnModeGuide.classList.add('workspace-mode-button-active');
             if (workspaceShell) workspaceShell.style.setProperty('--left-panel-width', '70%');
@@ -668,25 +502,19 @@ document.addEventListener('DOMContentLoaded', function () {
             if (workspaceShell) workspaceShell.style.setProperty('--left-panel-width', '50%');
         }
     }
-
     if (btnModeGuide) btnModeGuide.addEventListener('click', function () { setMode('guide'); });
     if (btnModeSplit) btnModeSplit.addEventListener('click', function () { setMode('split'); });
     if (btnModeNotes) btnModeNotes.addEventListener('click', function () { setMode('notes'); });
-
-    var workspaceResizer = document.getElementById('workspaceResizer');
-    var isDragging = false;
+    var workspaceResizer = document.getElementById('workspaceResizer'), isDragging = false;
 
     function applyResizerWidth(clientX) {
         if (!workspaceShell || window.innerWidth <= 960) return;
         var shellRect = workspaceShell.getBoundingClientRect();
         if (shellRect.width <= 0) return;
-        var offset = clientX - shellRect.left;
-        var percentage = Math.max(25, Math.min(75, (offset / shellRect.width) * 100));
+        var offset = clientX - shellRect.left, percentage = Math.max(25, Math.min(75, (offset / shellRect.width) * 100));
         if (isNaN(percentage)) return;
         workspaceShell.style.setProperty('--left-panel-width', percentage + '%');
-        if (workspaceResizer) {
-            workspaceResizer.setAttribute('aria-valuenow', Math.round(percentage));
-        }
+        if (workspaceResizer) { workspaceResizer.setAttribute('aria-valuenow', Math.round(percentage)); }
     }
 
     function stopDragging() {
@@ -748,14 +576,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    var feedbackForm = document.getElementById('feedbackForm');
-    var ratingRange = document.getElementById('ratingRange');
-    var ratingVal = document.getElementById('ratingVal');
-    var catPills = document.querySelectorAll('.cat-pill');
-    var feedbackText = document.getElementById('feedbackText');
-    var feedbackFormStatus = document.getElementById('feedbackFormStatus');
-    var btnSendFeedback = document.getElementById('btnSendFeedback');
-    var isSubmittingFeedback = false;
+    var feedbackForm = document.getElementById('feedbackForm'), ratingRange = document.getElementById('ratingRange'), ratingVal = document.getElementById('ratingVal'), catPills = document.querySelectorAll('.cat-pill'), feedbackText = document.getElementById('feedbackText'), feedbackFormStatus = document.getElementById('feedbackFormStatus'), btnSendFeedback = document.getElementById('btnSendFeedback'), isSubmittingFeedback = false;
 
     if (ratingRange && ratingVal) {
         var updateRatingDisplay = function () {
@@ -776,9 +597,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     catPills.forEach(function (pill, index) {
-        pill.addEventListener('click', function () {
-            selectCatPill(pill);
-        });
+        pill.addEventListener('click', function () { selectCatPill(pill); });
         pill.addEventListener('keydown', function (e) {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                 e.preventDefault();
@@ -810,9 +629,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            var activePill = document.querySelector('.cat-pill.cat-pill-active');
-            var category = activePill ? (activePill.getAttribute('data-cat') || activePill.textContent.trim()) : 'Idea';
-            var rating = ratingRange ? ratingRange.value : '4';
+            var activePill = document.querySelector('.cat-pill.cat-pill-active'), category = activePill ? (activePill.getAttribute('data-cat') || activePill.textContent.trim()) : 'Idea', rating = ratingRange ? ratingRange.value : '4';
 
             isSubmittingFeedback = true;
             if (btnSendFeedback) {
@@ -855,19 +672,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    var signinForm = document.getElementById('signinForm');
-    var isSigningIn = false;
+    var signinForm = document.getElementById('signinForm'), isSigningIn = false;
     if (signinForm) {
         signinForm.addEventListener('submit', function (e) {
             e.preventDefault();
             if (isSigningIn) return;
 
-            var emailInput = signinForm.querySelector('input[type="email"]');
-            var passwordInput = signinForm.querySelector('input[type="password"]');
-            var submitBtn = signinForm.querySelector('.submit');
+            var emailInput = signinForm.querySelector('input[type="email"]'), passwordInput = signinForm.querySelector('input[type="password"]'), submitBtn = signinForm.querySelector('.submit');
 
-            var email = emailInput ? emailInput.value.trim() : '';
-            var password = passwordInput ? passwordInput.value : '';
+            var email = emailInput ? emailInput.value.trim() : '', password = passwordInput ? passwordInput.value : '';
 
             if (!email || !email.includes('@')) {
                 alert('Please enter a valid email address.');
@@ -881,8 +694,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            var username = email.split('@')[0];
-            var userRecord = { email: email, username: username };
+            var username = email.split('@')[0], userRecord = { email: email, username: username };
 
             safeSetStorage('kintsu_user', JSON.stringify(userRecord));
 
@@ -900,9 +712,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 submitBtn.textContent = 'SIGNING IN...';
                 setTimeout(function () {
                     submitBtn.textContent = '✓ SUCCESS';
-                    setTimeout(function () {
-                        window.location.href = 'dashboard.html';
-                    }, 400);
+                    setTimeout(function () { window.location.href = 'dashboard.html'; }, 400);
                 }, 500);
             }
         });
