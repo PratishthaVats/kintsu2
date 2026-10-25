@@ -1,0 +1,111 @@
+/* ================================================================
+   KINTSU STUDY VAULT DASHBOARD (COMPACT NEO-BRUTALIST STYLING)
+================================================================ */
+
+:root {
+    --bg-page: #17111B;
+    --bg-card: #241B2B;
+    --border-ink: #000000;
+    --border-subtle: #3A2B45;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B8B0C4;
+    --text-muted: #837593;
+    --accent-pink: #EC329F;
+    --accent-yellow: #FACC15;
+    --accent-purple: #A78BFA;
+    --shadow-hard: 3px 3px 0 #000000;
+    --radius-card: 20px;
+    --radius-pill: 9999px;
+    --radius-input: 12px;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-body: 'Inter', system-ui, sans-serif;
+}
+
+body.light-theme {
+    --bg-page: #FDF2F8;
+    --bg-card: #FFFFFF;
+    --border-ink: #1A1A1A;
+    --border-subtle: #E5E7EB;
+    --text-primary: #18121E;
+    --text-secondary: #4B5563;
+    --text-muted: #6B7280;
+    --shadow-hard: 3px 3px 0 #1A1A1A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    transition: background-color 0.2s ease;
+}
+
+/* --- NAV BAR --- */
+.dash-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    border-bottom: 2px solid var(--border-subtle);
+    background-color: var(--bg-page);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+.brand-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.brand-avatar {
+    width: 36px; height: 36px; border-radius: var(--radius-pill);
+    border: 2px solid var(--border-ink); background: #F472B6;
+    display: flex; align-items: center; justify-content: center;
+}
+.brand-text { font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: 0.06em; }
+.nav-pill-actions { display: flex; align-items: center; gap: 10px; }
+.nav-pill {
+    padding: 7px 16px; border-radius: var(--radius-pill); font-weight: 700; font-size: 13px;
+    text-decoration: none; border: 2px solid var(--border-ink); cursor: pointer;
+}
+.active-pill { background: var(--accent-purple); color: #18121E; box-shadow: 2px 2px 0 var(--border-ink); }
+.outline-pill { background: transparent; color: inherit; border-color: var(--border-subtle); }
+.theme-toggle-btn {
+    width: 34px; height: 34px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink);
+    background: #FBBF24; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.user-email-pill {
+    padding: 6px 14px; border-radius: var(--radius-pill); border: 1.5px solid var(--border-subtle);
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);
+}
+.sign-out-btn {
+    padding: 7px 16px; border-radius: var(--radius-pill); background: var(--accent-pink);
+    color: #FFF; font-family: var(--font-display); font-weight: 800; font-size: 12px;
+    border: 2px solid var(--border-ink); box-shadow: 2px 2px 0 var(--border-ink); cursor: pointer;
+}
+
+/* --- HERO VAULT SECTION --- */
+.dash-container { max-width: 1400px; margin: 0 auto; padding: 24px 28px 120px 28px; }
+.vault-hero {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding-bottom: 24px; border-bottom: 1.5px solid var(--border-subtle); margin-bottom: 24px;
+}
+.study-vault-badge {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--accent-yellow);
+    color: #18121E; font-family: var(--font-mono); font-weight: 700; font-size: 11px;
+    padding: 4px 12px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink);
+    box-shadow: 2px 2px 0 var(--border-ink); margin-bottom: 10px;
+}
+.vault-title { font-family: var(--font-display); font-weight: 800; font-size: 32px; margin-bottom: 6px; }
+.user-sticker-pill {
+    background: var(--accent-pink); color: #FFF; font-family: var(--font-mono);
+    font-size: 22px; font-weight: 700; padding: 2px 14px; border-radius: var(--radius-pill);
+    border: 2px solid var(--border-ink); box-shadow: 2px 2px 0 var(--border-ink);
+}
+.vault-subtitle { font-family: var(--font-mono); font-size: 13.5px; color: var(--text-secondary); }
+.vault-hero-actions { display: flex; align-items: center; gap: 10px; }
+.btn-vault-action {
+    display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: var(--radius-pill);
+    border: 2px solid var(--border-ink); background: var(--bg-card); color: inherit; font-family: var(--font-display);
+    font-weight: 700; font-size: 13px; box-shadow: var(--shadow-hard); cursor: pointer;
+}
+.btn-vault-action.primary-create { background: #FFF; color: #18121E; }
+.btn-vault-action.export-json-btn { background: var(--accent-yellow); color: #18121E; }
