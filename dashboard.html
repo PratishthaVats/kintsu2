@@ -192,7 +192,67 @@
         </div>
     </aside>
 
-    <!-- Modals injected in next commit -->
+    <!-- Modal 1: Create New Note -->
+    <div class="modal-backdrop" id="createNoteModal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div class="modal-badge">✦ NEW NOTE</div>
+                <h3 class="modal-title">Create a Study Note</h3>
+                <button type="button" class="modal-close-btn" id="closeCreateModalBtn">✕</button>
+            </div>
+
+            <form id="createNoteForm" class="modal-form" novalidate>
+                <div class="form-group">
+                    <label for="noteTitleInput" class="form-label">NOTE TITLE *</label>
+                    <input type="text" id="noteTitleInput" class="form-input" placeholder="e.g. Neural Networks & Backprop" required>
+                    <span class="form-error" id="titleError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteBoardSelect" class="form-label">BOARD / SUBJECT</label>
+                    <select id="noteBoardSelect" class="form-input form-select">
+                        <option value="All Notes">All Notes</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteVideoInput" class="form-label">YOUTUBE LECTURE URL *</label>
+                    <input type="url" id="noteVideoInput" class="form-input" placeholder="https://www.youtube.com/watch?v=..." required>
+                    <span class="form-error" id="videoError"></span>
+                    <span class="form-hint">Tip: Supports any standard YouTube or youtu.be video link.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteCoverTheme" class="form-label">COVER THEME</label>
+                    <div class="cover-theme-picker">
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="llm" checked>
+                            <span class="theme-swatch llm">LLM / AI</span>
+                        </label>
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="python">
+                            <span class="theme-swatch python">Python</span>
+                        </label>
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="web">
+                            <span class="theme-swatch web">Web Dev</span>
+                        </label>
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="math">
+                            <span class="theme-swatch math">Math</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal-cancel" id="cancelCreateModalBtn">Cancel</button>
+                    <button type="submit" class="btn-modal-submit" id="submitCreateBtn">Create Note ↗</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal 2: Create New Board -->
     <div class="modal-backdrop" id="newBoardModal" style="display: none;">
