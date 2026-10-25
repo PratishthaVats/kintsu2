@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · Study Vault · Kintsu</title>
+    <meta name="description" content="Kintsu Study Vault - Pick up where you left off or start a new note.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dark-theme">
+
+    <!-- Top Navigation Bar -->
+    <header class="dash-navbar">
+        <div class="nav-brand-group">
+            <a href="index.html" class="brand-link" title="Return to Home">
+                <div class="brand-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 36 36" width="28" height="28" fill="none">
+                        <circle cx="18" cy="18" r="16" fill="#F472B6"/>
+                        <!-- Cat face sticker -->
+                        <polygon points="10,12 14,19 8,19" fill="#18121E"/>
+                        <polygon points="26,12 28,19 22,19" fill="#18121E"/>
+                        <circle cx="18" cy="22" r="9" fill="#18121E"/>
+                        <circle cx="15" cy="20" r="1.5" fill="#FFFFFF"/>
+                        <circle cx="21" cy="20" r="1.5" fill="#FFFFFF"/>
+                        <polygon points="18,22 16.5,24 19.5,24" fill="#F472B6"/>
+                    </svg>
+                </div>
+                <span class="brand-text">ONE STOP NOTES</span>
+            </a>
+        </div>
+
+        <nav class="nav-pill-actions">
+            <a href="dashboard.html" class="nav-pill active-pill">Dashboard</a>
+            <a href="index.html#flashcards" class="nav-pill outline-pill">Flashcards</a>
+            <button type="button" class="theme-toggle-btn" id="dashThemeToggle" aria-label="Toggle theme">
+                <span class="theme-icon">☀️</span>
+            </button>
+            <div class="user-email-pill" id="userEmailTag" title="Logged in user">testwithpranav0711@gmail.com</div>
+            <button type="button" class="sign-out-btn" id="signOutBtn">SIGN OUT</button>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="dash-container">
+
+        <!-- Vault Hero Section -->
+        <section class="vault-hero">
+            <div class="vault-hero-left">
+                <div class="study-vault-badge">
+                    <span class="badge-sparkle">✦</span> STUDY VAULT
+                </div>
+                <h1 class="vault-title">
+                    Welcome back, <span class="user-sticker-pill" id="welcomeUserPill">testwithpranav0711</span>
+                </h1>
+                <p class="vault-subtitle">Pick up where you left off or start a new note.</p>
+            </div>
+
+            <div class="vault-hero-actions">
+                <button type="button" class="btn-vault-action" id="selectModeBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <polyline points="3 6 4 7 6 5"></polyline>
+                        <polyline points="3 12 4 13 6 11"></polyline>
+                        <polyline points="3 18 4 19 6 17"></polyline>
+                    </svg>
+                    <span>Select</span>
+                </button>
+                <button type="button" class="btn-vault-action primary-create" id="openCreateNoteModalBtn">
+                    <span class="plus-icon">+</span>
+                    <span>Create new note</span>
+                </button>
+                <button type="button" class="btn-vault-action export-json-btn" id="exportJsonBtn" title="Download saved notes as JSON file">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Save to JSON</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Multi-select Batch Toolbar (Hidden by default) -->
+        <div class="batch-bar" id="batchBar" style="display: none;">
+            <div class="batch-left">
+                <span id="selectedCountText">0 notes selected</span>
+            </div>
+            <div class="batch-right">
+                <button type="button" class="btn-batch-delete" id="batchDeleteBtn">Delete Selected</button>
+                <button type="button" class="btn-batch-cancel" id="batchCancelBtn">Done</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Layout: Sidebar + Notes Grid -->
+        <div class="dash-layout">
+
+            <!-- Left Sidebar (Boards) -->
+            <aside class="boards-sidebar">
+                <div class="sidebar-head">
+                    <div class="boards-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span>BOARDS</span>
+                    </div>
+                    <button type="button" class="collapse-sidebar-btn" id="toggleSidebarBtn" aria-label="Collapse boards">&lt;</button>
+                </div>
+
+                <div class="boards-list" id="boardsList">
+                    <button type="button" class="board-pill active" data-board="All Notes">
+                        <span>All Notes</span>
+                        <span class="board-count" id="allNotesBadge">1</span>
+                    </button>
+                </div>
+
+                <button type="button" class="btn-new-board" id="openNewBoardModalBtn">
+                    <span class="plus-icon">+</span>
+                    <span>New Board</span>
+                </button>
+            </aside>
+
+            <!-- Center Content (Notes Grid) -->
+            <main class="notes-content">
+                <div class="notes-header">
+                    <h2 class="section-title">
+                        <span id="currentBoardTitle">All Notes</span>
+                        <span class="count-pill" id="notesSectionCount">(1)</span>
+                    </h2>
+                </div>
+
+                <div class="notes-grid" id="notesGrid">
+                    <!-- Note Cards dynamically rendered by dashboard.js -->
+                </div>
+
+                <!-- Empty State (Shown when no notes match) -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">📓</div>
+                    <h3>No notes found in this board</h3>
+                    <p>Click "+ Create new note" above or use our suggested video to get started.</p>
+                </div>
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- Bottom Notification Banner (Yellow Pill) -->
+    <div class="sample-note-banner" id="sampleBanner">
+        <div class="banner-content">
+            <span class="wave-icon">👋</span>
+            <span>We added a Sample note to your dashboard so you can explore right away. Feel free to delete it any time.</span>
+        </div>
+        <button type="button" class="btn-banner-gotit" id="dismissBannerBtn">GOT IT</button>
+    </div>
+
+    <!-- Quick Start Floating Card (Bottom Right) -->
+    <aside class="quick-start-widget" id="quickStartWidget">
+        <div class="qs-header">
+            <div class="qs-title-row">
+                <span class="qs-label">QUICK START</span>
+                <span class="qs-progress-dots" id="qsProgress">●○○○ 0/5</span>
+            </div>
+            <div class="qs-controls">
+                <button type="button" class="qs-ctrl-btn" id="qsMinimizeBtn" aria-label="Minimize">–</button>
+                <button type="button" class="qs-ctrl-btn" id="qsCloseBtn" aria-label="Close">✕</button>
+            </div>
+        </div>
+
+        <div class="qs-body" id="qsBody">
+            <div class="qs-step-title">
+                <span class="qs-sparkle">✦</span>
+                <strong id="qsStepLabel">Step 1 - Paste your first video</strong>
+            </div>
+            <p class="qs-desc">Open the editor and paste a YouTube link - or use our suggested video to start immediately.</p>
+            
+            <div class="qs-actions">
+                <button type="button" class="btn-qs-pink" id="qsSuggestedBtn">Use suggested video</button>
+                <button type="button" class="btn-qs-outline" id="qsPasteBtn">I'll paste my own ↗</button>
+            </div>
+
+            <div class="qs-footer-hint">
+                <span>Suggested: Python in 1 Hour · Programming with Mosh</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Modals injected in next commit -->
+
+    <!-- Modal 2: Create New Board -->
+    <div class="modal-backdrop" id="newBoardModal" style="display: none;">
+        <div class="modal-card modal-small">
+            <div class="modal-head">
+                <div class="modal-badge">✦ NEW BOARD</div>
+                <h3 class="modal-title">Create a Board</h3>
+                <button type="button" class="modal-close-btn" id="closeBoardModalBtn">✕</button>
+            </div>
+
+            <form id="createBoardForm" class="modal-form" novalidate>
+                <div class="form-group">
+                    <label for="boardNameInput" class="form-label">BOARD NAME *</label>
+                    <input type="text" id="boardNameInput" class="form-input" placeholder="e.g. Operating Systems" required>
+                    <span class="form-error" id="boardError"></span>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal-cancel" id="cancelBoardModalBtn">Cancel</button>
+                    <button type="submit" class="btn-modal-submit">Add Board</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="dash-toast" id="dashToast" style="display: none;">
+        <span id="toastMessage"></span>
+        <button type="button" class="toast-undo" id="toastUndoBtn" style="display: none;">Undo</button>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
