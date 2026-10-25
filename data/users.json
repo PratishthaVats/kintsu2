@@ -1,0 +1,21 @@
+[
+  {
+    "id": "usr_001",
+    "email": "testwithpranav0711@gmail.com",
+    "username": "testwithpranav0711",
+    "createdAt": "25/10/2026"
+  },
+  {
+    "id": "usr_1792932073165",
+    "email": "prnav@gmail.com",
+    "username": "prnav",
+    "createdAt": "2026-10-25T12:41:13.165Z",
+    "lastLogin": "2026-10-25T12:47:22.752Z"
+  },
+  {
+    "id": "usr_1792932876383",
+    "email": "pranav@gmai.com",
+    "username": "pranav",
+    "createdAt": "2026-10-25T12:54:36.383Z"
+  }
+]
