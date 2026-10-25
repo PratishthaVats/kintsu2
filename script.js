@@ -37,6 +37,16 @@ if (wsWindow) {
         ytInput.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); embedBtn.click(); } };
     }
 
+    // Auto-load note if redirected from dashboard
+    const activeNote = JSON.parse(localStorage.getItem('kintsu_active_note') || 'null');
+    if (activeNote && activeNote.videoUrl) {
+        const activeId = parseYt(activeNote.videoUrl);
+        if (activeId) {
+            loadVideo(activeId);
+            if (ytInput) ytInput.value = activeNote.videoUrl;
+        }
+    }
+
     document.querySelectorAll('.ws-timestamp-card').forEach(c => {
         const h = c.querySelector('.ws-ts-header');
         if (h) h.onclick = () => {
@@ -187,20 +197,53 @@ if (wsWindow) {
     };
 }
 
-// Sign In Form Interaction
+// Sign In Form Interaction (Dual Persistence: LocalStorage + /api/users JSON)
 var signinForm = document.getElementById('signinForm');
 if (signinForm) {
     signinForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        var emailInput = signinForm.querySelector('input[type="email"]');
+        var passwordInput = signinForm.querySelector('input[type="password"]');
         var submitBtn = signinForm.querySelector('.submit');
+
+        var email = emailInput ? emailInput.value.trim() : '';
+        var password = passwordInput ? passwordInput.value : '';
+
+        if (!email || !email.includes('@')) {
+            alert('Please enter a valid email address.');
+            if (emailInput) emailInput.focus();
+            return;
+        }
+
+        if (!password || password.length < 4) {
+            alert('Password must be at least 4 characters long.');
+            if (passwordInput) passwordInput.focus();
+            return;
+        }
+
+        var username = email.split('@')[0];
+        var userRecord = { email: email, username: username };
+
+        // Save active session
+        localStorage.setItem('kintsu_user', JSON.stringify(userRecord));
+
+        // Persist to data/users.json via local server API if online
+        if (window.fetch) {
+            fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userRecord)
+            }).catch(function () {});
+        }
+
         if (submitBtn) {
             submitBtn.textContent = 'SIGNING IN...';
             setTimeout(function () {
                 submitBtn.textContent = '✓ SUCCESS';
                 setTimeout(function () {
-                    window.location.href = 'index.html#features';
-                }, 500);
-            }, 600);
+                    window.location.href = 'dashboard.html';
+                }, 400);
+            }, 500);
         }
     });
 }
