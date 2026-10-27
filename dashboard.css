@@ -1,3 +1,7 @@
+/* ================================================================
+   KINTSU STUDY VAULT DASHBOARD (COMPACT NEO-BRUTALIST STYLING)
+================================================================ */
+
 :root {
     --bg-page: #17111B;
     --bg-card: #241B2B;
@@ -38,6 +42,7 @@ body {
     transition: background-color 0.2s ease;
 }
 
+/* --- NAV BAR --- */
 .dash-navbar {
     display: flex;
     align-items: center;
@@ -77,6 +82,7 @@ body {
     border: 2px solid var(--border-ink); box-shadow: 2px 2px 0 var(--border-ink); cursor: pointer;
 }
 
+/* --- HERO VAULT SECTION --- */
 .dash-container { max-width: 1400px; margin: 0 auto; padding: 24px 28px 120px 28px; }
 .vault-hero {
     display: flex; align-items: flex-start; justify-content: space-between;
@@ -104,6 +110,7 @@ body {
 .btn-vault-action.primary-create { background: #FFF; color: #18121E; }
 .btn-vault-action.export-json-btn { background: var(--accent-yellow); color: #18121E; }
 
+/* --- SIDEBAR & NOTES GRID LAYOUT --- */
 .dash-layout { display: grid; grid-template-columns: 220px 1fr; gap: 28px; }
 .sidebar-head { display: flex; justify-content: space-between; margin-bottom: 14px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
 .boards-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
@@ -123,6 +130,7 @@ body {
 .count-pill { font-family: var(--font-mono); font-size: 16px; color: var(--text-muted); }
 .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
 
+/* --- NOTE CARD --- */
 .note-card {
     background: var(--bg-card); border: 2px solid var(--border-ink); border-radius: var(--radius-card);
     box-shadow: var(--shadow-hard); overflow: hidden; display: flex; flex-direction: column;
@@ -149,6 +157,7 @@ body {
 }
 .btn-card-open:hover { background: #FFF; color: #18121E; }
 
+/* --- NOTIFICATION BANNER & QUICK START WIDGET --- */
 .sample-note-banner {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); width: min(90%, 680px);
     background: var(--accent-yellow); color: #18121E; border: 2px solid var(--border-ink); border-radius: var(--radius-pill);
@@ -171,6 +180,7 @@ body {
 }
 .qs-footer-hint { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 8px; }
 
+/* --- MODAL FORMS --- */
 .modal-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
     display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px;

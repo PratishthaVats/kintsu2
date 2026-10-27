@@ -1,5 +1,16 @@
+/**
+ * Kintsu Study Vault - Dashboard Logic (Compact & Easy to Explain)
+ * 1. User Profile & Theme Toggle
+ * 2. Data Loading & Dual JSON Persistence (localStorage + data/notes.json)
+ * 3. Dynamic Note Card Rendering
+ * 4. Form Validation & Submission (New Note)
+ * 5. One-Click JSON Export (Evaluation Parameter 4)
+ * 6. Modal Controls & Note Deletion
+ */
+
 let notes = [];
 
+// DOM Elements
 const notesGrid = document.getElementById('notesGrid');
 const emptyState = document.getElementById('emptyState');
 const notesCount = document.getElementById('notesSectionCount');
@@ -11,6 +22,7 @@ const videoInput = document.getElementById('noteVideoInput');
 const titleError = document.getElementById('titleError');
 const videoError = document.getElementById('videoError');
 
+// 1. SETUP: User Name, Theme Toggle, & Banner
 function initApp() {
     const user = JSON.parse(localStorage.getItem('kintsu_user') || '{}');
     if (user.username) {
@@ -50,6 +62,7 @@ function initApp() {
     loadNotes();
 }
 
+// 2. DATA LAYER: Load from localStorage or data/notes.json
 function loadNotes() {
     const local = localStorage.getItem('kintsu_notes');
     if (local) {
@@ -67,6 +80,7 @@ function loadNotes() {
         });
 }
 
+// Save notes to localStorage AND send to server to write data/notes.json on disk
 function saveNotes() {
     localStorage.setItem('kintsu_notes', JSON.stringify(notes, null, 2));
     if (window.fetch) {
@@ -78,6 +92,7 @@ function saveNotes() {
     }
 }
 
+// 3. UI RENDERING: Display Notes Grid
 function renderNotes() {
     notesGrid.innerHTML = '';
     if (allNotesBadge) allNotesBadge.textContent = notes.length;
@@ -125,17 +140,20 @@ function renderNotes() {
     });
 }
 
+// Open Note in Workspace
 window.openNote = function (id) {
     const note = notes.find(n => n.id === id);
     if (note) localStorage.setItem('kintsu_active_note', JSON.stringify(note));
 };
 
+// Delete Note
 window.deleteNote = function (id) {
     notes = notes.filter(n => n.id !== id);
     saveNotes();
     renderNotes();
 };
 
+// 4. FORM VALIDATION & SUBMISSION: Add Note
 if (createForm) {
     createForm.onsubmit = function (e) {
         e.preventDefault();
@@ -179,6 +197,7 @@ if (createForm) {
     };
 }
 
+// 5. EVALUATION PARAMETER 4: Export Saved Notes to JSON File
 const exportBtn = document.getElementById('exportJsonBtn');
 if (exportBtn) {
     exportBtn.onclick = () => {
@@ -190,6 +209,7 @@ if (exportBtn) {
     };
 }
 
+// 6. MODAL & WIDGET CONTROLS
 document.getElementById('openCreateNoteModalBtn').onclick = () => { modal.style.display = 'flex'; };
 document.getElementById('closeCreateModalBtn').onclick = () => { modal.style.display = 'none'; };
 document.getElementById('cancelCreateModalBtn').onclick = () => { modal.style.display = 'none'; };
