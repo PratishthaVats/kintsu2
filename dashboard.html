@@ -12,6 +12,7 @@
 </head>
 <body class="light-theme">
 
+    <!-- Top Navigation Bar -->
     <header class="dash-navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-brand" title="Return to Home">
@@ -35,8 +36,10 @@
         </div>
     </header>
 
+    <!-- Main Container -->
     <div class="dash-container">
 
+        <!-- Vault Hero Section -->
         <section class="vault-hero">
             <div class="vault-hero-left">
                 <div class="study-vault-badge">
@@ -77,6 +80,7 @@
 
         <div class="dash-layout">
 
+            <!-- Left Sidebar (Boards) -->
             <aside class="boards-sidebar">
                 <div class="sidebar-head">
                     <div class="boards-title">
@@ -121,6 +125,7 @@
                 </div>
             </aside>
 
+            <!-- Center Content (Notes Grid) -->
             <main class="notes-content">
                 <div class="batch-bar" id="batchBar" style="display: none;">
                     <div class="batch-left">
@@ -142,9 +147,10 @@
                 </div>
 
                 <div class="notes-grid" id="notesGrid">
-
+                    <!-- Note Cards dynamically rendered by dashboard.js -->
                 </div>
 
+                <!-- Empty State (Shown when no notes match) -->
                 <div class="empty-state" id="emptyState" style="display: none;">
                     <div class="empty-icon">📓</div>
                     <h3>No notes found in this board</h3>
@@ -174,7 +180,7 @@
                 <strong id="qsStepLabel">Step 1 · Paste your first video</strong>
             </div>
             <p class="qs-desc">Open the editor and paste a YouTube link - or use our suggested video to start immediately.</p>
-
+            
             <div class="qs-actions">
                 <button type="button" class="btn-qs-pink" id="qsSuggestedBtn">✨ Use suggested video</button>
                 <button type="button" class="btn-qs-outline" id="qsPasteBtn">I'll paste my own ↗</button>
