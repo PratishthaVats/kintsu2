@@ -2,7 +2,6 @@ let notes = [];
 let currentBoard = 'All Notes';
 let selectMode = false;
 let selectedNotes = new Set();
-const KNOWN_BOARDS = ['Computer Science', 'Machine Learning'];
 let customBoards = [];
 try {
     const savedBoards = JSON.parse(localStorage.getItem('kintsu_boards') || '[]');
@@ -60,7 +59,7 @@ function loadNotes() {
         .then(res => res.json())
         .then(data => { notes = data; saveNotes(); renderNotes(); })
         .catch(() => {
-            notes = [{ id: 'LPZH9BDJ', title: 'Neural Network Fundamentals: Structural Overview', date: '25/10/2026', videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk', coverTheme: 'llm', board: 'All Notes' }];
+            notes = [{ id: 'LPZH9BOJ', title: 'Neural Network Fundamentals: Structural Overview', date: '10/28/2026', videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk', coverTheme: 'llm', board: 'All Notes' }];
             saveNotes();
             renderNotes();
         });
@@ -89,9 +88,6 @@ function getBoards() {
     });
     customBoards.forEach(b => {
         if (!boards.includes(b.name)) boards.push(b.name);
-    });
-    KNOWN_BOARDS.forEach(board => {
-        if (!boards.includes(board)) boards.push(board);
     });
     return boards;
 }
@@ -185,7 +181,6 @@ function renderNotes() {
         if (selectMode) {
             card.onclick = () => toggleNoteSelection(note.id);
         }
-        const coverTitle = note.coverTheme === 'python' ? 'PYTHON' : (note.coverTheme === 'web' ? 'WEB DEV' : 'LLM');
         const coverBg = note.coverTheme === 'python' ? '#1e293b' : '#130d1a';
         const checkboxHtml = selectMode ? '<button type="button" class="select-checkbox" onclick="event.stopPropagation(); toggleNoteSelection(\'' + note.id + '\')" title="Select note">' + (selectedNotes.has(note.id) ? '&#10003;' : '') + '</button>' : '';
         const hintHtml = selectMode ? '<span class="select-hint">' + (selectedNotes.has(note.id) ? '&#10003; selected' : 'tap to select') + '</span>' : '';
@@ -200,7 +195,6 @@ function renderNotes() {
                     <circle cx="60" cy="110" r="14" fill="#ffffff"/>
                     <circle cx="160" cy="45" r="16" fill="#ffffff"/>
                     <circle cx="230" cy="95" r="18" fill="#ffffff"/>
-                    <text x="20" y="42" fill="#ffffff" font-family="Space Grotesk" font-weight="900" font-size="28">${coverTitle}</text>
                 </svg>
             </div>
             <div class="note-card-body">
