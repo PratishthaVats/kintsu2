@@ -1,6 +1,12 @@
 let notes = [];
 let currentBoard = 'All Notes';
 const KNOWN_BOARDS = ['Computer Science', 'Machine Learning'];
+let customBoards = [];
+try {
+    const savedBoards = JSON.parse(localStorage.getItem('kintsu_boards') || '[]');
+    if (Array.isArray(savedBoards)) customBoards = savedBoards.filter(b => b && b.name);
+} catch (e) { customBoards = []; }
+let selectedBoardColor = '#F472B6';
 
 const notesGrid = document.getElementById('notesGrid');
 const emptyState = document.getElementById('emptyState');
@@ -83,10 +89,18 @@ function getBoards() {
         const board = getBoardOf(note);
         if (board !== 'All Notes' && !boards.includes(board)) boards.push(board);
     });
+    customBoards.forEach(b => {
+        if (!boards.includes(b.name)) boards.push(b.name);
+    });
     KNOWN_BOARDS.forEach(board => {
         if (!boards.includes(board)) boards.push(board);
     });
     return boards;
+}
+
+function getBoardColor(board) {
+    const custom = customBoards.find(b => b.name === board);
+    return custom ? custom.color : '#FACC15';
 }
 
 function renderBoards() {
@@ -100,6 +114,10 @@ function renderBoards() {
         pill.className = 'board-pill' + (board === currentBoard ? ' active' : '');
         pill.dataset.board = board;
         pill.innerHTML = `<span>${escapeHtml(board)}</span><span class="board-count">${count}</span>`;
+        if (board === currentBoard) {
+            const custom = customBoards.find(b => b.name === board);
+            if (custom) pill.style.background = custom.color;
+        }
         pill.onclick = () => {
             currentBoard = board;
             renderBoards();
@@ -169,6 +187,53 @@ window.deleteNote = function (id) {
     saveNotes();
     renderNotes();
 };
+
+const newBoardBtn = document.getElementById('newBoardBtn');
+const newBoardForm = document.getElementById('newBoardForm');
+const boardNameInlineInput = document.getElementById('boardNameInlineInput');
+const boardInlineError = document.getElementById('boardInlineError');
+if (newBoardBtn && newBoardForm) {
+    newBoardBtn.onclick = () => {
+        const showing = newBoardForm.style.display !== 'none';
+        newBoardForm.style.display = showing ? 'none' : 'flex';
+        if (!showing && boardNameInlineInput) boardNameInlineInput.focus();
+    };
+}
+document.querySelectorAll('.color-swatch').forEach(swatch => {
+    swatch.onclick = () => {
+        document.querySelectorAll('.color-swatch').forEach(x => x.classList.remove('selected'));
+        swatch.classList.add('selected');
+        selectedBoardColor = swatch.dataset.color;
+    };
+});
+const createBoardInlineBtn = document.getElementById('createBoardInlineBtn');
+if (createBoardInlineBtn) {
+    createBoardInlineBtn.onclick = () => {
+        const name = boardNameInlineInput ? boardNameInlineInput.value.trim() : '';
+        if (!name) {
+            if (boardInlineError) boardInlineError.textContent = 'Board name is required.';
+            return;
+        }
+        if (boardInlineError) boardInlineError.textContent = '';
+        if (!getBoards().includes(name)) {
+            customBoards.push({ name: name, color: selectedBoardColor });
+            localStorage.setItem('kintsu_boards', JSON.stringify(customBoards));
+        }
+        currentBoard = name;
+        if (newBoardForm) newBoardForm.style.display = 'none';
+        if (boardNameInlineInput) boardNameInlineInput.value = '';
+        renderBoards();
+        renderNotes();
+    };
+}
+const cancelBoardInlineBtn = document.getElementById('cancelBoardInlineBtn');
+if (cancelBoardInlineBtn) {
+    cancelBoardInlineBtn.onclick = () => {
+        if (newBoardForm) newBoardForm.style.display = 'none';
+        if (boardNameInlineInput) boardNameInlineInput.value = '';
+        if (boardInlineError) boardInlineError.textContent = '';
+    };
+}
 
 const exportBtn = document.getElementById('exportJsonBtn');
 if (exportBtn) {

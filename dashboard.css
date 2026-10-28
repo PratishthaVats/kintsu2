@@ -215,3 +215,13 @@ body {
     .boards-sidebar, .quick-start-widget { display: none; }
     .vault-hero { flex-direction: column; gap: 16px; }
 }
+
+.new-board-form { margin-top: 12px; padding: 12px; border: 2px solid var(--border-ink); border-radius: var(--radius-card); background: var(--bg-card); box-shadow: var(--shadow-hard); display: flex; flex-direction: column; gap: 10px; }
+.new-board-form .form-input { width: 100%; box-sizing: border-box; }
+.board-color-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+.color-swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border-ink); cursor: pointer; padding: 0; }
+.color-swatch.selected { outline: 2px solid var(--border-ink); outline-offset: 2px; transform: scale(1.1); }
+.board-form-error { font-family: var(--font-mono); font-size: 11px; color: #EF4444; min-height: 14px; }
+.new-board-actions { display: flex; gap: 8px; }
+.btn-board-create { flex: 1; padding: 8px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: var(--accent-pink); color: #FFF; font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer; }
+.btn-board-cancel { flex: 1; padding: 8px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: transparent; color: var(--text-secondary); font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer; }

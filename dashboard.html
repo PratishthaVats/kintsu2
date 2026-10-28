@@ -115,10 +115,27 @@
                     </button>
                 </div>
 
-                <button type="button" class="btn-new-board" id="openNewBoardModalBtn">
+                <button type="button" class="btn-new-board" id="newBoardBtn">
                     <span class="plus-icon">+</span>
                     <span>New Board</span>
                 </button>
+                <div class="new-board-form" id="newBoardForm" style="display: none;">
+                    <input type="text" id="boardNameInlineInput" class="form-input" placeholder="Board name&hellip;">
+                    <div class="board-color-swatches" id="boardColorSwatches">
+                        <button type="button" class="color-swatch selected" data-color="#F472B6" style="background: #F472B6;" aria-label="Pink"></button>
+                        <button type="button" class="color-swatch" data-color="#FACC15" style="background: #FACC15;" aria-label="Yellow"></button>
+                        <button type="button" class="color-swatch" data-color="#A78BFA" style="background: #A78BFA;" aria-label="Lilac"></button>
+                        <button type="button" class="color-swatch" data-color="#6EE7B7" style="background: #6EE7B7;" aria-label="Mint"></button>
+                        <button type="button" class="color-swatch" data-color="#38BDF8" style="background: #38BDF8;" aria-label="Sky"></button>
+                        <button type="button" class="color-swatch" data-color="#FB923C" style="background: #FB923C;" aria-label="Coral"></button>
+                        <button type="button" class="color-swatch" data-color="#A3E635" style="background: #A3E635;" aria-label="Lime"></button>
+                    </div>
+                    <span class="board-form-error" id="boardInlineError"></span>
+                    <div class="new-board-actions">
+                        <button type="button" class="btn-board-create" id="createBoardInlineBtn">&#10003; Create</button>
+                        <button type="button" class="btn-board-cancel" id="cancelBoardInlineBtn">&#10005; Cancel</button>
+                    </div>
+                </div>
             </aside>
 
             <main class="notes-content">
@@ -181,29 +198,6 @@
             </div>
         </div>
     </aside>
-
-    <div class="modal-backdrop" id="newBoardModal" style="display: none;">
-        <div class="modal-card modal-small">
-            <div class="modal-head">
-                <div class="modal-badge">✦ NEW BOARD</div>
-                <h3 class="modal-title">Create a Board</h3>
-                <button type="button" class="modal-close-btn" id="closeBoardModalBtn">✕</button>
-            </div>
-
-            <form id="createBoardForm" class="modal-form" novalidate>
-                <div class="form-group">
-                    <label for="boardNameInput" class="form-label">BOARD NAME *</label>
-                    <input type="text" id="boardNameInput" class="form-input" placeholder="e.g. Operating Systems" required>
-                    <span class="form-error" id="boardError"></span>
-                </div>
-
-                <div class="modal-actions">
-                    <button type="button" class="btn-modal-cancel" id="cancelBoardModalBtn">Cancel</button>
-                    <button type="submit" class="btn-modal-submit">Add Board</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <div class="dash-toast" id="dashToast" style="display: none;">
         <span id="toastMessage"></span>
