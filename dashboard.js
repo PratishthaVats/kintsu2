@@ -26,13 +26,11 @@ function initApp() {
         const startLight = savedTheme !== 'dark';
         document.body.classList.toggle('light-theme', startLight);
         document.body.classList.toggle('dark-theme', !startLight);
-        themeBtn.querySelector('.theme-icon').textContent = startLight ? '☾' : '☀';
     }
     if (themeBtn) {
         themeBtn.onclick = () => {
             const isLight = document.body.classList.toggle('light-theme');
             document.body.classList.toggle('dark-theme', !isLight);
-            themeBtn.querySelector('.theme-icon').textContent = isLight ? '☾' : '☀';
             localStorage.setItem('kintsu_theme', isLight ? 'light' : 'dark');
         };
     }
