@@ -99,7 +99,7 @@ body {
 .btn-vault-action {
     display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: var(--radius-pill);
     border: 2px solid var(--border-ink); background: var(--bg-card); color: inherit; font-family: var(--font-display);
-    font-weight: 700; font-size: 13px; box-shadow: var(--shadow-hard); cursor: pointer;
+    font-weight: 700; font-size: 13px; box-shadow: var(--shadow-hard); cursor: pointer; text-decoration: none;
 }
 .btn-vault-action.primary-create { background: #FFF; color: #18121E; }
 .btn-vault-action.export-json-btn { background: var(--accent-yellow); color: #18121E; }

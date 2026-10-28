@@ -5,12 +5,6 @@ const KNOWN_BOARDS = ['Computer Science', 'Machine Learning'];
 const notesGrid = document.getElementById('notesGrid');
 const emptyState = document.getElementById('emptyState');
 const notesCount = document.getElementById('notesSectionCount');
-const modal = document.getElementById('createNoteModal');
-const createForm = document.getElementById('createNoteForm');
-const titleInput = document.getElementById('noteTitleInput');
-const videoInput = document.getElementById('noteVideoInput');
-const titleError = document.getElementById('titleError');
-const videoError = document.getElementById('videoError');
 
 function initApp() {
     const user = JSON.parse(localStorage.getItem('kintsu_user') || '{}');
@@ -176,49 +170,6 @@ window.deleteNote = function (id) {
     renderNotes();
 };
 
-if (createForm) {
-    createForm.onsubmit = function (e) {
-        e.preventDefault();
-        let isValid = true;
-        const title = titleInput.value.trim();
-        const url = videoInput.value.trim();
-
-        if (!title || title.length < 3) {
-            titleInput.classList.add('error');
-            titleError.textContent = 'Title must be at least 3 characters.';
-            isValid = false;
-        } else {
-            titleInput.classList.remove('error');
-            titleError.textContent = '';
-        }
-
-        if (!url || !url.includes('youtu')) {
-            videoInput.classList.add('error');
-            videoError.textContent = 'Please enter a valid YouTube video link.';
-            isValid = false;
-        } else {
-            videoInput.classList.remove('error');
-            videoError.textContent = '';
-        }
-
-        if (!isValid) return;
-
-        const selectedTheme = createForm.querySelector('input[name="coverTheme"]:checked')?.value || 'llm';
-        notes.unshift({
-            id: 'LP' + Math.random().toString(36).substring(2, 8).toUpperCase(),
-            title: title,
-            videoUrl: url,
-            coverTheme: selectedTheme,
-            date: new Date().toLocaleDateString('en-GB')
-        });
-
-        saveNotes();
-        renderNotes();
-        createForm.reset();
-        modal.style.display = 'none';
-    };
-}
-
 const exportBtn = document.getElementById('exportJsonBtn');
 if (exportBtn) {
     exportBtn.onclick = () => {
@@ -230,20 +181,13 @@ if (exportBtn) {
     };
 }
 
-document.getElementById('openCreateNoteModalBtn').onclick = () => { modal.style.display = 'flex'; };
-document.getElementById('closeCreateModalBtn').onclick = () => { modal.style.display = 'none'; };
-document.getElementById('cancelCreateModalBtn').onclick = () => { modal.style.display = 'none'; };
 
 const qsSuggested = document.getElementById('qsSuggestedBtn');
 if (qsSuggested) {
-    qsSuggested.onclick = () => {
-        modal.style.display = 'flex';
-        titleInput.value = 'Python for Beginners · Programming with Mosh';
-        videoInput.value = 'https://www.youtube.com/watch?v=_uQrJ0TkZlc';
-    };
+    qsSuggested.onclick = () => { window.location.href = 'index.html#workspace'; };
 }
 const qsPaste = document.getElementById('qsPasteBtn');
-if (qsPaste) qsPaste.onclick = () => { modal.style.display = 'flex'; };
+if (qsPaste) qsPaste.onclick = () => { window.location.href = 'index.html#workspace'; };
 const qsClose = document.getElementById('qsCloseBtn');
 if (qsClose) qsClose.onclick = () => { document.getElementById('quickStartWidget').style.display = 'none'; };
 
