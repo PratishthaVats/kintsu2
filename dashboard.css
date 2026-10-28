@@ -58,23 +58,23 @@ body {
 .brand-text { font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: 0.06em; }
 .nav-pill-actions { display: flex; align-items: center; gap: 10px; }
 .nav-pill {
-    padding: 7px 16px; border-radius: var(--radius-pill); font-weight: 700; font-size: 13px;
-    text-decoration: none; border: 2px solid var(--border-ink); cursor: pointer;
+    padding: 9px 18px; border-radius: var(--radius-pill); font-family: var(--font-display); font-weight: 800; font-size: 14px;
+    text-decoration: none; border: 3px solid var(--border-ink); cursor: pointer; box-shadow: 3px 3px 0 var(--border-ink);
 }
-.active-pill { background: var(--accent-purple); color: #18121E; box-shadow: 2px 2px 0 var(--border-ink); }
-.outline-pill { background: transparent; color: inherit; border-color: var(--border-subtle); }
+.active-pill { background: var(--accent-purple); color: #18121E; box-shadow: 3px 3px 0 var(--border-ink); }
+.outline-pill { background: #FFFFFF; color: #18121E; border-color: var(--border-ink); box-shadow: 3px 3px 0 var(--border-ink); }
 .theme-toggle-btn {
-    width: 34px; height: 34px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink);
-    background: #FBBF24; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: var(--radius-pill); border: 3px solid var(--border-ink);
+    background: var(--accent-yellow); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 3px 3px 0 var(--border-ink); font-size: 18px; color: #18121E;
 }
 .user-email-pill {
     padding: 6px 14px; border-radius: var(--radius-pill); border: 1.5px solid var(--border-subtle);
     font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);
 }
 .sign-out-btn {
-    padding: 7px 16px; border-radius: var(--radius-pill); background: var(--accent-pink);
-    color: #FFF; font-family: var(--font-display); font-weight: 800; font-size: 12px;
-    border: 2px solid var(--border-ink); box-shadow: 2px 2px 0 var(--border-ink); cursor: pointer;
+    padding: 9px 18px; border-radius: var(--radius-pill); background: var(--accent-pink);
+    color: #FFF; font-family: var(--font-display); font-weight: 800; font-size: 14px;
+    border: 3px solid var(--border-ink); box-shadow: 3px 3px 0 var(--border-ink); cursor: pointer;
 }
 
 .dash-container { max-width: 1400px; margin: 0 auto; padding: 24px 28px 120px 28px; }
