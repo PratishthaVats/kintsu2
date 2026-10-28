@@ -46,17 +46,6 @@ function initApp() {
         };
     }
 
-    const dismissBtn = document.getElementById('dismissBannerBtn');
-    if (dismissBtn) {
-        dismissBtn.onclick = () => {
-            document.getElementById('sampleBanner').style.display = 'none';
-            localStorage.setItem('kintsu_banner_dismissed', 'true');
-        };
-        if (localStorage.getItem('kintsu_banner_dismissed')) {
-            document.getElementById('sampleBanner').style.display = 'none';
-        }
-    }
-
     loadNotes();
 }
 
