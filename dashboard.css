@@ -109,9 +109,10 @@ body {
 .boards-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
 .board-pill {
     display: flex; justify-content: space-between; align-items: center; padding: 8px 14px;
-    border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: var(--accent-yellow);
-    color: #18121E; font-family: var(--font-display); font-weight: 700; font-size: 13px; box-shadow: var(--shadow-hard);
+    border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: var(--bg-card);
+    color: var(--text-primary); font-family: var(--font-display); font-weight: 700; font-size: 13px; box-shadow: var(--shadow-hard); cursor: pointer;
 }
+.board-pill.active { background: var(--accent-yellow); color: #18121E; }
 .board-count { background: rgba(0,0,0,0.12); padding: 1px 8px; border-radius: var(--radius-pill); font-family: var(--font-mono); font-size: 11px; }
 .btn-new-board {
     width: 100%; padding: 8px; border-radius: var(--radius-pill); border: 2px dashed var(--border-subtle);

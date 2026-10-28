@@ -1,9 +1,10 @@
 let notes = [];
+let currentBoard = 'All Notes';
+const KNOWN_BOARDS = ['Computer Science', 'Machine Learning'];
 
 const notesGrid = document.getElementById('notesGrid');
 const emptyState = document.getElementById('emptyState');
 const notesCount = document.getElementById('notesSectionCount');
-const allNotesBadge = document.getElementById('allNotesBadge');
 const modal = document.getElementById('createNoteModal');
 const createForm = document.getElementById('createNoteForm');
 const titleInput = document.getElementById('noteTitleInput');
@@ -61,7 +62,7 @@ function loadNotes() {
         .then(res => res.json())
         .then(data => { notes = data; saveNotes(); renderNotes(); })
         .catch(() => {
-            notes = [{ id: 'LPZH9BDJ', title: 'Neural Network Fundamentals: Structural Overview', date: '25/10/2026', videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk', coverTheme: 'llm' }];
+            notes = [{ id: 'LPZH9BDJ', title: 'Neural Network Fundamentals: Structural Overview', date: '25/10/2026', videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk', coverTheme: 'llm', board: 'All Notes' }];
             saveNotes();
             renderNotes();
         });
@@ -78,18 +79,57 @@ function saveNotes() {
     }
 }
 
+function getBoardOf(note) {
+    return note.board || 'All Notes';
+}
+
+function getBoards() {
+    const boards = ['All Notes'];
+    notes.forEach(note => {
+        const board = getBoardOf(note);
+        if (board !== 'All Notes' && !boards.includes(board)) boards.push(board);
+    });
+    KNOWN_BOARDS.forEach(board => {
+        if (!boards.includes(board)) boards.push(board);
+    });
+    return boards;
+}
+
+function renderBoards() {
+    const boardsList = document.getElementById('boardsList');
+    if (!boardsList) return;
+    boardsList.innerHTML = '';
+    getBoards().forEach(board => {
+        const count = board === 'All Notes' ? notes.length : notes.filter(n => getBoardOf(n) === board).length;
+        const pill = document.createElement('button');
+        pill.type = 'button';
+        pill.className = 'board-pill' + (board === currentBoard ? ' active' : '');
+        pill.dataset.board = board;
+        pill.innerHTML = `<span>${escapeHtml(board)}</span><span class="board-count">${count}</span>`;
+        pill.onclick = () => {
+            currentBoard = board;
+            renderBoards();
+            renderNotes();
+        };
+        boardsList.appendChild(pill);
+    });
+}
+
 function renderNotes() {
     notesGrid.innerHTML = '';
-    if (allNotesBadge) allNotesBadge.textContent = notes.length;
-    if (notesCount) notesCount.textContent = `(${notes.length})`;
+    renderBoards();
+    const filtered = currentBoard === 'All Notes' ? notes : notes.filter(n => getBoardOf(n) === currentBoard);
+    if (notesCount) notesCount.textContent = `(${filtered.length})`;
+    const currentBoardTitle = document.getElementById('currentBoardTitle');
+    if (currentBoardTitle) currentBoardTitle.textContent = currentBoard;
 
-    if (notes.length === 0) {
+    if (filtered.length === 0) {
         emptyState.style.display = 'block';
         return;
     }
     emptyState.style.display = 'none';
 
-    notes.forEach(note => {
+    filtered.forEach(note => {
         const card = document.createElement('div');
         card.className = 'note-card';
         const coverTitle = note.coverTheme === 'python' ? 'PYTHON' : (note.coverTheme === 'web' ? 'WEB DEV' : 'LLM');
