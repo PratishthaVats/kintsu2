@@ -106,6 +106,7 @@ body {
 
 .dash-layout { display: grid; grid-template-columns: 220px 1fr; gap: 28px; }
 .sidebar-head { display: flex; justify-content: space-between; margin-bottom: 14px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+.boards-sidebar { background: var(--bg-card); border: 2px solid var(--border-ink); border-radius: 20px; box-shadow: var(--shadow-hard); padding: 14px; height: fit-content; }
 .boards-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
 .board-pill {
     display: flex; justify-content: space-between; align-items: center; padding: 8px 14px;
@@ -113,10 +114,10 @@ body {
     color: var(--text-primary); font-family: var(--font-display); font-weight: 700; font-size: 13px; box-shadow: var(--shadow-hard); cursor: pointer;
 }
 .board-pill.active { background: var(--accent-yellow); color: #18121E; }
-.board-count { background: rgba(0,0,0,0.12); padding: 1px 8px; border-radius: var(--radius-pill); font-family: var(--font-mono); font-size: 11px; }
+.board-count { background: rgba(0,0,0,0.12); width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; font-family: var(--font-mono); font-size: 11px; }
 .btn-new-board {
-    width: 100%; padding: 8px; border-radius: var(--radius-pill); border: 2px dashed var(--border-subtle);
-    background: transparent; color: var(--text-secondary); font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer;
+    width: 100%; padding: 8px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink);
+    background: var(--bg-card); color: var(--text-primary); font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer; box-shadow: var(--shadow-hard);
 }
 
 .notes-header { margin-bottom: 18px; }
