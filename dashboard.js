@@ -23,6 +23,13 @@ let selectedBoardColor = '#F472B6';
 const notesGrid = document.getElementById('notesGrid');
 const emptyState = document.getElementById('emptyState');
 const notesCount = document.getElementById('notesSectionCount');
+const modal = document.getElementById('createNoteModal');
+const createForm = document.getElementById('createNoteForm');
+const titleInput = document.getElementById('noteTitleInput');
+const videoInput = document.getElementById('noteVideoInput');
+const titleError = document.getElementById('titleError');
+const videoError = document.getElementById('videoError');
+const boardSelect = document.getElementById('noteBoardSelect');
 
 // 1. SETUP: User Name, Theme Toggle, & Banner
 function initApp() {
@@ -35,7 +42,7 @@ function initApp() {
     const themeBtn = document.getElementById('dashThemeToggle');
     if (themeBtn) {
         const savedTheme = localStorage.getItem('kintsu_theme');
-        const startLight = savedTheme !== 'dark';
+        const startLight = savedTheme === 'light';
         document.body.classList.toggle('light-theme', startLight);
         document.body.classList.toggle('dark-theme', !startLight);
     }
@@ -321,6 +328,71 @@ if (batchMoveSelect) {
     };
 }
 
+// 4. FORM VALIDATION & SUBMISSION: Add Note (restored for Evaluation Parameters 2 and 3)
+function refreshModalBoardOptions() {
+    if (!boardSelect) return;
+    const boards = getBoards();
+    boardSelect.innerHTML = boards.map(b => '<option value="' + escapeHtml(b) + '">' + escapeHtml(b) + '</option>').join('');
+    boardSelect.value = boards.includes(currentBoard) ? currentBoard : 'All Notes';
+}
+function openCreateNoteModal() {
+    if (!modal) return;
+    refreshModalBoardOptions();
+    modal.style.display = 'flex';
+}
+if (createForm) {
+    createForm.onsubmit = function (e) {
+        e.preventDefault();
+        let isValid = true;
+        const title = titleInput.value.trim();
+        const url = videoInput.value.trim();
+
+        if (!title || title.length < 3) {
+            titleInput.classList.add('error');
+            titleError.textContent = 'Title must be at least 3 characters.';
+            isValid = false;
+        } else {
+            titleInput.classList.remove('error');
+            titleError.textContent = '';
+        }
+
+        if (!url || !url.includes('youtu')) {
+            videoInput.classList.add('error');
+            videoError.textContent = 'Please enter a valid YouTube video link.';
+            isValid = false;
+        } else {
+            videoInput.classList.remove('error');
+            videoError.textContent = '';
+        }
+
+        if (!isValid) return;
+
+        const selectedTheme = createForm.querySelector('input[name="coverTheme"]:checked')?.value || 'llm';
+        const board = boardSelect ? boardSelect.value : currentBoard;
+        notes.unshift({
+            id: 'LP' + Math.random().toString(36).substring(2, 8).toUpperCase(),
+            title: title,
+            videoUrl: url,
+            coverTheme: selectedTheme,
+            date: new Date().toLocaleDateString('en-US'),
+            board: board
+        });
+
+        saveNotes();
+        renderNotes();
+        createForm.reset();
+        modal.style.display = 'none';
+    };
+}
+
+// Modal controls
+const openCreateNoteModalBtn = document.getElementById('openCreateNoteModalBtn');
+if (openCreateNoteModalBtn) openCreateNoteModalBtn.onclick = openCreateNoteModal;
+const closeCreateModalBtn = document.getElementById('closeCreateModalBtn');
+if (closeCreateModalBtn) closeCreateModalBtn.onclick = () => { modal.style.display = 'none'; };
+const cancelCreateModalBtn = document.getElementById('cancelCreateModalBtn');
+if (cancelCreateModalBtn) cancelCreateModalBtn.onclick = () => { modal.style.display = 'none'; };
+
 // 5. EVALUATION PARAMETER 4: Export Saved Notes to JSON File
 const exportBtn = document.getElementById('exportJsonBtn');
 if (exportBtn) {
@@ -336,10 +408,14 @@ if (exportBtn) {
 
 const qsSuggested = document.getElementById('qsSuggestedBtn');
 if (qsSuggested) {
-    qsSuggested.onclick = () => { window.location.href = 'index.html#workspace'; };
+    qsSuggested.onclick = () => {
+        openCreateNoteModal();
+        if (titleInput) titleInput.value = 'Python for Beginners · Programming with Mosh';
+        if (videoInput) videoInput.value = 'https://www.youtube.com/watch?v=_uQrJ0TkZlc';
+    };
 }
 const qsPaste = document.getElementById('qsPasteBtn');
-if (qsPaste) qsPaste.onclick = () => { window.location.href = 'index.html#workspace'; };
+if (qsPaste) qsPaste.onclick = openCreateNoteModal;
 const qsMinimize = document.getElementById('qsMinimizeBtn');
 const qsBody = document.getElementById('qsBody');
 if (qsMinimize && qsBody) {

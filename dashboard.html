@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dashboard.css">
 </head>
-<body class="light-theme">
+<body class="dark-theme">
 
     <!-- Top Navigation Bar -->
     <header class="dash-navbar">
@@ -43,7 +43,7 @@
         <section class="vault-hero">
             <div class="vault-hero-left">
                 <div class="study-vault-badge">
-                    <span class="badge-sparkle">✳</span> STUDY VAULT
+                    <span class="badge-sparkle">✦</span> STUDY VAULT
                 </div>
                 <h1 class="vault-title">
                     Welcome back, <span class="user-sticker-pill" id="welcomeUserPill">Guest</span>
@@ -63,10 +63,10 @@
                     </svg>
                     <span>Select</span>
                 </button>
-                <a href="index.html#workspace" class="btn-vault-action primary-create" id="openCreateNoteModalBtn">
+                <button type="button" class="btn-vault-action primary-create" id="openCreateNoteModalBtn">
                     <span class="plus-icon">+</span>
                     <span>Create new note</span>
-                </a>
+                </button>
                 <button type="button" class="btn-vault-action export-json-btn" id="exportJsonBtn" title="Download saved notes as JSON file">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -183,7 +183,7 @@
             
             <div class="qs-actions">
                 <button type="button" class="btn-qs-pink" id="qsSuggestedBtn">✨ Use suggested video</button>
-                <button type="button" class="btn-qs-outline" id="qsPasteBtn">I'll paste my own ↗</button>
+                <button type="button" class="btn-qs-outline" id="qsPasteBtn">I'll paste my own ↗️</button>
             </div>
 
             <div class="qs-footer-hint">
@@ -191,6 +191,69 @@
             </div>
         </div>
     </aside>
+
+
+    <!-- Modal: Create New Note -->
+    <div class="modal-backdrop" id="createNoteModal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div class="modal-badge">✦ NEW NOTE</div>
+                <h3 class="modal-title">Create a Study Note</h3>
+                <button type="button" class="modal-close-btn" id="closeCreateModalBtn">✕</button>
+            </div>
+
+            <form id="createNoteForm" class="modal-form" novalidate>
+                <div class="form-group">
+                    <label for="noteTitleInput" class="form-label">NOTE TITLE *</label>
+                    <input type="text" id="noteTitleInput" class="form-input" placeholder="e.g. Neural Networks & Backprop" required>
+                    <span class="form-error" id="titleError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteBoardSelect" class="form-label">BOARD / SUBJECT</label>
+                    <select id="noteBoardSelect" class="form-input form-select">
+                        <option value="All Notes">All Notes</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteVideoInput" class="form-label">YOUTUBE LECTURE URL *</label>
+                    <input type="url" id="noteVideoInput" class="form-input" placeholder="https://www.youtube.com/watch?v=..." required>
+                    <span class="form-error" id="videoError"></span>
+                    <span class="form-hint">Tip: Supports any standard YouTube or youtu.be video link.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteCoverTheme" class="form-label">COVER THEME</label>
+                    <div class="cover-theme-picker">
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="llm" checked>
+                            <span class="theme-swatch llm">LLM / AI</span>
+                        </label>
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="python">
+                            <span class="theme-swatch python">Python</span>
+                        </label>
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="web">
+                            <span class="theme-swatch web">Web Dev</span>
+                        </label>
+                        <label class="theme-radio">
+                            <input type="radio" name="coverTheme" value="math">
+                            <span class="theme-swatch math">Math</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal-cancel" id="cancelCreateModalBtn">Cancel</button>
+                    <button type="submit" class="btn-modal-submit" id="submitCreateBtn">Create Note ↗</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="dashboard.js"></script>
 </body>
