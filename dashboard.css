@@ -43,7 +43,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 12px 24px;
-    border-bottom: 2px solid var(--border-subtle);
+    border-bottom: 3px solid var(--border-ink);
     background-color: var(--bg-page);
     position: sticky;
     top: 0;
@@ -80,7 +80,7 @@ body {
 .dash-container { max-width: 1400px; margin: 0 auto; padding: 24px 28px 120px 28px; }
 .vault-hero {
     display: flex; align-items: flex-start; justify-content: space-between;
-    padding-bottom: 24px; border-bottom: 1.5px solid var(--border-subtle); margin-bottom: 24px;
+    padding-bottom: 24px; border-bottom: 3px solid var(--border-ink); margin-bottom: 24px;
 }
 .study-vault-badge {
     display: inline-flex; align-items: center; gap: 6px; background: var(--accent-yellow);

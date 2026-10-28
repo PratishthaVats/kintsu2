@@ -23,6 +23,13 @@ function initApp() {
 
     const themeBtn = document.getElementById('dashThemeToggle');
     if (themeBtn) {
+        const savedTheme = localStorage.getItem('kintsu_theme');
+        const startLight = savedTheme !== 'dark';
+        document.body.classList.toggle('light-theme', startLight);
+        document.body.classList.toggle('dark-theme', !startLight);
+        themeBtn.querySelector('.theme-icon').textContent = startLight ? '🌙' : '☀️';
+    }
+    if (themeBtn) {
         themeBtn.onclick = () => {
             const isLight = document.body.classList.toggle('light-theme');
             document.body.classList.toggle('dark-theme', !isLight);
