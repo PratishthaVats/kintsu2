@@ -336,6 +336,16 @@ if (qsSuggested) {
 }
 const qsPaste = document.getElementById('qsPasteBtn');
 if (qsPaste) qsPaste.onclick = () => { window.location.href = 'index.html#workspace'; };
+const qsMinimize = document.getElementById('qsMinimizeBtn');
+const qsBody = document.getElementById('qsBody');
+if (qsMinimize && qsBody) {
+    qsMinimize.onclick = () => {
+        const collapsed = qsBody.style.display === 'none';
+        qsBody.style.display = collapsed ? 'block' : 'none';
+        qsMinimize.textContent = collapsed ? '⌄' : '⌃';
+        qsMinimize.setAttribute('aria-label', collapsed ? 'Minimize' : 'Expand');
+    };
+}
 const qsClose = document.getElementById('qsCloseBtn');
 if (qsClose) qsClose.onclick = () => { document.getElementById('quickStartWidget').style.display = 'none'; };
 
