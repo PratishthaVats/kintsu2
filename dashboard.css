@@ -225,3 +225,12 @@ body {
 .new-board-actions { display: flex; gap: 8px; }
 .btn-board-create { flex: 1; padding: 8px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: var(--accent-pink); color: #FFF; font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer; }
 .btn-board-cancel { flex: 1; padding: 8px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: transparent; color: var(--text-secondary); font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer; }
+
+.batch-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 2px solid var(--border-ink); border-radius: var(--radius-pill); background: var(--bg-card); box-shadow: var(--shadow-hard); }
+.batch-left { font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+.batch-right { display: flex; gap: 8px; align-items: center; }
+.btn-batch-delete, .btn-batch-cancel, .batch-move-select { padding: 6px 12px; border-radius: var(--radius-pill); border: 2px solid var(--border-ink); background: #FFF; color: #18121E; font-family: var(--font-display); font-weight: 700; font-size: 12px; cursor: pointer; }
+.note-card { position: relative; }
+.note-card.selected { outline: 3px solid var(--accent-pink); box-shadow: 0 0 0 3px var(--accent-pink), var(--shadow-hard); }
+.select-checkbox { position: absolute; top: 10px; left: 10px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border-ink); background: #FFF; color: #18121E; font-weight: 800; cursor: pointer; z-index: 2; }
+.select-hint { font-family: var(--font-mono); font-size: 11px; color: var(--accent-pink); font-weight: 700; margin-bottom: 8px; }

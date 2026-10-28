@@ -1,5 +1,7 @@
 let notes = [];
 let currentBoard = 'All Notes';
+let selectMode = false;
+let selectedNotes = new Set();
 const KNOWN_BOARDS = ['Computer Science', 'Machine Learning'];
 let customBoards = [];
 try {
@@ -127,9 +129,49 @@ function renderBoards() {
     });
 }
 
+function updateBatchBar() {
+    const selectModeBtn = document.getElementById('selectModeBtn');
+    if (selectModeBtn) {
+        const label = selectModeBtn.querySelector('span');
+        if (label) label.textContent = selectMode ? '✓ Cancel Select' : 'Select';
+    }
+    const batchBar = document.getElementById('batchBar');
+    const selectedCountText = document.getElementById('selectedCountText');
+    const batchMoveSelect = document.getElementById('batchMoveSelect');
+    if (!batchBar) return;
+    if (!selectMode) {
+        batchBar.style.display = 'none';
+        return;
+    }
+    batchBar.style.display = 'flex';
+    if (selectedCountText) selectedCountText.textContent = selectedNotes.size + ' selected';
+    if (batchMoveSelect) {
+        const boards = ['Unsorted'].concat(getBoards());
+        batchMoveSelect.innerHTML = '<option value="">Move to board</option>' + boards.map(b => '<option value="' + escapeHtml(b) + '">' + escapeHtml(b) + '</option>').join('');
+    }
+}
+
+function toggleNoteSelection(id) {
+    if (selectedNotes.has(id)) selectedNotes.delete(id);
+    else selectedNotes.add(id);
+    renderNotes();
+}
+
+function exitSelectMode() {
+    selectMode = false;
+    selectedNotes.clear();
+    const selectModeBtn = document.getElementById('selectModeBtn');
+    if (selectModeBtn) {
+        const label = selectModeBtn.querySelector('span');
+        if (label) label.textContent = 'Select';
+    }
+    renderNotes();
+}
+
 function renderNotes() {
     notesGrid.innerHTML = '';
     renderBoards();
+    updateBatchBar();
     const filtered = currentBoard === 'All Notes' ? notes : notes.filter(n => getBoardOf(n) === currentBoard);
     if (notesCount) notesCount.textContent = `(${filtered.length})`;
     const currentBoardTitle = document.getElementById('currentBoardTitle');
@@ -143,11 +185,18 @@ function renderNotes() {
 
     filtered.forEach(note => {
         const card = document.createElement('div');
-        card.className = 'note-card';
+        card.className = 'note-card' + (selectMode && selectedNotes.has(note.id) ? ' selected' : '');
+        if (selectMode) {
+            card.onclick = () => toggleNoteSelection(note.id);
+        }
         const coverTitle = note.coverTheme === 'python' ? 'PYTHON' : (note.coverTheme === 'web' ? 'WEB DEV' : 'LLM');
         const coverBg = note.coverTheme === 'python' ? '#1e293b' : '#130d1a';
+        const checkboxHtml = selectMode ? '<button type="button" class="select-checkbox" onclick="event.stopPropagation(); toggleNoteSelection(\'' + note.id + '\')" title="Select note">' + (selectedNotes.has(note.id) ? '&#10003;' : '') + '</button>' : '';
+        const hintHtml = selectMode ? '<span class="select-hint">' + (selectedNotes.has(note.id) ? '&#10003; selected' : 'tap to select') + '</span>' : '';
+        const actionsHtml = selectMode ? '' : '<div class="card-actions-group"><button type="button" class="btn-card-delete" onclick="deleteNote(\'' + note.id + '\')" title="Delete note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button><a href="index.html#workspace" class="btn-card-open" onclick="openNote(\'' + note.id + '\')" title="Open in Workspace"><span>Open</span> <span>\u2197</span></a></div>';
 
         card.innerHTML = `
+            ${checkboxHtml}
             <div class="note-cover" style="background: ${coverBg};">
                 <svg class="cover-svg" viewBox="0 0 320 160">
                     <line x1="40" y1="120" x2="160" y2="40" stroke="#ef4444" stroke-width="1.5"/>
@@ -159,24 +208,19 @@ function renderNotes() {
                 </svg>
             </div>
             <div class="note-card-body">
+                ${hintHtml}
                 <span class="note-id-badge">ID · ${note.id}</span>
                 <h3 class="note-card-title">${escapeHtml(note.title)}</h3>
                 <div class="note-card-footer">
                     <span class="note-date">${note.date}</span>
-                    <div class="card-actions-group">
-                        <button type="button" class="btn-card-delete" onclick="deleteNote('${note.id}')" title="Delete note">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        </button>
-                        <a href="index.html#workspace" class="btn-card-open" onclick="openNote('${note.id}')" title="Open in Workspace">
-                            <span>Open</span> <span>↗</span>
-                        </a>
-                    </div>
+                    ${actionsHtml}
                 </div>
             </div>`;
         notesGrid.appendChild(card);
     });
 }
 
+window.toggleNoteSelection = toggleNoteSelection;
 window.openNote = function (id) {
     const note = notes.find(n => n.id === id);
     if (note) localStorage.setItem('kintsu_active_note', JSON.stringify(note));
@@ -232,6 +276,45 @@ if (cancelBoardInlineBtn) {
         if (newBoardForm) newBoardForm.style.display = 'none';
         if (boardNameInlineInput) boardNameInlineInput.value = '';
         if (boardInlineError) boardInlineError.textContent = '';
+    };
+}
+
+const selectModeBtn = document.getElementById('selectModeBtn');
+if (selectModeBtn) {
+    selectModeBtn.onclick = () => {
+        if (selectMode) {
+            exitSelectMode();
+        } else {
+            selectMode = true;
+            selectedNotes.clear();
+            const label = selectModeBtn.querySelector('span');
+            if (label) label.textContent = '✓ Cancel Select';
+            renderNotes();
+        }
+    };
+}
+const batchDeleteBtn = document.getElementById('batchDeleteBtn');
+if (batchDeleteBtn) {
+    batchDeleteBtn.onclick = () => {
+        notes = notes.filter(n => !selectedNotes.has(n.id));
+        saveNotes();
+        exitSelectMode();
+    };
+}
+const batchCancelBtn = document.getElementById('batchCancelBtn');
+if (batchCancelBtn) {
+    batchCancelBtn.onclick = () => exitSelectMode();
+}
+const batchMoveSelect = document.getElementById('batchMoveSelect');
+if (batchMoveSelect) {
+    batchMoveSelect.onchange = () => {
+        const target = batchMoveSelect.value;
+        if (!target) return;
+        notes.forEach(n => {
+            if (selectedNotes.has(n.id)) n.board = target;
+        });
+        saveNotes();
+        exitSelectMode();
     };
 }
 

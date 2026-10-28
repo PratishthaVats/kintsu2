@@ -82,16 +82,6 @@
             </div>
         </section>
 
-        <div class="batch-bar" id="batchBar" style="display: none;">
-            <div class="batch-left">
-                <span id="selectedCountText">0 notes selected</span>
-            </div>
-            <div class="batch-right">
-                <button type="button" class="btn-batch-delete" id="batchDeleteBtn">Delete Selected</button>
-                <button type="button" class="btn-batch-cancel" id="batchCancelBtn">Done</button>
-            </div>
-        </div>
-
         <div class="dash-layout">
 
             <aside class="boards-sidebar">
@@ -139,6 +129,18 @@
             </aside>
 
             <main class="notes-content">
+                <div class="batch-bar" id="batchBar" style="display: none;">
+                    <div class="batch-left">
+                        <span id="selectedCountText">0 selected</span>
+                    </div>
+                    <div class="batch-right">
+                        <select id="batchMoveSelect" class="batch-move-select" aria-label="Move to board">
+                            <option value="">Move to board</option>
+                        </select>
+                        <button type="button" class="btn-batch-delete" id="batchDeleteBtn">Delete</button>
+                        <button type="button" class="btn-batch-cancel" id="batchCancelBtn">&#10005;</button>
+                    </div>
+                </div>
                 <div class="notes-header">
                     <h2 class="section-title">
                         <span id="currentBoardTitle">All Notes</span>
