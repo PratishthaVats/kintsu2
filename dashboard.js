@@ -59,7 +59,7 @@ function loadNotes() {
         .then(res => res.json())
         .then(data => { notes = data; saveNotes(); renderNotes(); })
         .catch(() => {
-            notes = [{ id: 'LPZH9BOJ', title: 'Neural Network Fundamentals: Structural Overview', date: '10/28/2026', videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk', coverTheme: 'llm', board: 'All Notes' }];
+            notes = [{ id: 'LPZH9BOJ', title: 'Neural Network Fundamentals: Structural Overview', date: '10/28/2026', videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk', coverTheme: 'llm', coverImage: 'assets/neural-cover.webp', board: 'All Notes' }];
             saveNotes();
             renderNotes();
         });
@@ -189,13 +189,13 @@ function renderNotes() {
         card.innerHTML = `
             ${checkboxHtml}
             <div class="note-cover" style="background: ${coverBg};">
-                <svg class="cover-svg" viewBox="0 0 320 160">
+                ${note.coverImage ? `<img class="cover-img" src="${note.coverImage}" alt="${escapeHtml(note.title)} cover">` : `<svg class="cover-svg" viewBox="0 0 320 160">
                     <line x1="40" y1="120" x2="160" y2="40" stroke="#ef4444" stroke-width="1.5"/>
                     <line x1="160" y1="40" x2="280" y2="130" stroke="#38bdf8" stroke-width="1.5"/>
                     <circle cx="60" cy="110" r="14" fill="#ffffff"/>
                     <circle cx="160" cy="45" r="16" fill="#ffffff"/>
                     <circle cx="230" cy="95" r="18" fill="#ffffff"/>
-                </svg>
+                </svg>`}
             </div>
             <div class="note-card-body">
                 ${hintHtml}

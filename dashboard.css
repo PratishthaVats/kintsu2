@@ -131,6 +131,7 @@ body {
 }
 .note-cover { width: 100%; height: 150px; border-bottom: 2px solid var(--border-ink); overflow: hidden; }
 .cover-svg { width: 100%; height: 100%; display: block; }
+.cover-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .note-card-body { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
 .note-id-badge {
     background: rgba(255,255,255,0.08); border: 1.5px solid var(--border-subtle); color: var(--text-secondary);
