@@ -144,7 +144,7 @@ function updateBatchBar() {
     const selectModeBtn = document.getElementById('selectModeBtn');
     if (selectModeBtn) {
         const label = selectModeBtn.querySelector('span');
-        if (label) label.textContent = selectMode ? '✓ Cancel Select' : 'Select';
+        if (label) label.textContent = selectMode ? '✕ Cancel Select' : 'Select';
     }
     const batchBar = document.getElementById('batchBar');
     const selectedCountText = document.getElementById('selectedCountText');
@@ -298,7 +298,7 @@ if (selectModeBtn) {
             selectMode = true;
             selectedNotes.clear();
             const label = selectModeBtn.querySelector('span');
-            if (label) label.textContent = '✓ Cancel Select';
+            if (label) label.textContent = '✕ Cancel Select';
             renderNotes();
         }
     };
