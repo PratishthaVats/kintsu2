@@ -81,6 +81,7 @@ app.get('/stats', async (req, res) => {
 app.use('/api/notes', require('./routes/notes'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/flashcards', require('./routes/flashcards'));
+app.use('/api/compile', require('./routes/compile'));
 
 // ─── Static Files & Frontend Routing ─────────────────────────────────────────
 app.use(express.static(__dirname));
