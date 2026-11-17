@@ -380,6 +380,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     };
                     currentStacks.unshift(newStack);
                     localStorage.setItem('kintsu_flashcards', JSON.stringify(currentStacks));
+                    if (window.fetch) {
+                        fetch('/api/flashcards', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(newStack)
+                        }).catch(function () {});
+                    }
                 } catch (e) {}
             }
             hideWorkspaceBubble();

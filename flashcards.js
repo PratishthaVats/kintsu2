@@ -190,6 +190,23 @@ function initLibrary() {
     const asEl = document.getElementById("feedbackAs");
     if (asEl && user.email) asEl.textContent = "Sending as " + user.email;
     renderStacks();
+
+    // Auto-sync initial stacks to server MongoDB/JSON storage
+    if (window.fetch) {
+        fetch('/api/flashcards')
+            .then(r => r.json())
+            .then(res => {
+                if (res && res.count === 0 && stacks.length > 0) {
+                    stacks.forEach(st => {
+                        fetch('/api/flashcards', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(st)
+                        }).catch(() => {});
+                    });
+                }
+            }).catch(() => {});
+    }
 }
 
 document.addEventListener('DOMContentLoaded', initLibrary);
